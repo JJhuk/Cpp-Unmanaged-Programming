@@ -45,7 +45,7 @@ namespace lab2
 			if (!in.fail())
 			{
 				max = max < number ? number : max;
-				out << "     " << std::setw(15) << std::showpos << std::showpoint << std::internal << number << std::endl;
+				out << "     " << std::setw(15) << std::showpos << std::showpoint << std::fixed << std::setprecision(3) << std::internal << number << std::endl;
 				continue;
 			}
 			if (in.eof())
@@ -56,6 +56,6 @@ namespace lab2
 			in.clear();
 			in >> trash;
 		}
-		out << "max: " << std::setw(15) << std::showpos << std::showpoint << std::internal << max << std::endl;
+		out << "max: " << std::setw(15) << std::showpos << std::showpoint << std::fixed << std::setprecision(3) << std::internal << max << std::endl;
 	}
 }
