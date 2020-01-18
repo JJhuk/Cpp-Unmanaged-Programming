@@ -44,7 +44,7 @@ namespace lab2
 			in >> number;
 			if (!in.fail())
 			{
-				max = max < number ? number : max;
+				max = max < number ? number : max; //최댓값 갱신
 				out << "     " << std::setw(15) << std::showpos << std::showpoint << std::fixed << std::setprecision(3) << std::internal << number << std::endl;
 				continue;
 			}
