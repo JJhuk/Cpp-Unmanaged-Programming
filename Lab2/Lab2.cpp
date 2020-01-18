@@ -36,7 +36,7 @@ namespace lab2
 
 	void PrintMaxFloat(std::istream& in, std::ostream& out)
 	{
-		float max = FLT_MIN;
+		float max = -FLT_MAX;
 		float number;
 		std::string trash;
 		while (true)
