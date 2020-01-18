@@ -25,7 +25,7 @@ namespace lab2
 			}
 			if (in.eof())
 			{
-				in.clear(); //clear하고 trash에 비워줘야함.
+				in.clear(); //다음 함수를 위해 비워주자!
 				break;
 			}
 			in.clear(); //clear하고 trash에 비워줘야함.
@@ -44,7 +44,7 @@ namespace lab2
 			in >> number;
 			if (!in.fail())
 			{
-				max = max < number ? number : max; //최댓값 갱신
+				max = max < number ? number : max; 
 				out << "     " << std::setw(15) << std::showpos << std::showpoint << std::fixed << std::setprecision(3) << std::internal << number << std::endl;
 				continue;
 			}
