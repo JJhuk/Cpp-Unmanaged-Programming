@@ -11,6 +11,7 @@ namespace assignment1
 		unsigned int GetLength() const;
 		const char* GetCString() const;
 		void Append(const char* s);
+		void Append_Front(const char* s);
 		MyString operator+(const MyString& other) const;
 		int IndexOf(const char* s);
 		int LastIndexOf(const char* s);
@@ -25,9 +26,12 @@ namespace assignment1
 		MyString& operator=(const MyString& rhs);
 		void ToLower();
 		void ToUpper();
-		int Getcharsize(const char *s) const;
+		
 	private:
 		char* m_char;
 		int m_size;
+		int Getcharsize(const char* s) const;
+		void GetPadRightString(unsigned int totalLength, const char c);
+		void GetPadLeftString(unsigned int totalLength, const char c);
 	};
 }

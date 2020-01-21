@@ -4,31 +4,36 @@ namespace assignment1
 {
 
     MyString::MyString(const char* s)
-    {   
+    {
         m_size = Getcharsize(s); //사이즈 크기 구하기
-  
-        m_char = new char[m_size]; 
-        
-        for (int i = 0; i < m_size; i++) 
+
+        m_char = new char[m_size + 1];
+
+        for (int i = 0; i < m_size; i++)
         {
             m_char[i] = s[i];
         }
+        m_char[m_size] = '\0';
     }
 
-    MyString::MyString(const MyString& other)
+    MyString::MyString(const MyString& other) : m_size(other.m_size)
     {
-        m_char = new MyString(other.GetCString);
-        m_size = other.Getcharsize;
+        m_char = new char[m_size + 1];
+        for (int i = 0; i < m_size; i++)
+        {
+            m_char[i] = other.m_char[i];
+        }
+        m_char[m_size] = '\0';
     }
-   
+
     MyString::~MyString()
     {
         delete[] m_char;
         m_size = 0;
     }
-    
+
     unsigned int MyString::GetLength() const
-    {   
+    {
         return m_size;
     }
 
@@ -45,25 +50,62 @@ namespace assignment1
         const int new_size = Getcharsize(s); //새로 크기 잡아주기 위해 크기 구함
         const char* temp_char = m_char; //원래 가리키는거 다른애가 지정
 
-        m_char = new char[new_size + m_size]; //원래 가리키는건 새로운 크기 저장
+        m_char = nullptr;
+        m_char = new char[new_size + m_size + 1]; //원래 가리키는건 새로운 크기 저장
 
         for (int i = 0; i < m_size; i++)
         {
             m_char[i] = temp_char[i]; //복사
         }
-        for (int i = m_size; i < new_size; i++)
+        for (int i = 0; i < new_size; i++)
         {
-            m_char[i] = s[i];
+            m_char[i+m_size] = s[i];
         }
+        m_char[m_size+ new_size ] = '\0';
 
+
+        delete[] temp_char; //원래 heap 삭제
+        m_size += new_size;
+    }
+
+    void MyString::Append_Front(const char* s)
+    {
+        //순서가 명확하지 않은 것 같음.
+        //새로 크기 잡아주고, 복사->덧붙히고 원래 delete
+
+        const int new_size = Getcharsize(s); //새로 크기 잡아주기 위해 크기 구함
+        const char* temp_char = m_char; //원래 가리키는거 다른애가 지정
+
+        m_char = nullptr;
+        m_char = new char[new_size + m_size + 1]; //원래 가리키는건 새로운 크기 저장
+
+        for (int i = 0; i < new_size; i++)
+        {
+            m_char[i] = s[i]; //복사
+        }
+        for (int i = 0; i < m_size; i++)
+        {
+            m_char[i+new_size] = temp_char[i];
+        }
+        m_char[new_size + m_size] = '\0';
         delete[] temp_char; //원래 heap 삭제
         m_size += new_size;
     }
 
     MyString MyString::operator+(const MyString& other) const
     {
-
-        return MyString("temporary");
+        int new_size = m_size + other.m_size;
+        char* new_char = new char[new_size + 1];
+        for (int i = 0; i < m_size; i++)
+        {
+            new_char[i] = m_char[i]; //복사
+        }
+        for (int i = 0; i < other.m_size; i++)
+        {
+            new_char[i + m_size] = other.m_char[i];
+        }
+        new_char[new_size] = '\0';
+        return MyString(new_char);
     }
 
     int MyString::IndexOf(const char* s)
@@ -121,13 +163,13 @@ namespace assignment1
     void MyString::Interleave(const char* s)
     {
         const int new_size = Getcharsize(s) + m_size;
-        char* new_char = new char[new_size];
+        char* new_char = new char[new_size + 1];
 
         int idx = 0;
         int input_idx = 0;
         int m_idx = 0;
 
-        while (s[idx] == '\0' && m_char[idx] == '\0')
+        while (s[input_idx] != '\0' || m_char[m_idx] != '\0')
         {
             if (m_char[m_idx] != '\0')
             {
@@ -138,11 +180,14 @@ namespace assignment1
                 new_char[idx++] = s[input_idx++];
             }
         }
+        new_char[idx] = '\0';
 
         delete[] m_char;
-
         m_char = new_char;
-        m_size = GetLength(m_char);
+
+        new_char = nullptr;
+
+        m_size = new_size;
     }
 
     bool MyString::RemoveAt(unsigned int index)
@@ -153,19 +198,21 @@ namespace assignment1
         }
         else
         {
-            char* temp_char = new char[m_size - 1];
+            int temp_idx = 0;
+            char* temp_char = new char[m_size];
             for (int i = 0; i < index; i++)
             {
-                temp_char[i] = m_char[i];
+                temp_char[temp_idx++] = m_char[i];
             }
             for (int i = index + 1; i < m_size; i++)
             {
-                temp_char[i] = m_char[i];
+                temp_char[temp_idx++] = m_char[i];
             }
-
+            temp_char[m_size - 1] = '\0';
             delete[] m_char;
             m_char = temp_char;
-            m_size = Getcharsize(m_char);
+            temp_char = nullptr;
+            m_size--;
 
             return true;
         }
@@ -173,36 +220,82 @@ namespace assignment1
 
     void MyString::PadLeft(unsigned int totalLength)
     {
-        if (totalLength > m_size)
-        {
-
-        }
+        GetPadRightString(totalLength, ' ');
     }
 
     void MyString::PadLeft(unsigned int totalLength, const char c)
     {
-
+        GetPadRightString(totalLength, c);
     }
 
     void MyString::PadRight(unsigned int totalLength)
     {
-
+        GetPadRightString(totalLength, ' ');
     }
 
     void MyString::PadRight(unsigned int totalLength, const char c)
     {
+        GetPadRightString(totalLength, c);
+    }
 
+    void MyString::GetPadRightString(unsigned int totalLength, const char c)
+    {
+        if (totalLength > m_size)
+        {
+            int AddLength = totalLength - m_size;
+            char* AddString = new char[AddLength + 1];
+            for (int i = 0; i < AddLength; i++)
+            {
+                AddString[i] = c;
+            }
+            Append(AddString);
+            delete[] AddString;
+        }
+    }
+
+    void MyString::GetPadLeftString(unsigned int totalLength, const char c)
+    {
+        if (totalLength > m_size)
+        {
+            int AddLength = totalLength - m_size;
+            char* AddString = new char[AddLength + 1];
+            for (int i = 0; i < AddLength; i++)
+            {
+                AddString[i] = c;
+            }
+            Append_Front(AddString);
+            delete[] AddString;
+        }
     }
 
     void MyString::Reverse()
     {
+        int left_idx = 0;
+        int right_idx = m_size;
+        while (left_idx < right_idx)
+        {
+            char temp = m_char[left_idx];
+            m_char[left_idx] = m_char[right_idx];
+            m_char[right_idx] = temp;
 
+            left_idx++;
+            right_idx--;
+        }
     }
 
     bool MyString::operator==(const MyString& rhs) const
     {
-
-        return false;
+        if (m_size == rhs.m_size)
+        {
+            for (int i = 0; i < m_size; i++)
+            {
+                if (m_char[i] != rhs.m_char[i])
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     MyString& MyString::operator=(const MyString& rhs)
@@ -213,12 +306,24 @@ namespace assignment1
 
     void MyString::ToLower()
     {
-
+        for (int i = 0; i < m_size; i++)
+        {
+            if (m_char[i] >= 'A' && m_char[i] <= 'Z') //소문자이면
+            {
+                m_char[i] = (m_char[i] - 'A') + 'a';
+            }
+        }
     }
 
     void MyString::ToUpper()
     {
-
+        for (int i = 0; i < m_size; i++)
+        {
+            if (m_char[i] >= 'a' && m_char[i] <= 'z') //소문자이면
+            {
+                m_char[i] = (m_char[i] - 'a') + 'A';
+            }
+        }
     }
     int MyString::Getcharsize(const char* s) const
     {
