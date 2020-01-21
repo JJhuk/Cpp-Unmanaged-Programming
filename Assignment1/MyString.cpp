@@ -2,217 +2,260 @@
 
 namespace assignment1
 {
+	MyString::MyString() :mSize(0), mChar(nullptr)
+	{
+
+	}
 
 	MyString::MyString(const char* s)
 	{
-		m_size = Getcharsize(s); //사이즈 크기 구하기
-
-		m_char = new char[m_size + 1];
-
-		for (int i = 0; i < m_size; i++)
+		if (s != nullptr)
 		{
-			m_char[i] = s[i];
+			mSize = Getcharsize(s); //사이즈 크기 구하기
+
+			mChar = new char[mSize + 1];
+
+			for (int i = 0; i < mSize; i++)
+			{
+				mChar[i] = s[i];
+			}
+			mChar[mSize] = '\0';
 		}
-		m_char[m_size] = '\0';
+		else
+		{
+			mSize = 0;
+			mChar = nullptr;
+		}
 	}
 
-	MyString::MyString(const MyString& other) : m_size(other.m_size)
+	MyString::MyString(const MyString& other) : mSize(other.mSize)
 	{
-		m_char = new char[m_size + 1];
-		for (int i = 0; i < m_size; i++)
+		mChar = new char[mSize + 1];
+		for (int i = 0; i < mSize; i++)
 		{
-			m_char[i] = other.m_char[i];
+			mChar[i] = other.mChar[i];
 		}
-		m_char[m_size] = '\0';
+		mChar[mSize] = '\0';
 	}
 
 	MyString::~MyString()
 	{
-		delete[] m_char;
-		m_size = 0;
+		delete[] mChar;
+		mSize = 0;
 	}
 
 	unsigned int MyString::GetLength() const
 	{
-		return m_size;
+		return mSize;
 	}
 
 	const char* MyString::GetCString() const
 	{
-		return m_char;
+		return mChar;
 	}
 
 	void MyString::Append(const char* s)
 	{
-		//순서가 명확하지 않은 것 같음.
-		//새로 크기 잡아주고, 복사->덧붙히고 원래 delete
-
-		const int new_size = Getcharsize(s); //새로 크기 잡아주기 위해 크기 구함
-		const char* temp_char = m_char; //원래 가리키는거 다른애가 지정
-
-		m_char = nullptr;
-		m_char = new char[new_size + m_size + 1]; //원래 가리키는건 새로운 크기 저장
-
-		for (int i = 0; i < m_size; i++)
+		if (s != nullptr && s != "")
 		{
-			m_char[i] = temp_char[i]; //복사
-		}
-		for (int i = 0; i < new_size; i++)
-		{
-			m_char[i + m_size] = s[i];
-		}
-		m_char[m_size + new_size] = '\0';
+			const int NEW_SIZE = Getcharsize(s);
+			char* tempChar = mChar;
+
+			mChar = nullptr;
+			mChar = new char[NEW_SIZE + mSize + 1];
+
+			for (int i = 0; i < mSize; i++)
+			{
+				mChar[i] = tempChar[i];
+			}
+			for (int i = 0; i < NEW_SIZE; i++)
+			{
+				mChar[i + mSize] = s[i];
+			}
+			mChar[mSize + NEW_SIZE] = '\0';
 
 
-		delete[] temp_char; //원래 heap 삭제
-		m_size += new_size;
+			delete[] tempChar;
+			tempChar = nullptr;
+			mSize += NEW_SIZE;
+		}
 	}
 
-	void MyString::Append_Front(const char* s)
+	void MyString::AppendFront(const char* s)
 	{
-		//순서가 명확하지 않은 것 같음.
-		//새로 크기 잡아주고, 복사->덧붙히고 원래 delete
-
-		const int new_size = Getcharsize(s); //새로 크기 잡아주기 위해 크기 구함
-		const char* temp_char = m_char; //원래 가리키는거 다른애가 지정
-
-		m_char = nullptr;
-		m_char = new char[new_size + m_size + 1]; //원래 가리키는건 새로운 크기 저장
-
-		for (int i = 0; i < new_size; i++)
+		if (s != nullptr)
 		{
-			m_char[i] = s[i]; //복사
+			const int NEW_SIZE = Getcharsize(s);
+			char* tempChar = mChar;
+
+			mChar = nullptr;
+			mChar = new char[NEW_SIZE + mSize + 1];
+
+			for (int i = 0; i < NEW_SIZE; i++)
+			{
+				mChar[i] = s[i]; //복사
+			}
+			for (int i = 0; i < mSize; i++)
+			{
+				mChar[i + NEW_SIZE] = tempChar[i];
+			}
+			mChar[NEW_SIZE + mSize] = '\0';
+			delete[] tempChar;
+			mSize += NEW_SIZE;
 		}
-		for (int i = 0; i < m_size; i++)
-		{
-			m_char[i + new_size] = temp_char[i];
-		}
-		m_char[new_size + m_size] = '\0';
-		delete[] temp_char; //원래 heap 삭제
-		m_size += new_size;
 	}
 
 	MyString MyString::operator+(const MyString& other) const
 	{
-		int new_size = m_size + other.m_size;
-		char* new_char = new char[new_size + 1];
-		for (int i = 0; i < m_size; i++)
+		const int NEW_SIZE = mSize + other.mSize;
+		char* newChar = new char[NEW_SIZE + 1];
+		for (int i = 0; i < mSize; i++)
 		{
-			new_char[i] = m_char[i]; //복사
+			newChar[i] = mChar[i]; //복사
 		}
-		for (int i = 0; i < other.m_size; i++)
+		for (int i = 0; i < other.mSize; i++)
 		{
-			new_char[i + m_size] = other.m_char[i];
+			newChar[i + mSize] = other.mChar[i];
 		}
-		new_char[new_size] = '\0';
-		return MyString(new_char);
+		newChar[NEW_SIZE] = '\0';
+		return MyString(newChar);
 	}
 
 	int MyString::IndexOf(const char* s)
 	{
-		int idx = -1;
-		for (int i = 0; i < m_size; i++)
+		if (s != nullptr)
 		{
-			if (m_char[i] == s[0])
+			if (s == "")
 			{
-				bool bFind = true;
-				for (int j = 0; j < Getcharsize(s); j++)
+				return 0;
+			}
+			else
+			{
+				int idx = -1;
+				for (int i = 0; i < mSize; i++)
 				{
-					if (m_char[i + j] != s[j])
+					if (mChar[i] == s[0])
 					{
-						bFind = false;
-						break;
+						bool bFind = true;
+						for (int j = 0; j < Getcharsize(s); j++)
+						{
+							if (mChar[i + j] != s[j])
+							{
+								bFind = false;
+								break;
+							}
+						}
+						if (bFind)
+						{
+							idx = i;
+							break;
+						}
 					}
 				}
-				if (bFind)
-				{
-					idx = i;
-					break;
-				}
+				return idx;
 			}
 		}
-		return idx;
+		else
+		{
+			return -1;
+		}
 	}
 
 	int MyString::LastIndexOf(const char* s)
 	{
-		int idx = -1;
-		for (int i = 0; i < m_size; i++)
+		if (s != nullptr)
 		{
-			if (m_char[i] == s[0])
+			if (s == "")
 			{
-				bool bFind = true;
-				for (int j = 0; j < Getcharsize(s); j++)
+				return mSize;
+			}
+			else
+			{
+				int idx = -1;
+				for (int i = 0; i < mSize; i++)
 				{
-					if (m_char[i + j] != s[j])
+					if (mChar[i] == s[0])
 					{
-						bFind = false;
-						break;
+						bool bFind = true;
+						for (int j = 0; j < Getcharsize(s); j++)
+						{
+							if (mChar[i + j] != s[j])
+							{
+								bFind = false;
+								break;
+							}
+						}
+						if (bFind)
+						{
+							idx = i;
+						}
 					}
 				}
-				if (bFind)
-				{
-					idx = i;
-				}
+				return idx;
 			}
 		}
-		return idx;
-
+		else
+		{
+			return -1;
+		}
 	}
 
 	void MyString::Interleave(const char* s)
 	{
-		const int new_size = Getcharsize(s) + m_size;
-		char* new_char = new char[new_size + 1];
-
-		int idx = 0;
-		int input_idx = 0;
-		int m_idx = 0;
-
-		while (s[input_idx] != '\0' || m_char[m_idx] != '\0')
+		if (s != nullptr && s != "")
 		{
-			if (m_char[m_idx] != '\0')
+			const int NEW_SIZE = Getcharsize(s) + mSize;
+			char* newChar = new char[NEW_SIZE + 1];
+
+			int idx = 0;
+			int input_idx = 0;
+			int m_idx = 0;
+
+			while (s[input_idx] != '\0' || mChar[m_idx] != '\0')
 			{
-				new_char[idx++] = m_char[m_idx++];
+				if (mChar[m_idx] != '\0')
+				{
+					newChar[idx++] = mChar[m_idx++];
+				}
+				if (s[input_idx] != '\0')
+				{
+					newChar[idx++] = s[input_idx++];
+				}
 			}
-			if (s[input_idx] != '\0')
-			{
-				new_char[idx++] = s[input_idx++];
-			}
+			newChar[idx] = '\0';
+
+			delete[] mChar;
+			mChar = newChar;
+
+			newChar = nullptr;
+
+			mSize = NEW_SIZE;
 		}
-		new_char[idx] = '\0';
-
-		delete[] m_char;
-		m_char = new_char;
-
-		new_char = nullptr;
-
-		m_size = new_size;
 	}
 
 	bool MyString::RemoveAt(unsigned int index)
 	{
-		if (m_size <= index || index < 0)
+		if (mSize <= index || index < 0)
 		{
 			return false;
 		}
 		else
 		{
 			int temp_idx = 0;
-			char* temp_char = new char[m_size];
+			char* tempChar = new char[mSize];
 			for (int i = 0; i < index; i++)
 			{
-				temp_char[temp_idx++] = m_char[i];
+				tempChar[temp_idx++] = mChar[i];
 			}
-			for (int i = index + 1; i < m_size; i++)
+			for (int i = index + 1; i < mSize; i++)
 			{
-				temp_char[temp_idx++] = m_char[i];
+				tempChar[temp_idx++] = mChar[i];
 			}
-			temp_char[m_size - 1] = '\0';
-			delete[] m_char;
-			m_char = temp_char;
-			temp_char = nullptr;
-			m_size--;
+			tempChar[mSize - 1] = '\0';
+			delete[] mChar;
+			mChar = tempChar;
+			tempChar = nullptr;
+			mSize--;
 
 			return true;
 		}
@@ -240,107 +283,112 @@ namespace assignment1
 
 	void MyString::GetPadRightString(unsigned int totalLength, const char c)
 	{
-		if (totalLength > m_size)
+		if (totalLength > mSize)
 		{
-			int AddLength = totalLength - m_size;
-			char* AddString = new char[AddLength + 1];
-			for (int i = 0; i < AddLength; i++)
+			int addLength = totalLength - mSize;
+			char* addString = new char[addLength + 1];
+			for (int i = 0; i < addLength; i++)
 			{
-				AddString[i] = c;
+				addString[i] = c;
 			}
-			AddString[AddLength] = '\0';
-			Append(AddString);
-			delete[] AddString;
+			addString[addLength] = '\0';
+			Append(addString);
+			delete[] addString;
 		}
 	}
 
 	void MyString::GetPadLeftString(unsigned int totalLength, const char c)
 	{
-		if (totalLength > m_size)
+		if (totalLength > mSize)
 		{
-			int AddLength = totalLength - m_size;
-			char* AddString = new char[AddLength + 1];
-			for (int i = 0; i < AddLength; i++)
+			int addLength = totalLength - mSize;
+			char* addString = new char[addLength + 1];
+			for (int i = 0; i < addLength; i++)
 			{
-				AddString[i] = c;
+				addString[i] = c;
 			}
-			AddString[AddLength] = '\0';
-			Append_Front(AddString);
-			delete[] AddString;
+			addString[addLength] = '\0';
+			AppendFront(addString);
+			delete[] addString;
 		}
 	}
 
 	void MyString::Reverse()
 	{
-		int left_idx = 0;
-		int right_idx = m_size - 1;
-		while (left_idx < right_idx)
+		int leftIdx = 0;
+		int rightIdx = mSize - 1;
+		while (leftIdx < rightIdx)
 		{
-			char temp = m_char[left_idx];
-			m_char[left_idx] = m_char[right_idx];
-			m_char[right_idx] = temp;
+			char temp = mChar[leftIdx];
+			mChar[leftIdx] = mChar[rightIdx];
+			mChar[rightIdx] = temp;
 
-			left_idx++;
-			right_idx--;
+			leftIdx++;
+			rightIdx--;
 		}
 	}
 
 	bool MyString::operator==(const MyString& rhs) const
 	{
-		if (m_size == rhs.m_size)
+		if (mSize == rhs.mSize)
 		{
-			for (int i = 0; i < m_size; i++)
+			for (int i = 0; i < mSize; i++)
 			{
-				if (m_char[i] != rhs.m_char[i])
+				if (mChar[i] != rhs.mChar[i])
 				{
 					return false;
 				}
 			}
+		}
+		else
+		{
+			return false;
 		}
 		return true;
 	}
 
 	MyString& MyString::operator=(const MyString& rhs)
 	{
-		delete[] m_char;
-		m_char = new char[rhs.m_size + 1];
-		for (int i = 0; i < rhs.m_size; i++)
+		delete[] mChar;
+		mChar = new char[rhs.mSize + 1];
+		for (int i = 0; i < rhs.mSize; i++)
 		{
-			m_char[i] = rhs.m_char[i];
+			mChar[i] = rhs.mChar[i];
 		}
-		m_char[rhs.m_size] = '\0';
-		m_size = rhs.m_size;
+		mChar[rhs.mSize] = '\0';
+		mSize = rhs.mSize;
 
 		return *this;
 	}
 
 	void MyString::ToLower()
 	{
-		for (int i = 0; i < m_size; i++)
+		for (int i = 0; i < mSize; i++)
 		{
-			if (m_char[i] >= 'A' && m_char[i] <= 'Z') //소문자이면
+			if (mChar[i] >= 'A' && mChar[i] <= 'Z') //소문자이면
 			{
-				m_char[i] = (m_char[i] - 'A') + 'a';
+				mChar[i] = (mChar[i] - 'A') + 'a';
 			}
 		}
 	}
 
 	void MyString::ToUpper()
 	{
-		for (int i = 0; i < m_size; i++)
+		for (int i = 0; i < mSize; i++)
 		{
-			if (m_char[i] >= 'a' && m_char[i] <= 'z') //소문자이면
+			if (mChar[i] >= 'a' && mChar[i] <= 'z') //소문자이면
 			{
-				m_char[i] = (m_char[i] - 'a') + 'A';
+				mChar[i] = (mChar[i] - 'a') + 'A';
 			}
 		}
 	}
 	int MyString::Getcharsize(const char* s) const
 	{
 		int size = 0;
-
-		for (size = 0; s[size] != '\0'; size++);
-
+		if (s != nullptr)
+		{
+			for (size = 0; s[size] != '\0'; size++);
+		}
 		return size;
 	}
 }
