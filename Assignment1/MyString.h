@@ -16,7 +16,7 @@ namespace assignment1
 		int IndexOf(const char* s);
 		int LastIndexOf(const char* s);
 		void Interleave(const char* s);
-		bool RemoveAt(unsigned int i);
+		bool RemoveAt(unsigned int i); //
 		void PadLeft(unsigned int totalLength);
 		void PadLeft(unsigned int totalLength, const char c);
 		void PadRight(unsigned int totalLength);
@@ -26,7 +26,7 @@ namespace assignment1
 		MyString& operator=(const MyString& rhs);
 		void ToLower();
 		void ToUpper();
-		
+
 	private:
 		char* m_char;
 		int m_size;
