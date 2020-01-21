@@ -273,7 +273,7 @@ namespace assignment1
 	void MyString::Reverse()
 	{
 		int left_idx = 0;
-		int right_idx = m_size-1;
+		int right_idx = m_size - 1;
 		while (left_idx < right_idx)
 		{
 			char temp = m_char[left_idx];
@@ -302,6 +302,14 @@ namespace assignment1
 
 	MyString& MyString::operator=(const MyString& rhs)
 	{
+		delete[] m_char;
+		m_char = new char[rhs.m_size + 1];
+		for (int i = 0; i < rhs.m_size; i++)
+		{
+			m_char[i] = rhs.m_char[i];
+		}
+		m_char[rhs.m_size] = '\0';
+		m_size = rhs.m_size;
 
 		return *this;
 	}
