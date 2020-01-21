@@ -1,10 +1,10 @@
 #include "MyString.h"
-
+#include <iostream>
 namespace assignment1
 {
 	MyString::MyString() :mSize(0), mChar(nullptr)
 	{
-
+		//std::cout << (int)mChar << "생성했습니다." << std::endl;
 	}
 
 	MyString::MyString(const char* s)
@@ -20,6 +20,7 @@ namespace assignment1
 				mChar[i] = s[i];
 			}
 			mChar[mSize] = '\0';
+			//std::cout << (int)mChar << "생성했습니다." << std::endl;
 		}
 		else
 		{
@@ -36,10 +37,12 @@ namespace assignment1
 			mChar[i] = other.mChar[i];
 		}
 		mChar[mSize] = '\0';
+		//std::cout << (int)mChar << "생성했습니다." << std::endl;
 	}
 
 	MyString::~MyString()
 	{
+		//std::cout << (int)mChar << "소멸했습니다" << std::endl;
 		delete[] mChar;
 		mSize = 0;
 	}
@@ -107,18 +110,22 @@ namespace assignment1
 
 	MyString MyString::operator+(const MyString& other) const
 	{
-		const int NEW_SIZE = mSize + other.mSize;
-		char* newChar = new char[NEW_SIZE + 1];
+		MyString temp;
+		temp.mSize = mSize + other.mSize;
+		temp.mChar = new char[temp.mSize + 1];
+
 		for (int i = 0; i < mSize; i++)
 		{
-			newChar[i] = mChar[i]; //복사
+			temp.mChar[i] = mChar[i];
 		}
 		for (int i = 0; i < other.mSize; i++)
 		{
-			newChar[i + mSize] = other.mChar[i];
+			temp.mChar[mSize + i] = other.mChar[i];
 		}
-		newChar[NEW_SIZE] = '\0';
-		return MyString(newChar);
+
+		temp.mChar[temp.mSize] = '\0';
+
+		return temp;
 	}
 
 	int MyString::IndexOf(const char* s)
@@ -208,18 +215,18 @@ namespace assignment1
 			char* newChar = new char[NEW_SIZE + 1];
 
 			int idx = 0;
-			int input_idx = 0;
-			int m_idx = 0;
+			int inputIdx = 0;
+			int mIdx = 0;
 
-			while (s[input_idx] != '\0' || mChar[m_idx] != '\0')
+			while (s[inputIdx] != '\0' || mChar[mIdx] != '\0')
 			{
-				if (mChar[m_idx] != '\0')
+				if (mChar[mIdx] != '\0')
 				{
-					newChar[idx++] = mChar[m_idx++];
+					newChar[idx++] = mChar[mIdx++];
 				}
-				if (s[input_idx] != '\0')
+				if (s[inputIdx] != '\0')
 				{
-					newChar[idx++] = s[input_idx++];
+					newChar[idx++] = s[inputIdx++];
 				}
 			}
 			newChar[idx] = '\0';
@@ -241,15 +248,15 @@ namespace assignment1
 		}
 		else
 		{
-			int temp_idx = 0;
+			int tempIdx = 0;
 			char* tempChar = new char[mSize];
 			for (int i = 0; i < index; i++)
 			{
-				tempChar[temp_idx++] = mChar[i];
+				tempChar[tempIdx++] = mChar[i];
 			}
 			for (int i = index + 1; i < mSize; i++)
 			{
-				tempChar[temp_idx++] = mChar[i];
+				tempChar[tempIdx++] = mChar[i];
 			}
 			tempChar[mSize - 1] = '\0';
 			delete[] mChar;
@@ -349,15 +356,17 @@ namespace assignment1
 
 	MyString& MyString::operator=(const MyString& rhs)
 	{
-		delete[] mChar;
-		mChar = new char[rhs.mSize + 1];
-		for (int i = 0; i < rhs.mSize; i++)
+		if (mChar != rhs.GetCString())
 		{
-			mChar[i] = rhs.mChar[i];
+			delete[] mChar;
+			mChar = new char[rhs.mSize + 1];
+			for (int i = 0; i < rhs.mSize; i++)
+			{
+				mChar[i] = rhs.mChar[i];
+			}
+			mChar[rhs.mSize] = '\0';
+			mSize = rhs.mSize;
 		}
-		mChar[rhs.mSize] = '\0';
-		mSize = rhs.mSize;
-
 		return *this;
 	}
 
