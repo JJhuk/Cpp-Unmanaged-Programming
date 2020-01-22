@@ -14,7 +14,7 @@ namespace assignment1
 
 			mChar = new char[mSize + 1];
 
-			for (int i = 0; i < mSize; i++)
+			for (unsigned int i = 0; i < mSize; i++)
 			{
 				mChar[i] = s[i];
 			}
@@ -31,7 +31,7 @@ namespace assignment1
 	MyString::MyString(const MyString& other) : mSize(other.mSize)
 	{
 		mChar = new char[mSize + 1];
-		for (int i = 0; i < mSize; i++)
+		for (unsigned int i = 0; i < mSize; i++)
 		{
 			mChar[i] = other.mChar[i];
 		}
@@ -60,17 +60,17 @@ namespace assignment1
 	{
 		if (s != nullptr && s != "")
 		{
-			const int NEW_SIZE = getCharSize(s);
+			const unsigned int NEW_SIZE = getCharSize(s);
 			char* tempChar = mChar;
 
 			mChar = nullptr;
 			mChar = new char[NEW_SIZE + mSize + 1];
 
-			for (int i = 0; i < mSize; i++)
+			for (unsigned int i = 0; i < mSize; i++)
 			{
 				mChar[i] = tempChar[i];
 			}
-			for (int i = 0; i < NEW_SIZE; i++)
+			for (unsigned int i = 0; i < NEW_SIZE; i++)
 			{
 				mChar[i + mSize] = s[i];
 			}
@@ -87,17 +87,17 @@ namespace assignment1
 	{
 		if (s != nullptr)
 		{
-			const int NEW_SIZE = getCharSize(s);
+			const unsigned int NEW_SIZE = getCharSize(s);
 			char* tempChar = mChar;
 
 			mChar = nullptr;
 			mChar = new char[NEW_SIZE + mSize + 1];
 
-			for (int i = 0; i < NEW_SIZE; i++)
+			for (unsigned int i = 0; i < NEW_SIZE; i++)
 			{
 				mChar[i] = s[i]; //복사
 			}
-			for (int i = 0; i < mSize; i++)
+			for (unsigned int i = 0; i < mSize; i++)
 			{
 				mChar[i + NEW_SIZE] = tempChar[i];
 			}
@@ -113,11 +113,11 @@ namespace assignment1
 		temp.mSize = mSize + other.mSize;
 		temp.mChar = new char[temp.mSize + 1];
 
-		for (int i = 0; i < mSize; i++)
+		for (unsigned int i = 0; i < mSize; i++)
 		{
 			temp.mChar[i] = mChar[i];
 		}
-		for (int i = 0; i < other.mSize; i++)
+		for (unsigned int i = 0; i < other.mSize; i++)
 		{
 			temp.mChar[mSize + i] = other.mChar[i];
 		}
@@ -138,12 +138,12 @@ namespace assignment1
 			else
 			{
 				int idx = -1;
-				for (int i = 0; i < mSize; i++)
+				for (unsigned int i = 0; i < mSize; i++)
 				{
 					if (mChar[i] == s[0])
 					{
 						bool bFind = true;
-						for (int j = 0; j < getCharSize(s); j++)
+						for (unsigned int j = 0; j < getCharSize(s); j++)
 						{
 							if (mChar[i + j] != s[j])
 							{
@@ -177,13 +177,13 @@ namespace assignment1
 			}
 			else
 			{
-				int idx = -1;
-				for (int i = 0; i < mSize; i++)
+				unsigned int idx = -1;
+				for (unsigned int i = 0; i < mSize; i++)
 				{
 					if (mChar[i] == s[0])
 					{
 						bool bFind = true;
-						for (int j = 0; j < getCharSize(s); j++)
+						for (unsigned int j = 0; j < getCharSize(s); j++)
 						{
 							if (mChar[i + j] != s[j])
 							{
@@ -210,7 +210,7 @@ namespace assignment1
 	{
 		if (s != nullptr && s != "")
 		{
-			const int NEW_SIZE = getCharSize(s) + mSize;
+			const unsigned int NEW_SIZE = getCharSize(s) + mSize;
 			char* newChar = new char[NEW_SIZE + 1];
 
 			int idx = 0;
@@ -247,13 +247,13 @@ namespace assignment1
 		}
 		else
 		{
-			int tempIdx = 0;
+			unsigned int tempIdx = 0;
 			char* tempChar = new char[mSize];
-			for (int i = 0; i < index; i++)
+			for (unsigned int i = 0; i < index; i++)
 			{
 				tempChar[tempIdx++] = mChar[i];
 			}
-			for (int i = index + 1; i < mSize; i++)
+			for (unsigned int i = index + 1; i < mSize; i++)
 			{
 				tempChar[tempIdx++] = mChar[i];
 			}
@@ -291,9 +291,9 @@ namespace assignment1
 	{
 		if (totalLength > mSize)
 		{
-			int addLength = totalLength - mSize;
+			unsigned int addLength = totalLength - mSize;
 			char* addString = new char[addLength + 1];
-			for (int i = 0; i < addLength; i++)
+			for (unsigned int i = 0; i < addLength; i++)
 			{
 				addString[i] = c;
 			}
@@ -307,9 +307,9 @@ namespace assignment1
 	{
 		if (totalLength > mSize)
 		{
-			int addLength = totalLength - mSize;
+			unsigned int addLength = totalLength - mSize;
 			char* addString = new char[addLength + 1];
-			for (int i = 0; i < addLength; i++)
+			for (unsigned int i = 0; i < addLength; i++)
 			{
 				addString[i] = c;
 			}
@@ -338,7 +338,7 @@ namespace assignment1
 	{
 		if (mSize == rhs.mSize)
 		{
-			for (int i = 0; i < mSize; i++)
+			for (unsigned int i = 0; i < mSize; i++)
 			{
 				if (mChar[i] != rhs.mChar[i])
 				{
@@ -359,7 +359,7 @@ namespace assignment1
 		{
 			delete[] mChar;
 			mChar = new char[rhs.mSize + 1];
-			for (int i = 0; i < rhs.mSize; i++)
+			for (unsigned int i = 0; i < rhs.mSize; i++)
 			{
 				mChar[i] = rhs.mChar[i];
 			}
@@ -371,7 +371,7 @@ namespace assignment1
 
 	void MyString::ToLower()
 	{
-		for (int i = 0; i < mSize; i++)
+		for (unsigned int i = 0; i < mSize; i++)
 		{
 			if (mChar[i] >= 'A' && mChar[i] <= 'Z') //소문자이면
 			{
@@ -382,7 +382,7 @@ namespace assignment1
 
 	void MyString::ToUpper()
 	{
-		for (int i = 0; i < mSize; i++)
+		for (unsigned int i = 0; i < mSize; i++)
 		{
 			if (mChar[i] >= 'a' && mChar[i] <= 'z') //소문자이면
 			{
@@ -390,9 +390,9 @@ namespace assignment1
 			}
 		}
 	}
-	int MyString::getCharSize(const char* s) const
+	unsigned int MyString::getCharSize(const char* s) const
 	{
-		int size = 0;
+		unsigned int size = 0;
 		if (s != nullptr)
 		{
 			for (size = 0; s[size] != '\0'; size++);
