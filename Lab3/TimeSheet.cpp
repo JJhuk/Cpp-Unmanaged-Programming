@@ -4,111 +4,114 @@
 
 namespace lab3
 {
-    TimeSheet::TimeSheet(const char* name, unsigned int maxEntries) : mName(name), mMaxSize(maxEntries), mCount(0)
-    {
-        mHour = new int[maxEntries];
-    }
+	TimeSheet::TimeSheet(const char* name, unsigned int maxEntries) : mName(name), mMaxSize(maxEntries), mCount(0)
+	{
+		mHour = new int[maxEntries];
+	}
 
-    TimeSheet::TimeSheet(const TimeSheet& other) : mName(other.mName), mMaxSize(other.mMaxSize), mCount(0)
-    {
-        mHour = new int[mMaxSize];
-        for (unsigned int i = 0; i < mMaxSize; i++)
-        {
-            mHour[i] = other.mHour[i];
-        }
-    }
+	TimeSheet::TimeSheet(const TimeSheet& other) : mName(other.mName), mMaxSize(other.mMaxSize), mCount(0)
+	{
+		mHour = new int[mMaxSize];
+		for (unsigned int i = 0; i < mMaxSize; i++)
+		{
+			mHour[i] = other.mHour[i];
+		}
+	}
 
-    TimeSheet::~TimeSheet()
-    {
-        delete[] mHour;
-        mMaxSize = 0;
-        mCount = 0;
-    }
-     
-    void TimeSheet::AddTime(int timeInHours)
-    {
-        if (timeInHours > 0 && timeInHours <= 10 && mCount < mMaxSize)
-        {
-            mHour[mCount++] = timeInHours;
-        }
-    }
+	TimeSheet::~TimeSheet()
+	{
+		delete[] mHour;
+		mMaxSize = 0;
+		mCount = 0;
+	}
 
-    int TimeSheet::GetTimeEntry(unsigned int index) const
-    {
-        if (index >= 0 && index < mMaxSize)
-        {
-            return mHour[index];
-        }
-        else
-        {
-            return -1;
-        }
-    }
+	void TimeSheet::AddTime(int timeInHours)
+	{
+		if (timeInHours > 0 && timeInHours <= 10 && mCount < mMaxSize)
+		{
+			mHour[mCount++] = timeInHours;
+		}
+	}
 
-    int TimeSheet::GetTotalTime() const
-    {
-        int sum = 0;
-        for (unsigned int i = 0; i < mCount; i++)
-        {
-            sum += mHour[i];
-        }
-        return sum;
-    }
+	int TimeSheet::GetTimeEntry(unsigned int index) const
+	{
+		if (index >= 0 && index < mMaxSize)
+		{
+			return mHour[index];
+		}
+		else
+		{
+			return -1;
+		}
+	}
 
-    float TimeSheet::GetAverageTime() const
-    {
-        if (mMaxSize > 0)
-        {
-            return (float)GetTotalTime() / (float)mCount;
-        }
-        else
-        {
-            return 0;
-        }
-    }
+	int TimeSheet::GetTotalTime() const
+	{
+		int sum = 0;
+		for (unsigned int i = 0; i < mCount; i++)
+		{
+			sum += mHour[i];
+		}
+		return sum;
+	}
 
-    float TimeSheet::GetStandardDeviation() const
-    {
-        float avg = GetAverageTime();
-        if (avg != 0.0f)
-        {
-            float deviation = 0.0f;
+	float TimeSheet::GetAverageTime() const
+	{
+		if (mMaxSize > 0)
+		{
+			return (float)GetTotalTime() / (float)mCount;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 
-            for (unsigned int i = 0; i < mCount; i++)
-            {
-                deviation += powf((avg - mHour[i]), 2);
-            }
-            return sqrt(deviation / (float)mCount);
-        }
-        else
-        {
-            return 0.0f;
-        }
-    }
+	float TimeSheet::GetStandardDeviation() const
+	{
+		float avg = GetAverageTime();
+		if (avg != 0.0f)
+		{
+			float deviation = 0.0f;
 
-    const std::string& TimeSheet::GetName() const
-    {
-        return mName;
-    }
+			for (unsigned int i = 0; i < mCount; i++)
+			{
+				deviation += powf((avg - mHour[i]), 2);
+			}
+			return sqrt(deviation / (float)mCount);
+		}
+		else
+		{
+			return 0.0f;
+		}
+	}
 
-    TimeSheet& TimeSheet::operator=(const TimeSheet& rhs)
-    {
-        //만약 이상한거 대입했을때는?
+	const std::string& TimeSheet::GetName() const
+	{
+		return mName;
+	}
 
-        if (mHour != nullptr)
-        {
-            delete[] mHour;
-        }
-        mMaxSize = rhs.mMaxSize;
-        mName = rhs.mName;
-        mCount = rhs.mCount;
-        mHour = new int[mMaxSize];
+	TimeSheet& TimeSheet::operator=(const TimeSheet& rhs)
+	{
+		//만약 이상한거 대입했을때는?
 
-        for (unsigned int i = 0; i < mCount; i++)
-        {
-            mHour[i] = rhs.mHour[i];
-        }
+		if (rhs.mHour != nullptr)
+		{
+			if (mHour != nullptr)
+			{
+				delete[] mHour;
+			}
+			mMaxSize = rhs.mMaxSize;
+			mName = rhs.mName;
+			mCount = rhs.mCount;
+			mHour = new int[mMaxSize];
 
-        return *this;
-    }
+			for (unsigned int i = 0; i < mCount; i++)
+			{
+				mHour[i] = rhs.mHour[i];
+			}
+		}
+
+		return *this;
+	}
 }
