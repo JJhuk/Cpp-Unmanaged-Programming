@@ -27,7 +27,7 @@ namespace lab3
 
 	void TimeSheet::AddTime(int timeInHours)
 	{
-		if (timeInHours > 0 && timeInHours <= 10 && mCount < mMaxSize)
+		if (timeInHours > 0 && timeInHours <= 10 && mCount < (mMaxSize + 1))
 		{
 			mHour[mCount++] = timeInHours;
 		}
@@ -35,7 +35,7 @@ namespace lab3
 
 	int TimeSheet::GetTimeEntry(unsigned int index) const
 	{
-		if (index >= 0 && index < mMaxSize)
+		if (index >= 0 && index < mCount)
 		{
 			return mHour[index];
 		}
@@ -59,11 +59,11 @@ namespace lab3
 	{
 		if (mMaxSize > 0)
 		{
-			return (float)GetTotalTime() / (float)mCount;
+			return GetTotalTime() / mCount;
 		}
 		else
 		{
-			return 0;
+			return 0.0f;
 		}
 	}
 
@@ -78,7 +78,7 @@ namespace lab3
 			{
 				deviation += powf((avg - mHour[i]), 2);
 			}
-			return sqrt(deviation / (float)mCount);
+			return sqrt(deviation / mCount);
 		}
 		else
 		{
