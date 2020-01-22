@@ -27,9 +27,29 @@ namespace lab3
 
 	void TimeSheet::AddTime(int timeInHours)
 	{
-		if (timeInHours > 0 && timeInHours <= 10 && mCount < (mMaxSize + 1))
+		if (timeInHours > 0 && timeInHours <= 10)
 		{
-			mHour[mCount++] = timeInHours;
+			if (mCount > (mMaxSize + 1))	//새로 할당을 해야 함.
+			{
+				int* tempPtr = mHour;
+
+				mHour = nullptr;
+				mHour = new int[mMaxSize * 2];
+				mMaxSize *= 2;
+
+				for (unsigned int i = 0; i < mCount; i++)
+				{
+					mHour[i] = tempPtr[i];
+				}
+				tempPtr[mCount++] = timeInHours;
+
+				delete[] mHour;
+				tempPtr = nullptr;
+			}
+			else
+			{
+				mHour[mCount++] = timeInHours;
+			}
 		}
 	}
 
@@ -78,7 +98,7 @@ namespace lab3
 			{
 				deviation += powf((avg - mHour[i]), 2);
 			}
-			return sqrt(deviation / mCount);
+			return sqrt(deviation / float(mCount));
 		}
 		else
 		{
