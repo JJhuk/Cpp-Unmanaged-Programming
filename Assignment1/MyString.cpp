@@ -3,14 +3,14 @@ namespace assignment1
 {
 	MyString::MyString() : mSize(0), mChar(nullptr)
 	{
-		//std::cout << (int)mChar << "ìƒì„±í–ˆìŠµë‹ˆë‹¤." << std::endl;
+		//std::cout << (int)mChar << "»ý¼ºÇß½À´Ï´Ù." << std::endl;
 	}
 
 	MyString::MyString(const char* s)
 	{
 		if (s != nullptr)
 		{
-			mSize = Getcharsize(s); //ì‚¬ì´ì¦ˆ í¬ê¸° êµ¬í•˜ê¸°
+			mSize = getCharSize(s); //»çÀÌÁî Å©±â ±¸ÇÏ±â
 
 			mChar = new char[mSize + 1];
 
@@ -19,7 +19,7 @@ namespace assignment1
 				mChar[i] = s[i];
 			}
 			mChar[mSize] = '\0';
-			//std::cout << (int)mChar << "ìƒì„±í–ˆìŠµë‹ˆë‹¤." << std::endl;
+			//std::cout << (int)mChar << "»ý¼ºÇß½À´Ï´Ù." << std::endl;
 		}
 		else
 		{
@@ -36,12 +36,12 @@ namespace assignment1
 			mChar[i] = other.mChar[i];
 		}
 		mChar[mSize] = '\0';
-		//std::cout << (int)mChar << "ìƒì„±í–ˆìŠµë‹ˆë‹¤." << std::endl;
+		//std::cout << (int)mChar << "»ý¼ºÇß½À´Ï´Ù." << std::endl;
 	}
 
 	MyString::~MyString()
 	{
-		//std::cout << (int)mChar << "ì†Œë©¸í–ˆìŠµë‹ˆë‹¤" << std::endl;
+		//std::cout << (int)mChar << "¼Ò¸êÇß½À´Ï´Ù" << std::endl;
 		delete[] mChar;
 		mSize = 0;
 	}
@@ -60,7 +60,7 @@ namespace assignment1
 	{
 		if (s != nullptr && s != "")
 		{
-			const int NEW_SIZE = Getcharsize(s);
+			const int NEW_SIZE = getCharSize(s);
 			char* tempChar = mChar;
 
 			mChar = nullptr;
@@ -87,7 +87,7 @@ namespace assignment1
 	{
 		if (s != nullptr)
 		{
-			const int NEW_SIZE = Getcharsize(s);
+			const int NEW_SIZE = getCharSize(s);
 			char* tempChar = mChar;
 
 			mChar = nullptr;
@@ -95,7 +95,7 @@ namespace assignment1
 
 			for (int i = 0; i < NEW_SIZE; i++)
 			{
-				mChar[i] = s[i]; //ë³µì‚¬
+				mChar[i] = s[i]; //º¹»ç
 			}
 			for (int i = 0; i < mSize; i++)
 			{
@@ -143,7 +143,7 @@ namespace assignment1
 					if (mChar[i] == s[0])
 					{
 						bool bFind = true;
-						for (int j = 0; j < Getcharsize(s); j++)
+						for (int j = 0; j < getCharSize(s); j++)
 						{
 							if (mChar[i + j] != s[j])
 							{
@@ -183,7 +183,7 @@ namespace assignment1
 					if (mChar[i] == s[0])
 					{
 						bool bFind = true;
-						for (int j = 0; j < Getcharsize(s); j++)
+						for (int j = 0; j < getCharSize(s); j++)
 						{
 							if (mChar[i + j] != s[j])
 							{
@@ -210,7 +210,7 @@ namespace assignment1
 	{
 		if (s != nullptr && s != "")
 		{
-			const int NEW_SIZE = Getcharsize(s) + mSize;
+			const int NEW_SIZE = getCharSize(s) + mSize;
 			char* newChar = new char[NEW_SIZE + 1];
 
 			int idx = 0;
@@ -269,25 +269,25 @@ namespace assignment1
 
 	void MyString::PadLeft(unsigned int totalLength)
 	{
-		GetPadLeftString(totalLength, ' ');
+		getPadLeftString(totalLength, ' ');
 	}
 
 	void MyString::PadLeft(unsigned int totalLength, const char c)
 	{
-		GetPadLeftString(totalLength, c);
+		getPadLeftString(totalLength, c);
 	}
 
 	void MyString::PadRight(unsigned int totalLength)
 	{
-		GetPadRightString(totalLength, ' ');
+		getPadRightString(totalLength, ' ');
 	}
 
 	void MyString::PadRight(unsigned int totalLength, const char c)
 	{
-		GetPadRightString(totalLength, c);
+		getPadRightString(totalLength, c);
 	}
 
-	void MyString::GetPadRightString(unsigned int totalLength, const char c)
+	void MyString::getPadRightString(unsigned int totalLength, const char c)
 	{
 		if (totalLength > mSize)
 		{
@@ -303,7 +303,7 @@ namespace assignment1
 		}
 	}
 
-	void MyString::GetPadLeftString(unsigned int totalLength, const char c)
+	void MyString::getPadLeftString(unsigned int totalLength, const char c)
 	{
 		if (totalLength > mSize)
 		{
@@ -373,7 +373,7 @@ namespace assignment1
 	{
 		for (int i = 0; i < mSize; i++)
 		{
-			if (mChar[i] >= 'A' && mChar[i] <= 'Z') //ì†Œë¬¸ìžì´ë©´
+			if (mChar[i] >= 'A' && mChar[i] <= 'Z') //¼Ò¹®ÀÚÀÌ¸é
 			{
 				mChar[i] = (mChar[i] - 'A') + 'a';
 			}
@@ -384,13 +384,13 @@ namespace assignment1
 	{
 		for (int i = 0; i < mSize; i++)
 		{
-			if (mChar[i] >= 'a' && mChar[i] <= 'z') //ì†Œë¬¸ìžì´ë©´
+			if (mChar[i] >= 'a' && mChar[i] <= 'z') //¼Ò¹®ÀÚÀÌ¸é
 			{
 				mChar[i] = (mChar[i] - 'a') + 'A';
 			}
 		}
 	}
-	int MyString::Getcharsize(const char* s) const
+	int MyString::getCharSize(const char* s) const
 	{
 		int size = 0;
 		if (s != nullptr)

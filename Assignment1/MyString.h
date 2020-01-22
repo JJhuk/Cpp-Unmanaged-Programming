@@ -32,8 +32,8 @@ namespace assignment1
 	private:
 		char* mChar;
 		int mSize;
-		int Getcharsize(const char* s) const;
-		void GetPadRightString(unsigned int totalLength, const char c);
-		void GetPadLeftString(unsigned int totalLength, const char c);
+		int getCharSize(const char* s) const;
+		void getPadRightString(unsigned int totalLength, const char c);
+		void getPadLeftString(unsigned int totalLength, const char c);
 	};
 }

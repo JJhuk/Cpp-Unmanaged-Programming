@@ -11,5 +11,7 @@ int main()
 	MyString me("Hello1");
 	MyString me2("halo");
 	MyString me3 = me + me2;
+
+	system("pause");
 	return 0;
 }
