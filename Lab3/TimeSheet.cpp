@@ -29,13 +29,14 @@ namespace lab3
 	{
 		if (timeInHours > 0 && timeInHours <= 10)
 		{
-			if (mCount > (mMaxSize + 1))	//»õ·Î ÇÒ´çÀ» ÇØ¾ß ÇÔ.
+			if (mCount + 1 >= mMaxSize)	//ìƒˆë¡œ í• ë‹¹ì„ í•´ì•¼ í•¨.
 			{
 				int* tempPtr = mHour;
-
 				mHour = nullptr;
-				mHour = new int[mMaxSize * 2];
 				mMaxSize *= 2;
+
+				mHour = new int[mMaxSize];
+			
 
 				for (unsigned int i = 0; i < mCount; i++)
 				{
@@ -113,7 +114,7 @@ namespace lab3
 
 	TimeSheet& TimeSheet::operator=(const TimeSheet& rhs)
 	{
-		//¸¸¾à ÀÌ»óÇÑ°Å ´ëÀÔÇßÀ»¶§´Â?
+		//ë§Œì•½ ì´ìƒí•œê±° ëŒ€ì…í–ˆì„ë•ŒëŠ”?
 
 		if (rhs.mHour != nullptr)
 		{
