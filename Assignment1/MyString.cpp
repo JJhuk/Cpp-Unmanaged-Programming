@@ -1,17 +1,16 @@
 #include "MyString.h"
-#include <iostream>
 namespace assignment1
 {
-	MyString::MyString() :mSize(0), mChar(nullptr)
+	MyString::MyString() : mSize(0), mChar(nullptr)
 	{
-		//std::cout << (int)mChar << "»ý¼ºÇß½À´Ï´Ù." << std::endl;
+		//std::cout << (int)mChar << "ìƒì„±í–ˆìŠµë‹ˆë‹¤." << std::endl;
 	}
 
 	MyString::MyString(const char* s)
 	{
 		if (s != nullptr)
 		{
-			mSize = Getcharsize(s); //»çÀÌÁî Å©±â ±¸ÇÏ±â
+			mSize = Getcharsize(s); //ì‚¬ì´ì¦ˆ í¬ê¸° êµ¬í•˜ê¸°
 
 			mChar = new char[mSize + 1];
 
@@ -20,7 +19,7 @@ namespace assignment1
 				mChar[i] = s[i];
 			}
 			mChar[mSize] = '\0';
-			//std::cout << (int)mChar << "»ý¼ºÇß½À´Ï´Ù." << std::endl;
+			//std::cout << (int)mChar << "ìƒì„±í–ˆìŠµë‹ˆë‹¤." << std::endl;
 		}
 		else
 		{
@@ -37,12 +36,12 @@ namespace assignment1
 			mChar[i] = other.mChar[i];
 		}
 		mChar[mSize] = '\0';
-		//std::cout << (int)mChar << "»ý¼ºÇß½À´Ï´Ù." << std::endl;
+		//std::cout << (int)mChar << "ìƒì„±í–ˆìŠµë‹ˆë‹¤." << std::endl;
 	}
 
 	MyString::~MyString()
 	{
-		//std::cout << (int)mChar << "¼Ò¸êÇß½À´Ï´Ù" << std::endl;
+		//std::cout << (int)mChar << "ì†Œë©¸í–ˆìŠµë‹ˆë‹¤" << std::endl;
 		delete[] mChar;
 		mSize = 0;
 	}
@@ -96,7 +95,7 @@ namespace assignment1
 
 			for (int i = 0; i < NEW_SIZE; i++)
 			{
-				mChar[i] = s[i]; //º¹»ç
+				mChar[i] = s[i]; //ë³µì‚¬
 			}
 			for (int i = 0; i < mSize; i++)
 			{
@@ -374,7 +373,7 @@ namespace assignment1
 	{
 		for (int i = 0; i < mSize; i++)
 		{
-			if (mChar[i] >= 'A' && mChar[i] <= 'Z') //¼Ò¹®ÀÚÀÌ¸é
+			if (mChar[i] >= 'A' && mChar[i] <= 'Z') //ì†Œë¬¸ìžì´ë©´
 			{
 				mChar[i] = (mChar[i] - 'A') + 'a';
 			}
@@ -385,7 +384,7 @@ namespace assignment1
 	{
 		for (int i = 0; i < mSize; i++)
 		{
-			if (mChar[i] >= 'a' && mChar[i] <= 'z') //¼Ò¹®ÀÚÀÌ¸é
+			if (mChar[i] >= 'a' && mChar[i] <= 'z') //ì†Œë¬¸ìžì´ë©´
 			{
 				mChar[i] = (mChar[i] - 'a') + 'A';
 			}
