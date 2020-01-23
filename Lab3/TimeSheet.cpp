@@ -9,7 +9,7 @@ namespace lab3
 		mHour = new int[maxEntries];
 	}
 
-	TimeSheet::TimeSheet(const TimeSheet& other) : mName(other.mName), mMaxSize(other.mMaxSize), mCount(0)
+	TimeSheet::TimeSheet(const TimeSheet& other) : mName(other.mName), mMaxSize(other.mMaxSize), mCount(other.mCount)
 	{
 		mHour = new int[mMaxSize];
 		for (unsigned int i = 0; i < mMaxSize; i++)
@@ -29,20 +29,10 @@ namespace lab3
 	{
 		if (timeInHours > 0 && timeInHours <= 10)
 		{
-			if (mCount == mMaxSize)	//새로 할당을 해야 함.
+			if (mCount < mMaxSize)	//새로 할당을 해야 함.
 			{
-				int* tempPtr = mHour;
-				mHour = nullptr;
-				mMaxSize *= 2;
-				mHour = new int[mMaxSize];
-				for (unsigned int i = 0; i < mCount; i++)
-				{
-					mHour[i] = tempPtr[i];
-				}
-				delete[] tempPtr;
-				tempPtr = nullptr;
+				mHour[mCount++] = timeInHours;	//추가
 			}
-			mHour[mCount++] = timeInHours;	//추가
 		}
 	}
 

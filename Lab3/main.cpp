@@ -38,7 +38,7 @@ void test()
 	std::cout << employee2.GetAverageTime() << std::endl;        // 5.66667
 
 	lab3::TimeSheet pope(employee2);
-
+	std::cout << pope.GetTotalTime() << std::endl;
 	pope.AddTime(5);    // ok
 	pope.AddTime(1);    // ok
 	pope.AddTime(2);    // ok
@@ -50,6 +50,10 @@ void test()
 
 	lab3::TimeSheet hulk("HULK", 10);
 	std::cout << hulk.GetStandardDeviation() << std::endl;//0.0
+	lab3::TimeSheet hi("Juhyuk", 1);
+	hi.AddTime(3);
+	hi.AddTime(4);
+	std::cout << hi.GetTotalTime() << std::endl;
 }
 
 
