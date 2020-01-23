@@ -29,35 +29,20 @@ namespace lab3
 	{
 		if (timeInHours > 0 && timeInHours <= 10)
 		{
-			if (mCount + 1 >= mMaxSize)	//새로 할당을 해야 함.
-			{
-				int* tempPtr = mHour;	//원래 있는걸 백업
-
-				mHour = nullptr;	//기존의 것은 새로
-				mHour = new int[mMaxSize * 2];
-			}
-			if (mCount + 1 >= mMaxSize)
+			if ((mCount + 1) >= mMaxSize)	//새로 할당을 해야 함.
 			{
 				int* tempPtr = mHour;
 				mHour = nullptr;
 				mMaxSize *= 2;
-
 				mHour = new int[mMaxSize];
-
-
 				for (unsigned int i = 0; i < mCount; i++)
 				{
-					mHour[i] = tempPtr[i];	//백업한걸 복사
-				}
-				tempPtr[mCount++] = timeInHours;	//추가
-
+					mHour[i] = tempPtr[i];
+				}			
 				delete[] tempPtr;
 				tempPtr = nullptr;
 			}
-			else
-			{
-				mHour[mCount++] = timeInHours;
-			}
+			mHour[mCount++] = timeInHours;	//추가
 		}
 	}
 
@@ -87,7 +72,7 @@ namespace lab3
 	{
 		if (mCount > 0)
 		{
-			return GetTotalTime() / mCount;
+			return GetTotalTime() / static_cast<float>(mCount);
 		}
 		else
 		{
