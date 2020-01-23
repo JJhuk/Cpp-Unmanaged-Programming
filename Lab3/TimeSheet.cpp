@@ -35,7 +35,15 @@ namespace lab3
 
 				mHour = nullptr;	//기존의 것은 새로
 				mHour = new int[mMaxSize * 2];
+			}
+			if (mCount + 1 >= mMaxSize)
+			{
+				int* tempPtr = mHour;
+				mHour = nullptr;
 				mMaxSize *= 2;
+
+				mHour = new int[mMaxSize];
+
 
 				for (unsigned int i = 0; i < mCount; i++)
 				{
@@ -113,7 +121,6 @@ namespace lab3
 
 	TimeSheet& TimeSheet::operator=(const TimeSheet& rhs)
 	{
-		//만약 이상한거 대입했을때는?
 
 		if (rhs.mHour != nullptr)
 		{
