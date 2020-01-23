@@ -29,7 +29,7 @@ namespace lab3
 	{
 		if (timeInHours > 0 && timeInHours <= 10)
 		{
-			if ((mCount + 1) >= mMaxSize)	//새로 할당을 해야 함.
+			if (mCount == mMaxSize)	//새로 할당을 해야 함.
 			{
 				int* tempPtr = mHour;
 				mHour = nullptr;
