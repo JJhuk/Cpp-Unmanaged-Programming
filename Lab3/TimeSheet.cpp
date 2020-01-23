@@ -38,7 +38,7 @@ namespace lab3
 				for (unsigned int i = 0; i < mCount; i++)
 				{
 					mHour[i] = tempPtr[i];
-				}			
+				}
 				delete[] tempPtr;
 				tempPtr = nullptr;
 			}
