@@ -96,8 +96,7 @@ namespace lab3
 
 	TimeSheet& TimeSheet::operator=(const TimeSheet& rhs)
 	{
-
-		if (rhs.mHour != nullptr)
+		if (mHour != rhs.mHour)
 		{
 			if (mHour != nullptr)
 			{
@@ -113,7 +112,6 @@ namespace lab3
 				mHour[i] = rhs.mHour[i];
 			}
 		}
-
 		return *this;
 	}
 }
