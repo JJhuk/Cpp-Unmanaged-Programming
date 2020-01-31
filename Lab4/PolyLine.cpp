@@ -89,7 +89,7 @@ namespace lab4
 			}
 			for (unsigned int k = i + 1; k < mSize; k++)
 			{
-				tempPoints[k-1] = mPoints[k];
+				tempPoints[k - 1] = mPoints[k];
 			}
 			mSize--;
 			return true;
@@ -100,7 +100,7 @@ namespace lab4
 		}
 	}
 
-	
+
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
 		if (mSize >= 3)	//무조껀 3개이상이어야 함.
