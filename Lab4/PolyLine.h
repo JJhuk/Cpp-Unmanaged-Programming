@@ -18,10 +18,18 @@ namespace lab4
 
 		const Point* operator[](unsigned int i) const;
 		PolyLine& operator=(const PolyLine& other);
+		void GetMaxMinXY();
+		void RenewMaxMinXY(float x, float y);
+		void InitMaxMinXY();
 	private:
 		Point* mPoints[10];
 		int mPointsMaxSize;
 		unsigned int mSize;
+
+		float mMaxX;
+		float mMaxY;
+		float mMinX;
+		float mMinY;
 	};
 
 }

@@ -1,5 +1,6 @@
 #include <cstring>
 #include <cmath>
+#include <cfloat>
 #include "PolyLine.h"
 
 namespace lab4
@@ -10,6 +11,7 @@ namespace lab4
 		{
 			mPoints[i] = nullptr;
 		}
+		InitMaxMinXY();
 	}
 
 	PolyLine::PolyLine(const PolyLine& other) : mPointsMaxSize(other.mPointsMaxSize), mSize(other.mSize)
@@ -21,6 +23,11 @@ namespace lab4
 				mPoints[i] = other.mPoints[i];
 			}
 			mSize = other.mSize;
+
+			mMaxX = other.mMaxX;
+			mMinY = other.mMinY;
+			mMinX = other.mMinX;
+			mMaxY = other.mMaxY;
 		}
 		else
 		{
@@ -28,6 +35,7 @@ namespace lab4
 			{
 				mPoints[i] = nullptr;
 			}
+			InitMaxMinXY();
 		}
 	}
 
@@ -43,6 +51,7 @@ namespace lab4
 		if (mSize >= 0 && mSize < 10)
 		{
 			mPoints[mSize++] = new Point(x, y);
+			RenewMaxMinXY(x, y);
 			return true;
 		}
 		else
@@ -56,6 +65,7 @@ namespace lab4
 		if (mSize >= 0 && mSize < 10)
 		{
 			mPoints[mSize++] = const_cast<Point*>(point);
+			RenewMaxMinXY(point->GetX(), point->GetY());
 			return true;
 		}
 		else
@@ -90,9 +100,21 @@ namespace lab4
 		}
 	}
 
+	
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
-		return false;
+		if (mSize >= 3)	//무조껀 3개이상이어야 함.
+		{
+			outMin->SetX(mMinX);
+			outMin->SetY(mMinY);
+			outMax->SetX(mMaxX);
+			outMax->SetY(mMaxY);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	const Point* PolyLine::operator[](unsigned int i) const
@@ -122,5 +144,29 @@ namespace lab4
 		}
 
 		return *this;
+	}
+	void PolyLine::GetMaxMinXY()
+	{
+		for (unsigned int i = 0; i < mSize; i++)
+		{
+			mMaxX = mPoints[i]->GetX() > mMaxX ? mPoints[i]->GetX() : mMaxX;
+			mMaxY = mPoints[i]->GetY() > mMaxY ? mPoints[i]->GetY() : mMaxY;
+			mMinX = mPoints[i]->GetX() < mMinX ? mPoints[i]->GetX() : mMinX;
+			mMinY = mPoints[i]->GetX() < mMinY ? mPoints[i]->GetY() : mMinY;
+		}
+	}
+	void PolyLine::RenewMaxMinXY(float x, float y)
+	{
+		mMaxX = x > mMaxX ? x : mMaxX;
+		mMaxY = y > mMaxY ? y : mMaxY;
+		mMinX = x < mMinX ? x : mMinX;
+		mMinY = y < mMinY ? y : mMinY;
+	}
+	void PolyLine::InitMaxMinXY()
+	{
+		mMaxX = -FLT_MAX;
+		mMaxY = -FLT_MAX;
+		mMinX = FLT_MAX;
+		mMinY = FLT_MAX;
 	}
 }

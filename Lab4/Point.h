@@ -16,7 +16,8 @@ namespace lab4
 		float Dot(const Point& other) const;
 
 		
-
+		void SetX(float x);
+		void SetY(float y);
 		float GetX() const;
 		float GetY() const;
 	private:

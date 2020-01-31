@@ -46,7 +46,15 @@ namespace lab4
 		return Point(rhs.GetX() * operand, rhs.GetY() * operand);
 	}
 
+	void Point::SetX(float x)
+	{
+		mX = x;
+	}
 
+	void Point::SetY(float y)
+	{
+		mY = y;
+	}
 	float Point::GetX() const
 	{
 		return mX;
