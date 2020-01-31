@@ -14,6 +14,13 @@ namespace lab4
 	{
 	}
 
+	Point& Point::operator=(const Point& other)
+	{
+		mX = other.mX;
+		mY = other.mY;
+		return *this;
+	}
+
 	Point Point::operator+(const Point& other) const
 	{
 		return Point(mX + other.GetX(), mY + other.GetY());
@@ -32,6 +39,11 @@ namespace lab4
 	Point Point::operator*(float operand) const
 	{
 		return Point(mX * operand, mY * operand);
+	}
+
+	Point operator*(float operand, const Point& rhs)
+	{
+		return Point(rhs.GetX() * operand, rhs.GetY() * operand);
 	}
 
 

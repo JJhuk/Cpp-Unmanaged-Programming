@@ -69,6 +69,10 @@ namespace lab4
 		if (i >= 0 && i < mSize && mSize > 0)
 		{
 			Point* tempPoints[10];
+			for (unsigned int j = 0; j < mPointsMaxSize; j++)
+			{
+				tempPoints[j] = nullptr;
+			}
 			for (unsigned int j = 0; j < i; j++)
 			{
 				tempPoints[j] = mPoints[j];
@@ -77,11 +81,6 @@ namespace lab4
 			{
 				tempPoints[k-1] = mPoints[k];
 			}
-			tempPoints[10 - 1] = nullptr;
-
-			delete[] mPoints;
-			memcpy(mPoints, tempPoints,sizeof(tempPoints));
-			delete[] tempPoints;
 			mSize--;
 			return true;
 		}
@@ -103,5 +102,25 @@ namespace lab4
 			return mPoints[i];
 		}
 		return nullptr;
+	}
+	PolyLine& PolyLine::operator=(const PolyLine& other)
+	{
+		if (other.mSize > 0)
+		{
+			for (unsigned int i = 0; i < other.mSize; i++)
+			{
+				mPoints[i] = other.mPoints[i];
+			}
+			mSize = other.mSize;
+		}
+		else
+		{
+			for (unsigned int i = 0; i < mPointsMaxSize; i++)
+			{
+				mPoints[i] = nullptr;
+			}
+		}
+
+		return *this;
 	}
 }
