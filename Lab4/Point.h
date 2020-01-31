@@ -6,6 +6,7 @@ namespace lab4
 	{
 	public:
 		Point(float x, float y);
+		Point();
 		~Point();
 
 		Point operator+(const Point& other) const;
@@ -13,7 +14,11 @@ namespace lab4
 		float Dot(const Point& other) const;
 		Point operator*(float operand) const;
 
+
 		float GetX() const;
 		float GetY() const;
+	private:
+		float mX;
+		float mY;
 	};
 }

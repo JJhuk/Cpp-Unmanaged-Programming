@@ -4,7 +4,7 @@
 
 namespace lab4
 {
-	class PolyLine
+	class PolyLine : public Point
 	{
 	public:
 		PolyLine();
@@ -17,5 +17,11 @@ namespace lab4
 		bool TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const;
 
 		const Point* operator[](unsigned int i) const;
+
+	private:
+		Point* mPoints[10];
+		int mPointsMaxSize;
+		unsigned int mSize;
 	};
+
 }
