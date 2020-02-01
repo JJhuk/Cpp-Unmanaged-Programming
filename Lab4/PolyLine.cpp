@@ -124,29 +124,33 @@ namespace lab4
 		}
 		return nullptr;
 	}
+
 	PolyLine& PolyLine::operator=(const PolyLine& other)
 	{
-		for (unsigned int i = 0; i < mPointsMaxSize; i++)
+		if (mPoints != other.mPoints)
 		{
-			delete mPoints[i];
-		}
+			for (unsigned int i = 0; i < mPointsMaxSize; i++)
+			{
+				delete mPoints[i];
+			}
 
-		for (unsigned int i = 0; i < mPointsMaxSize; i++)
-		{
-			if (other.mPoints[i] != nullptr)
+			for (unsigned int i = 0; i < mPointsMaxSize; i++)
 			{
-				mPoints[i] = new Point(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
+				if (other.mPoints[i] != nullptr)
+				{
+					mPoints[i] = new Point(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
+				}
+				else
+				{
+					mPoints[i] = nullptr;
+				}
 			}
-			else
-			{
-				mPoints[i] = nullptr;
-			}
+			mSize = other.mSize;
+			mMaxX = other.mMaxX;
+			mMinY = other.mMinY;
+			mMinX = other.mMinX;
+			mMaxY = other.mMaxY;
 		}
-		mSize = other.mSize;
-		mMaxX = other.mMaxX;
-		mMinY = other.mMinY;
-		mMinX = other.mMinX;
-		mMaxY = other.mMaxY;
 		return *this;
 	}
 	void PolyLine::GetMaxMinXY()
