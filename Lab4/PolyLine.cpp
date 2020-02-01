@@ -128,6 +128,11 @@ namespace lab4
 	{
 		for (unsigned int i = 0; i < mPointsMaxSize; i++)
 		{
+			delete mPoints[i];
+		}
+
+		for (unsigned int i = 0; i < mPointsMaxSize; i++)
+		{
 			if (other.mPoints[i] != nullptr)
 			{
 				mPoints[i] = new Point(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
