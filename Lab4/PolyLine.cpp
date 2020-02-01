@@ -41,8 +41,10 @@ namespace lab4
 
 	PolyLine::~PolyLine()
 	{
-		mPointsMaxSize = 0;
-		mSize = 0;
+		for (unsigned int i = 0; i < mSize; i++)
+		{
+			delete mPoints[i];
+		}
 	}
 
 	bool PolyLine::AddPoint(float x, float y)
@@ -63,7 +65,7 @@ namespace lab4
 	{
 		if (mSize >= 0 && mSize < 10)
 		{
-			mPoints[mSize++] = const_cast<Point*>(point);
+			mPoints[mSize++] = point;
 			RenewMaxMinXY(point->GetX(), point->GetY());
 			return true;
 		}
@@ -77,7 +79,8 @@ namespace lab4
 	{
 		if (i >= 0 && i < mSize && mSize > 0)
 		{
-			Point* tempPoints[10];
+			delete mPoints[i];
+			const Point* tempPoints[10];
 			for (unsigned int j = 0; j < mPointsMaxSize; j++)
 			{
 				tempPoints[j] = nullptr;

@@ -22,8 +22,8 @@ namespace lab4
 		void RenewMaxMinXY(float x, float y);
 		void InitMaxMinXY();
 	private:
-		Point* mPoints[10];
-		int mPointsMaxSize;
+		const Point* mPoints[10];
+		const int mPointsMaxSize;
 		unsigned int mSize;
 
 		float mMaxX;
