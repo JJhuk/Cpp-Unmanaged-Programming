@@ -102,14 +102,21 @@ namespace lab4
 
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
-		float rectangleArea = abs(mMinX - mMaxX) * abs(mMaxY - mMinY);
-		if (rectangleArea != 0)
+		if (mSize >= 2)
 		{
-			outMin->SetX(mMinX);
-			outMin->SetY(mMinY);
-			outMax->SetX(mMaxX);
-			outMax->SetY(mMaxY);
-			return true;
+			float rectangleArea = abs(mMinX - mMaxX) * abs(mMaxY - mMinY);
+			if (rectangleArea != 0.0f)
+			{
+				outMin->SetX(mMinX);
+				outMin->SetY(mMinY);
+				outMax->SetX(mMaxX);
+				outMax->SetY(mMaxY);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
