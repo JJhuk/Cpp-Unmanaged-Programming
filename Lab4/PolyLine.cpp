@@ -18,12 +18,11 @@ namespace lab4
 	{
 		if (other.mSize > 0)
 		{
-			for (unsigned int i = 0; i < other.mSize; i++)
+			for (unsigned int i = 0; i < mPointsMaxSize; i++)
 			{
 				mPoints[i] = other.mPoints[i];
 			}
 			mSize = other.mSize;
-
 			mMaxX = other.mMaxX;
 			mMinY = other.mMinY;
 			mMinX = other.mMinX;
@@ -110,11 +109,18 @@ namespace lab4
 	{
 		if (mSize >= 3)	//무조껀 3개이상이어야 함.
 		{
-			outMin->SetX(mMinX);
-			outMin->SetY(mMinY);
-			outMax->SetX(mMaxX);
-			outMax->SetY(mMaxY);
-			return true;
+			if (mMinX - mMaxX != 0 && mMinY - mMaxY != 0)
+			{
+				outMin->SetX(mMinX);
+				outMin->SetY(mMinY);
+				outMax->SetX(mMaxX);
+				outMax->SetY(mMaxY);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
@@ -134,7 +140,7 @@ namespace lab4
 	{
 		if (other.mSize > 0)
 		{
-			for (unsigned int i = 0; i < other.mSize; i++)
+			for (unsigned int i = 0; i < mPointsMaxSize; i++)
 			{
 				mPoints[i] = other.mPoints[i];
 			}
