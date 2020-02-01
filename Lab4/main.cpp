@@ -41,7 +41,7 @@ int main()
 	pl1.AddPoint(3.5f, 2.1f);
 	pl1.AddPoint(5.5f, 5.9f);
 	pl1.AddPoint(-2.2f, 4.0f);
-	pl1.AddPoint(4.6f, -1.3f);
+	pl1.AddPoint(4.6f, -1.3f); //
 	pl1.AddPoint(6.0f, 4.5f);
 
 	bool bRemoved = pl1.RemovePoint(4);

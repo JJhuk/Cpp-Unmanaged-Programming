@@ -41,7 +41,6 @@ namespace lab4
 
 	PolyLine::~PolyLine()
 	{
-		delete[] mPoints;
 		mPointsMaxSize = 0;
 		mSize = 0;
 	}
@@ -91,7 +90,10 @@ namespace lab4
 			{
 				tempPoints[k - 1] = mPoints[k];
 			}
+			memcpy(mPoints, tempPoints, sizeof(tempPoints));
 			mSize--;
+			InitMaxMinXY();
+			GetMaxMinXY();
 			return true;
 		}
 		else
@@ -152,7 +154,7 @@ namespace lab4
 			mMaxX = mPoints[i]->GetX() > mMaxX ? mPoints[i]->GetX() : mMaxX;
 			mMaxY = mPoints[i]->GetY() > mMaxY ? mPoints[i]->GetY() : mMaxY;
 			mMinX = mPoints[i]->GetX() < mMinX ? mPoints[i]->GetX() : mMinX;
-			mMinY = mPoints[i]->GetX() < mMinY ? mPoints[i]->GetY() : mMinY;
+			mMinY = mPoints[i]->GetY() < mMinY ? mPoints[i]->GetY() : mMinY;
 		}
 	}
 	void PolyLine::RenewMaxMinXY(float x, float y)
