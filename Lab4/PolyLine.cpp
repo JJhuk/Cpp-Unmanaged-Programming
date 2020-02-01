@@ -45,7 +45,8 @@ namespace lab4
 	{
 		if (mSize >= 0 && mSize < 10)
 		{
-			mPoints[mSize++] = new Point(x, y);
+			mPoints[mSize] = new Point(x, y);
+			mSize++;
 			RenewMaxMinXY(x, y);
 			return true;
 		}
@@ -59,7 +60,8 @@ namespace lab4
 	{
 		if (mSize >= 0 && mSize < 10)
 		{
-			mPoints[mSize++] = point;
+			mPoints[mSize] = point;
+			mSize++;
 			RenewMaxMinXY(point->GetX(), point->GetY());
 			return true;
 		}
@@ -74,7 +76,7 @@ namespace lab4
 		if (i >= 0 && i < mSize && mSize > 0)
 		{
 			delete mPoints[i];
-			const Point* tempPoints[10];
+			const Point* tempPoints[10] = { nullptr };
 			for (unsigned int j = 0; j < mPointsMaxSize; j++)
 			{
 				tempPoints[j] = nullptr;
@@ -127,7 +129,7 @@ namespace lab4
 
 	PolyLine& PolyLine::operator=(const PolyLine& other)
 	{
-		if (mPoints != other.mPoints)
+		if (&mPoints != &other.mPoints)
 		{
 			for (unsigned int i = 0; i < mPointsMaxSize; i++)
 			{

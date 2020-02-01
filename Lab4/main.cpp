@@ -1,10 +1,10 @@
 #include <cassert>
-
+#include <iostream>
 #include "Point.h"
 #include "PolyLine.h"
 
 using namespace lab4;
-
+using namespace std;
 int main()
 {
 	Point p1(2.f, 3.f);
@@ -57,6 +57,11 @@ int main()
 	assert(minP.GetY() == 2.1f);
 	assert(maxP.GetX() == 6.0f);
 	assert(maxP.GetY() == 5.9f);
+
+	int a = 0;
+	int* b = &a;
+
+	std::cout << reinterpret_cast<int>(b) << endl;
 
 	return 0;
 }
