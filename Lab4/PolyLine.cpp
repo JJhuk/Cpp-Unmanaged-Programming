@@ -16,31 +16,7 @@ namespace lab4
 
 	PolyLine::PolyLine(const PolyLine& other) : mPointsMaxSize(other.mPointsMaxSize), mSize(other.mSize)
 	{
-		/*if (other.mSize > 0)
-		{
-			for (unsigned int i = 0; i < mPointsMaxSize; i++)
-			{
-				mPoints[i] = other.mPoints[i];
-			}
-			mSize = other.mSize;
-			mMaxX = other.mMaxX;
-			mMinY = other.mMinY;
-			mMinX = other.mMinX;
-			mMaxY = other.mMaxY;
-		}
-		else
-		{
-			for (unsigned int i = 0; i < mPointsMaxSize; i++)
-			{
-				mPoints[i] = nullptr;
-			}
-			InitMaxMinXY();
-		}*/
-
-		for (unsigned int i = 0; i < mPointsMaxSize; i++)
-		{
-			mPoints[i] = other.mPoints[i];
-		}
+		memcpy(mPoints, other.mPoints, sizeof(mPoints));
 
 		mMaxX = other.mMaxX;
 		mMinY = other.mMinY;
@@ -164,11 +140,8 @@ namespace lab4
 				mPoints[i] = nullptr;
 			}
 		}*/
-		for (unsigned int i = 0; i < mPointsMaxSize; i++)
-		{
-			mPoints[i] = other.mPoints[i];
-		}
-		mSize = other.mSize;
+		memcpy(mPoints, other.mPoints, sizeof(mPoints));
+
 		mMaxX = other.mMaxX;
 		mMinY = other.mMinY;
 		mMinX = other.mMinX;
