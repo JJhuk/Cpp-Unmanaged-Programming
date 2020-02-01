@@ -102,21 +102,14 @@ namespace lab4
 
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
-		if (mSize >= 3)	//무조껀 3개이상이어야 함. 필요없을 수도 있음.
+		float rectangleArea = abs(mMinX - mMaxX) * abs(mMaxY - mMinY);
+		if (rectangleArea != 0)
 		{
-			float rectangleArea = abs(mMinX - mMaxX) * abs(mMaxY - mMinY);
-			if (rectangleArea != 0)
-			{
-				outMin->SetX(mMinX);
-				outMin->SetY(mMinY);
-				outMax->SetX(mMaxX);
-				outMax->SetY(mMaxY);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			outMin->SetX(mMinX);
+			outMin->SetY(mMinY);
+			outMax->SetX(mMaxX);
+			outMax->SetY(mMaxY);
+			return true;
 		}
 		else
 		{
@@ -134,21 +127,6 @@ namespace lab4
 	}
 	PolyLine& PolyLine::operator=(const PolyLine& other)
 	{
-		/*if (other.mSize > 0)
-		{
-			for (unsigned int i = 0; i < mPointsMaxSize; i++)
-			{
-				mPoints[i] = other.mPoints[i];
-			}
-			mSize = other.mSize;
-		}
-		else
-		{
-			for (unsigned int i = 0; i < mPointsMaxSize; i++)
-			{
-				mPoints[i] = nullptr;
-			}
-		}*/
 		for (unsigned int i = 0; i < mPointsMaxSize; i++)
 		{
 			if (other.mPoints[i] != nullptr)
