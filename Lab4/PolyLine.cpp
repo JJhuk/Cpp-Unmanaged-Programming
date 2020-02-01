@@ -20,7 +20,7 @@ namespace lab4
 		{
 			if (other.mPoints[i] != nullptr)
 			{
-				mPoints[i] = new Point(*other.mPoints[i]);
+				mPoints[i] = new Point(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
 			}
 			else
 			{
@@ -130,7 +130,7 @@ namespace lab4
 		{
 			if (other.mPoints[i] != nullptr)
 			{
-				mPoints[i] = new Point(*other.mPoints[i]);
+				mPoints[i] = new Point(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
 			}
 			else
 			{
