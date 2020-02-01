@@ -104,20 +104,11 @@ namespace lab4
 	{
 		if (mSize >= 2)
 		{
-			float width = mMaxX - mMinX;
-			float height = mMaxY - mMinY;
-			if (width != 0.0f && height != 0.0f)
-			{
-				outMin->SetX(mMinX);
-				outMin->SetY(mMinY);
-				outMax->SetX(mMaxX);
-				outMax->SetY(mMaxY);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			outMin->SetX(mMinX);
+			outMin->SetY(mMinY);
+			outMax->SetX(mMaxX);
+			outMax->SetY(mMaxY);
+			return true;
 		}
 		else
 		{
