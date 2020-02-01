@@ -104,8 +104,9 @@ namespace lab4
 	{
 		if (mSize >= 2)
 		{
-			float rectangleArea = (abs(mMaxX) - abs(mMinX)) * (abs(mMaxY) - abs(mMinY));
-			if (rectangleArea != 0.0f)
+			float width = mMaxX - mMinX;
+			float height = mMaxY - mMinY;
+			if (width != 0.0f && height != 0.0f)
 			{
 				outMin->SetX(mMinX);
 				outMin->SetY(mMinY);
