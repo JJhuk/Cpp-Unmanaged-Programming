@@ -16,7 +16,7 @@ namespace lab4
 
 	PolyLine::PolyLine(const PolyLine& other) : mPointsMaxSize(other.mPointsMaxSize), mSize(other.mSize)
 	{
-		if (other.mSize > 0)
+		/*if (other.mSize > 0)
 		{
 			for (unsigned int i = 0; i < mPointsMaxSize; i++)
 			{
@@ -35,7 +35,17 @@ namespace lab4
 				mPoints[i] = nullptr;
 			}
 			InitMaxMinXY();
+		}*/
+
+		for (unsigned int i = 0; i < mPointsMaxSize; i++)
+		{
+			mPoints[i] = other.mPoints[i];
 		}
+
+		mMaxX = other.mMaxX;
+		mMinY = other.mMinY;
+		mMinX = other.mMinX;
+		mMaxY = other.mMaxY;
 	}
 
 	PolyLine::~PolyLine()
@@ -107,9 +117,10 @@ namespace lab4
 
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
-		if (mSize >= 3)	//무조껀 3개이상이어야 함.
+		if (mSize >= 3)	//무조껀 3개이상이어야 함. 필요없을 수도 있음.
 		{
-			if (mMinX - mMaxX != 0 && mMinY - mMaxY != 0)
+			float rectangleArea = abs(mMinX - mMaxX) * abs(mMaxY - mMinY);
+			if (rectangleArea != 0)
 			{
 				outMin->SetX(mMinX);
 				outMin->SetY(mMinY);
@@ -138,7 +149,7 @@ namespace lab4
 	}
 	PolyLine& PolyLine::operator=(const PolyLine& other)
 	{
-		if (other.mSize > 0)
+		/*if (other.mSize > 0)
 		{
 			for (unsigned int i = 0; i < mPointsMaxSize; i++)
 			{
@@ -152,8 +163,16 @@ namespace lab4
 			{
 				mPoints[i] = nullptr;
 			}
+		}*/
+		for (unsigned int i = 0; i < mPointsMaxSize; i++)
+		{
+			mPoints[i] = other.mPoints[i];
 		}
-
+		mSize = other.mSize;
+		mMaxX = other.mMaxX;
+		mMinY = other.mMinY;
+		mMinX = other.mMinX;
+		mMaxY = other.mMaxY;
 		return *this;
 	}
 	void PolyLine::GetMaxMinXY()

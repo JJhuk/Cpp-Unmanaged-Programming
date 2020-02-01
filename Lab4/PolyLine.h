@@ -23,7 +23,7 @@ namespace lab4
 		void InitMaxMinXY();
 	private:
 		const Point* mPoints[10];
-		const int mPointsMaxSize;
+		const unsigned int mPointsMaxSize;
 		unsigned int mSize;
 
 		float mMaxX;
