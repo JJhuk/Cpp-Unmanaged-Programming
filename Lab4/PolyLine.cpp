@@ -102,7 +102,7 @@ namespace lab4
 
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
-		if (mSize >= 2)
+		if (mSize > 0)
 		{
 			outMin->SetX(mMinX);
 			outMin->SetY(mMinY);
