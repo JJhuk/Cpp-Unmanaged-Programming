@@ -20,7 +20,7 @@ namespace lab4
 		{
 			if (other.mPoints[i] != nullptr)
 			{
-				mPoints[i] = new Point(*other.mPoints[i]);
+				mPoints[i] = new Point(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
 			}
 			else
 			{
@@ -45,7 +45,8 @@ namespace lab4
 	{
 		if (mSize >= 0 && mSize < 10)
 		{
-			mPoints[mSize++] = new Point(x, y);
+			mPoints[mSize] = new Point(x, y);
+			mSize++;
 			RenewMaxMinXY(x, y);
 			return true;
 		}
@@ -59,7 +60,8 @@ namespace lab4
 	{
 		if (mSize >= 0 && mSize < 10)
 		{
-			mPoints[mSize++] = point;
+			mPoints[mSize] = point;
+			mSize++;
 			RenewMaxMinXY(point->GetX(), point->GetY());
 			return true;
 		}
@@ -74,7 +76,7 @@ namespace lab4
 		if (i >= 0 && i < mSize && mSize > 0)
 		{
 			delete mPoints[i];
-			const Point* tempPoints[10];
+			const Point* tempPoints[10] = { nullptr };
 			for (unsigned int j = 0; j < mPointsMaxSize; j++)
 			{
 				tempPoints[j] = nullptr;
@@ -102,22 +104,13 @@ namespace lab4
 
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
-		if (mSize >= 2)
+		if (mSize > 0)
 		{
-			float width = mMaxX - mMinX;
-			float height = mMaxY - mMinY;
-			if (width != 0.0f && height != 0.0f)
-			{
-				outMin->SetX(mMinX);
-				outMin->SetY(mMinY);
-				outMax->SetX(mMaxX);
-				outMax->SetY(mMaxY);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			outMin->SetX(mMinX);
+			outMin->SetY(mMinY);
+			outMax->SetX(mMaxX);
+			outMax->SetY(mMaxY);
+			return true;
 		}
 		else
 		{
@@ -133,24 +126,33 @@ namespace lab4
 		}
 		return nullptr;
 	}
+
 	PolyLine& PolyLine::operator=(const PolyLine& other)
 	{
-		for (unsigned int i = 0; i < mPointsMaxSize; i++)
+		if (&mPoints != &other.mPoints)
 		{
-			if (other.mPoints[i] != nullptr)
+			for (unsigned int i = 0; i < mPointsMaxSize; i++)
 			{
-				mPoints[i] = new Point(*other.mPoints[i]);
+				delete mPoints[i];
 			}
-			else
+
+			for (unsigned int i = 0; i < mPointsMaxSize; i++)
 			{
-				mPoints[i] = nullptr;
+				if (other.mPoints[i] != nullptr)
+				{
+					mPoints[i] = new Point(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
+				}
+				else
+				{
+					mPoints[i] = nullptr;
+				}
 			}
+			mSize = other.mSize;
+			mMaxX = other.mMaxX;
+			mMinY = other.mMinY;
+			mMinX = other.mMinX;
+			mMaxY = other.mMaxY;
 		}
-		mSize = other.mSize;
-		mMaxX = other.mMaxX;
-		mMinY = other.mMinY;
-		mMinX = other.mMinX;
-		mMaxY = other.mMaxY;
 		return *this;
 	}
 	void PolyLine::GetMaxMinXY()
