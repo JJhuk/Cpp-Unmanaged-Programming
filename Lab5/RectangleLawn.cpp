@@ -1,11 +1,12 @@
 #include "RectangleLawn.h"
+#include <cmath>
 
 RectangleLawn::RectangleLawn() : lab5::IFenceable(), lab5::Lawn(),
 mWidth(0), mHeight()
 {
 }
 
-RectangleLawn::RectangleLawn(unsigned int width, unsigned int height) :
+RectangleLawn::RectangleLawn(const unsigned int width, const unsigned int height) :
 	lab5::IFenceable(), lab5::Lawn(),
 	mWidth(width), mHeight(height)
 {
@@ -32,15 +33,27 @@ RectangleLawn& RectangleLawn::operator=(const RectangleLawn& other)
 
 unsigned int RectangleLawn::GetMinimumFencesCount() const
 {
-	double fencesCount = static_cast<double>(GetArea()) / static_cast<double>(WIDTH_FENCE);
-	fencesCount += 0.5;
+	int rectRound = (mWidth * 2) + (mHeight * 2);
+	double fencesCount = static_cast<double>(rectRound) / WIDTH_FENCE;
+	fencesCount = ceil(fencesCount);
 
 	return static_cast<unsigned int>(fencesCount);
 }
 
 unsigned int RectangleLawn::GetFencePrice(lab5::eFenceType fenceType) const
 {
-	return 0;
+	int rectRound = (mWidth * 2) + (mHeight * 2);
+	switch (fenceType)
+	{
+	case lab5::RED_CEDAR:
+		return	rectRound * COST_RED_CENDAR;
+
+	case lab5::SPRUCE:
+		return	rectRound * COST_SPRUCE;
+
+	default:
+		return 0;
+	}
 }
 
 unsigned int RectangleLawn::GetArea() const

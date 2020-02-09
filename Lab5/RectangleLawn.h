@@ -14,6 +14,7 @@ public:
 	unsigned int GetFencePrice(lab5::eFenceType fenceType) const;
 	unsigned int GetArea() const;
 
+
 	~RectangleLawn();
 
 private:

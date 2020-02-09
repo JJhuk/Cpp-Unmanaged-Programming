@@ -3,7 +3,7 @@
 
 class CircleLawn : public lab5::Lawn	//울타리를 놓을 수 없는 구조
 {
-public: 
+public:
 	CircleLawn();
 	CircleLawn(unsigned int raidus);
 	CircleLawn(CircleLawn& other);
@@ -12,7 +12,7 @@ public:
 
 	~CircleLawn();
 	unsigned int GetArea() const;
-	
+
 private:
 	unsigned int mRadius;
 };

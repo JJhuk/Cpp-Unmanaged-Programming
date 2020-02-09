@@ -1,11 +1,12 @@
 #include "CircleLawn.h"
+#include <cmath>
 
 CircleLawn::CircleLawn() : lab5::Lawn(), mRadius(0)
 {
-	
+
 }
 
-CircleLawn::CircleLawn(unsigned int radius) : lab5::Lawn() , mRadius(radius)
+CircleLawn::CircleLawn(unsigned int radius) : lab5::Lawn(), mRadius(radius)
 {
 
 }
@@ -33,7 +34,8 @@ CircleLawn::~CircleLawn()
 unsigned int CircleLawn::GetArea() const
 {
 	const double PI = 3.14;
-	double area = PI * static_cast<double>(mRadius) * static_cast<double>(mRadius);
+	double area = PI * static_cast<double>(mRadius)* static_cast<double>(mRadius);
+	area = round(area);
 
 	return static_cast<unsigned int>(area);
 }

@@ -27,29 +27,22 @@ EquilateralTriangleLawn& EquilateralTriangleLawn::operator=(const EquilateralTri
 
 unsigned int EquilateralTriangleLawn::GetMinimumFencesCount() const
 {
-	if (mSide != 0)
-	{
-		unsigned int round = mSide * 3;
-		float temp = static_cast<double>(round) / static_cast<double> (WIDTH_FENCE);
-		temp += 0.5f;
-		unsigned int fenceCount = static_cast<unsigned int>(temp);
-		
-		return fenceCount;
-	}
-	else
-	{
-		return 0;
-	}
+	unsigned int round = mSide * 3;
+	float temp = static_cast<double>(round) / static_cast<double> (WIDTH_FENCE);
+	temp = ceil(temp);
+
+	return static_cast<unsigned int>(temp);
 }
 
 unsigned int EquilateralTriangleLawn::GetFencePrice(lab5::eFenceType fenceType) const
 {
+	unsigned int round = mSide * 3;
 	switch (fenceType)
 	{
 	case lab5::RED_CEDAR:
-		return GetMinimumFencesCount() * COST_RED_CENDAR;
+		return round * COST_RED_CENDAR;
 	case lab5::SPRUCE:
-		return GetMinimumFencesCount() * COST_SPRUCE;
+		return round * COST_SPRUCE;
 	default:
 		return 0;
 	}
@@ -57,18 +50,11 @@ unsigned int EquilateralTriangleLawn::GetFencePrice(lab5::eFenceType fenceType) 
 
 unsigned int EquilateralTriangleLawn::GetArea() const
 {
-	if (mSide != 0)
-	{
-		double height = (static_cast<double>(mSide) / 2)* sqrt(3);
-		double area = (height * static_cast<double>(mSide)) / 2;
-		area += 0.5;
-		 
-		return static_cast<unsigned int>(area);
-	}
-	else
-	{
-		return 0;
-	}
+	double height = (static_cast<double>(mSide) / 2)* sqrt(3.0);
+	double area = (height * static_cast<double>(mSide)) / 2;
+	area = round(area);
+
+	return static_cast<unsigned int>(area);
 }
 
 EquilateralTriangleLawn::~EquilateralTriangleLawn()

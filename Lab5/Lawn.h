@@ -16,11 +16,11 @@ namespace lab5
 		unsigned int GetMinimumSodRollsCount() const;
 
 		//m2 ¥Á ¿‹µ¿« ∞°∞›
-		const unsigned int COST_BERMUDA;
-		const unsigned int COST_BAHIA;
-		const unsigned int COST_BENT_GRASS;
-		const unsigned int COST_PERENNIAL_RYEGRASS;
-		const unsigned int COST_ST_AUGUSTINE;
+		const double COST_BERMUDA;
+		const double COST_BAHIA;
+		const double COST_BENT_GRASS;
+		const double COST_PERENNIAL_RYEGRASS;
+		const double COST_ST_AUGUSTINE;
 
 		//∑— ¿‹µ¿« ≥–¿Ã
 		const double AREA_ROLL_LAWN;
