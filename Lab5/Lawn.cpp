@@ -19,19 +19,19 @@ namespace lab5
 		double price = static_cast<double>(GetArea());
 		switch (grassType)
 		{
-		case lab5::BERMUDA:
+		case BERMUDA:
 			price *= COST_BERMUDA;
 			break;
-		case lab5::BAHIA:
+		case BAHIA:
 			price *= COST_BAHIA;
 			break;
-		case lab5::BENTGRASS:
+		case BENTGRASS:
 			price *= COST_BENT_GRASS;
 			break;
-		case lab5::PERENNIAL_RYEGRASS:
+		case PERENNIAL_RYEGRASS:
 			price *= COST_PERENNIAL_RYEGRASS;
 			break;
-		case lab5::ST_AUGUSTINE:
+		case ST_AUGUSTINE:
 			price *= COST_ST_AUGUSTINE;
 			break;
 		default:
