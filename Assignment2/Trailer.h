@@ -6,8 +6,12 @@ namespace assignment2
 	{
 	public:
 		Trailer(unsigned int weight);
+		Trailer();
 		~Trailer();
 
 		unsigned int GetWeight() const;
+
+	private:
+		unsigned int mWeight;
 	};
 }

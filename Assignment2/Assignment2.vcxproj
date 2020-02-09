@@ -90,6 +90,7 @@
     <ClInclude Include="DeusExMachina.h" />
     <ClInclude Include="IDivable.h" />
     <ClInclude Include="IDrivable.h" />
+    <ClInclude Include="IFlyable.h" />
     <ClInclude Include="ISailable.h" />
     <ClInclude Include="Motorcycle.h" />
     <ClInclude Include="Person.h" />

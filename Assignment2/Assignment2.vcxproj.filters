@@ -92,5 +92,8 @@
     <ClInclude Include="DeusExMachina.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IFlyable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

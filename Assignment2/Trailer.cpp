@@ -2,7 +2,11 @@
 
 namespace assignment2
 {
-	Trailer::Trailer(unsigned int weight)
+	Trailer::Trailer(unsigned int weight) : mWeight(weight)
+	{
+	}
+
+	Trailer::Trailer() : mWeight(0)
 	{
 	}
 
@@ -12,6 +16,6 @@ namespace assignment2
 
 	unsigned int Trailer::GetWeight() const
 	{
-		return 0;
+		return mWeight;
 	}
 }

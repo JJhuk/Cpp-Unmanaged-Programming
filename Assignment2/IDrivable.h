@@ -2,9 +2,9 @@
 
 namespace assignment2
 {
-	class IFlyable
+	class IDrivable
 	{
 	public:
-		virtual unsigned int GetFlySpeed() const = 0;
+		virtual unsigned int GetDriveSpeed() const = 0;
 	};
 }
