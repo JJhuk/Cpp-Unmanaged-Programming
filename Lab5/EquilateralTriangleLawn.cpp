@@ -31,7 +31,7 @@ namespace lab5
 	unsigned int EquilateralTriangleLawn::GetMinimumFencesCount() const
 	{
 		unsigned int round = mSide * 3;
-		float temp = static_cast<double>(round) / static_cast<double> (WIDTH_FENCE);
+		double temp = static_cast<double>(round) / static_cast<double> (WIDTH_FENCE);
 		temp = ceil(temp);
 
 		return static_cast<unsigned int>(temp);
