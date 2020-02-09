@@ -36,7 +36,7 @@ namespace lab5
 	unsigned int CircleLawn::GetArea() const
 	{
 		const double PI = 3.14;
-		double area = PI * static_cast<double>(mRadius)* static_cast<double>(mRadius);
+		double area = PI * static_cast<double>(mRadius) * static_cast<double>(mRadius);
 		area = round(area);
 
 		return static_cast<unsigned int>(area);

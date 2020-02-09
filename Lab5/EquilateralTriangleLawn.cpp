@@ -31,7 +31,7 @@ namespace lab5
 	unsigned int EquilateralTriangleLawn::GetMinimumFencesCount() const
 	{
 		unsigned int round = mSide * 3;
-		double temp = static_cast<double>(round) / static_cast<double> (WIDTH_FENCE);
+		double temp = static_cast<double>(round) / static_cast<double>(WIDTH_FENCE);
 		temp = ceil(temp);
 
 		return static_cast<unsigned int>(temp);
@@ -53,7 +53,7 @@ namespace lab5
 
 	unsigned int EquilateralTriangleLawn::GetArea() const
 	{
-		double height = (static_cast<double>(mSide) / 2)* sqrt(3.0);
+		double height = (static_cast<double>(mSide) / 2) * sqrt(3.0);
 		double area = (height * static_cast<double>(mSide)) / 2;
 		area = round(area);
 

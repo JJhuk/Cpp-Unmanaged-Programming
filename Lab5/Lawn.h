@@ -24,5 +24,12 @@ namespace lab5
 
 		//롤 잔디의 넓이
 		const double AREA_ROLL_LAWN;
+
+		//울타리 자재 가격
+		const unsigned int COST_RED_CENDAR = 6;
+		const unsigned int COST_SPRUCE = 7;
+
+		//울타리 너비
+		const double WIDTH_FENCE = 0.25;
 	};
 }

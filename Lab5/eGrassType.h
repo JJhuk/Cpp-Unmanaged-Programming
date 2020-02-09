@@ -11,4 +11,3 @@ namespace lab5
 		ST_AUGUSTINE
 	};
 }
- #pragma once
