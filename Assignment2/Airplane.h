@@ -15,6 +15,15 @@ namespace assignment2
 		Airplane(unsigned int maxPassengersCount);
 		~Airplane();
 
+		//Vehicle
+		unsigned int GetMaxSpeed() const;
+		
+		//IFlyable
+		unsigned int GetFlySpeed() const;
+
+		//IDrivable
+		unsigned int GetDriveSpeed() const;
+
 		Boatplane operator+(Boat& boat);
 	};
 }
