@@ -4,7 +4,9 @@
 #include <cmath>
 
 namespace assignment2
-{	
+{
+	std::string Airplane::mKind = "Airplane";
+	
 	Airplane::Airplane(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
 	}
@@ -35,5 +37,10 @@ namespace assignment2
 	{
 		Boatplane bp(GetMaxPassengersCount() + boat.GetMaxPassengersCount());
 		return bp;
+	}
+
+	std::string Airplane::GetKind() const
+	{
+		return mKind;
 	}
 }

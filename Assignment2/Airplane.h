@@ -13,7 +13,7 @@ namespace assignment2
 	class Airplane : public Vehicle, public IFlyable, public IDrivable
 	{
 	public:
-		static const std::string mKind;
+		//static const std::string mKind;
 		Airplane(unsigned int maxPassengersCount);
 		~Airplane();
 
@@ -28,11 +28,11 @@ namespace assignment2
 
 		Boatplane operator+(Boat& boat);
 
+		std::string GetKind() const;
+
 	private:
-
+		static std::string mKind;
 	};
-
-	const std::string Airplane::mKind = "Airplane";
 }
 
 

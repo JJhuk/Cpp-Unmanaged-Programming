@@ -8,6 +8,6 @@ int main()
 {
 	Airplane* air = new Airplane(2);
 
-	cout << air->mKind << endl;
+	cout << air->GetKind() << endl;
 	return 0;
 }

@@ -3,6 +3,7 @@
 #include "Boatplane.h"
 #include "Vehicle.h"
 #include "ISailable.h"
+#include <string>
 
 namespace assignment2
 {
@@ -20,5 +21,10 @@ namespace assignment2
 		unsigned int GetMaxSpeed() const;
 
 		Boatplane operator+(Airplane& plane);
+
+		std::string GetKind() const;
+
+	private:
+		static std::string mKind;
 	};
 }

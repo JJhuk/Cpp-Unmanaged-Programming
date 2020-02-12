@@ -2,16 +2,18 @@
 
 namespace assignment2
 {
+	DeusExMachina* DeusExMachina::mInstance = nullptr;
+
 	DeusExMachina* DeusExMachina::GetInstance()
 	{
 		if(mInstance == nullptr)
 		{
 			mInstance = new DeusExMachina();
 		}
-
 		return mInstance;
 	}
 
+	
 	void DeusExMachina::Travel() const
 	{
 	}
@@ -40,21 +42,11 @@ namespace assignment2
 		return NULL;
 	}
 
-	DeusExMachina::~DeusExMachina()
+	DeusExMachina::DeusExMachina():mMaxIdx(10), mSize(0)
 	{
-		for(unsigned int i=0; i<mSize; i++)
-		{
-			delete mVehicles[i];
-		}
-	}
-
-	DeusExMachina::DeusExMachina() : mMaxIdx(10)
-	{
-		for(unsigned int i=0; i<mMaxIdx;i++)
+		for(int i=0;i<mMaxIdx;i++)
 		{
 			mVehicles[i] = nullptr;
 		}
-		mSize = 0;
 	}
-
 }

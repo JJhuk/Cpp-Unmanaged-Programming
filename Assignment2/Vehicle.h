@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Person.h"
+#include <string>
 
 namespace assignment2
 {
@@ -16,6 +17,8 @@ namespace assignment2
 		~Vehicle();
 
 		virtual unsigned int GetMaxSpeed() const = 0;
+
+		virtual std::string GetKind() const = 0;
 
 		bool AddPassenger(const Person* person);
 		bool RemovePassenger(unsigned int i);

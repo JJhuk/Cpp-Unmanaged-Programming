@@ -3,6 +3,8 @@
 
 namespace assignment2
 {
+	std::string Boat::mKind = "Boat";
+	
 	Boat::Boat(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
 		
@@ -33,5 +35,10 @@ namespace assignment2
 	{
 		Boatplane bp(5);
 		return bp;
+	}
+
+	std::string Boat::GetKind() const
+	{
+		return mKind;
 	}
 }
