@@ -1,11 +1,13 @@
 #include "Person.h"
+#include "Airplane.h"
 #include <iostream>
 
 using namespace std;
 using namespace assignment2;
 int main()
 {
-	Person p("Bob", 85);
-	cout << p.GetName() << p.GetWeight();
+	Airplane* air = new Airplane(2);
+
+	cout << air->mKind << endl;
 	return 0;
 }

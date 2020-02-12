@@ -4,6 +4,7 @@
 #include "Vehicle.h"
 #include "IFlyable.h"
 #include "IDrivable.h"
+#include <string>
 
 namespace assignment2
 {
@@ -12,6 +13,7 @@ namespace assignment2
 	class Airplane : public Vehicle, public IFlyable, public IDrivable
 	{
 	public:
+		static const std::string mKind;
 		Airplane(unsigned int maxPassengersCount);
 		~Airplane();
 
@@ -25,5 +27,13 @@ namespace assignment2
 		unsigned int GetDriveSpeed() const;
 
 		Boatplane operator+(Boat& boat);
+
+	private:
+
 	};
+
+	const std::string Airplane::mKind = "Airplane";
 }
+
+
+

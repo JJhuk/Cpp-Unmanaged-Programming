@@ -1,5 +1,6 @@
 #include "Motorcycle.h"
 #include <cmath>
+#include <string>
 
 namespace assignment2
 {

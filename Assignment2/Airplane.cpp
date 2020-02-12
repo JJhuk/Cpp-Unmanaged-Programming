@@ -4,7 +4,7 @@
 #include <cmath>
 
 namespace assignment2
-{
+{	
 	Airplane::Airplane(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
 	}
@@ -33,7 +33,7 @@ namespace assignment2
 	//to do define
 	Boatplane Airplane::operator+(Boat& boat)
 	{
-		Boatplane bp(this->GetMaxPassengersCount() + boat->GetMaxPassengersCount());
+		Boatplane bp(GetMaxPassengersCount() + boat.GetMaxPassengersCount());
 		return bp;
 	}
 }
