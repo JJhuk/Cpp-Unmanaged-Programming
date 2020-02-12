@@ -24,6 +24,7 @@ namespace assignment2
 
 		std::string GetKind() const;
 
+
 	private:
 		static std::string mKind;
 	};

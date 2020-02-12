@@ -26,9 +26,23 @@ namespace assignment2
 		unsigned int GetPassengersCount() const;
 		unsigned int GetMaxPassengersCount() const;
 
+		inline unsigned int GetRestCount() const;
+		inline unsigned int GetCanMoveCount() const;
+		inline unsigned int GetHowMoveCount() const;
+
+		inline void SetRestCount(unsigned int restCount);
+		inline void SetCanMoveCount(unsigned int canMoveCount);
+		
+		const Person* MovePassenger(unsigned int idx);
+
 	private:
 		const Person* mPassenger[100];
 		unsigned int mSize;
 		unsigned int mMaxPassengersCount;
+
+		//¼öÁ¤
+		unsigned int mRestCount;
+		unsigned int mCanMoveCount;
+		unsigned int mHowMoveCount;
 	};
 }

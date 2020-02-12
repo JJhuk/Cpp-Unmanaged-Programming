@@ -1,11 +1,16 @@
 #include "Sedan.h"
+#include <string>
 
 namespace assignment2
 {
+	std::string Sedan::mKind = "Sedan";
+	
 	Sedan::Sedan() : Vehicle(4)
 	{
 		mbIsConnectedTrailer = false;
 		mTrailer = nullptr;
+		SetCanMoveCount(5);
+		SetRestCount(3);
 	}
 
 	Sedan::~Sedan()
@@ -52,6 +57,12 @@ namespace assignment2
 		}
 	}
 
+	std::string Sedan::GetKind() const
+	{
+		return mKind;
+	}
+
+
 	bool Sedan::AddTrailer(const Trailer* trailer)
 	{
 		if (mbIsConnectedTrailer)
@@ -78,5 +89,10 @@ namespace assignment2
 		{
 			return false;
 		}
+	}
+
+	bool Sedan::GetIsConnectedTrailer() const
+	{
+		return mbIsConnectedTrailer;
 	}
 }

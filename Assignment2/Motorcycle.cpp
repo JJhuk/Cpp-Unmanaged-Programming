@@ -4,8 +4,12 @@
 
 namespace assignment2
 {
+	std::string Motorcycle::mKind = "Motorcycle";
+	
 	Motorcycle::Motorcycle() : Vehicle(2)
 	{
+		SetCanMoveCount(5);
+		SetRestCount(1);
 	}
 
 	Motorcycle::~Motorcycle()
@@ -24,5 +28,10 @@ namespace assignment2
 	unsigned int Motorcycle::GetMaxSpeed() const
 	{
 		return GetDriveSpeed();
+	}
+
+	std::string Motorcycle::GetKind() const
+	{
+		return mKind;
 	}
 }

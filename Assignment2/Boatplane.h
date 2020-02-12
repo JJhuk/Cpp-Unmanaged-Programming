@@ -2,6 +2,7 @@
 #include "Vehicle.h"
 #include "IFlyable.h"
 #include "ISailable.h"
+#include <string>
 
 namespace assignment2
 {

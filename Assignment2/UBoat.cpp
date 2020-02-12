@@ -3,6 +3,8 @@
 
 namespace assignment2
 {
+	std::string UBoat::mKind = "UBoat";
+	
 	UBoat::UBoat() : Vehicle(50)
 	{
 	}
@@ -31,5 +33,10 @@ namespace assignment2
 		double diveSpeed = 500 * log((passengersCount + 150.0) / 150.0) + 30.0;
 
 		return static_cast<unsigned int>(diveSpeed);
+	}
+
+	std::string UBoat::GetKind() const
+	{
+		return mKind;
 	}
 }

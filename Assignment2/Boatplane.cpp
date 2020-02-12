@@ -1,4 +1,6 @@
 #include "Boatplane.h"
+#include <cmath>
+#include <string>
 
 namespace assignment2
 {
@@ -6,6 +8,8 @@ namespace assignment2
 	
 	Boatplane::Boatplane(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
+		SetCanMoveCount(1);
+		SetRestCount(3);
 	}
 
 	Boatplane::~Boatplane()
@@ -17,15 +21,26 @@ namespace assignment2
 		return mKind;
 	}
 
-	unsigned Boatplane::GetMaxSpeed() const
+	unsigned int Boatplane::GetMaxSpeed() const
 	{
+		return GetSailSpeed() > GetFlySpeed() ? GetSailSpeed() : GetFlySpeed();
 	}
 
-	unsigned Boatplane::GetSailSpeed() const
+	unsigned int Boatplane::GetSailSpeed() const
 	{
+		double passengerCount = static_cast<double>(GetPassengersCount());
+		double sailSpeed = 150 * exp((-passengerCount + 500.0) / 300.0);
+
+		return static_cast<unsigned int>(sailSpeed);
 	}
 
-	unsigned Boatplane::GetFlySpeed() const
+	unsigned int Boatplane::GetFlySpeed() const
 	{
+		double passengerCount = static_cast<double>(GetPassengersCount());
+		double flySpeed = (800.0 - (1.7 * passengerCount));
+
+		flySpeed = flySpeed > 20.0 ? flySpeed : 20.0;
+
+		return static_cast<unsigned int>(flySpeed);
 	}
 }

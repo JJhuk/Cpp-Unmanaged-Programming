@@ -2,6 +2,7 @@
 #include "Vehicle.h"
 #include "IDivable.h"
 #include "ISailable.h"
+#include <string>
 
 namespace assignment2
 {
@@ -15,5 +16,9 @@ namespace assignment2
 		unsigned int GetSailSpeed() const;
 		unsigned int GetDiveSpeed() const;
 
+		std::string GetKind() const;
+		
+	private:
+		static std::string mKind;
 	};
 }

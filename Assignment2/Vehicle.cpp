@@ -4,6 +4,7 @@ namespace assignment2
 {
 	Vehicle::Vehicle(unsigned int maxPassengersCount) : mSize(0)
 	{
+		mHowMoveCount = 0;
 		if (maxPassengersCount >= 0 && maxPassengersCount <= 100)
 		{
 			mMaxPassengersCount = maxPassengersCount;
@@ -20,6 +21,7 @@ namespace assignment2
 
 	Vehicle::Vehicle() : mSize(0), mMaxPassengersCount(100)
 	{
+		mHowMoveCount = 0;
 		for (unsigned int i = 0; i < mMaxPassengersCount; i++)
 		{
 			mPassenger[i] = nullptr;
@@ -28,6 +30,7 @@ namespace assignment2
 
 	Vehicle::Vehicle(const Vehicle& other)
 	{
+		mHowMoveCount = 0;
 		if (&other != nullptr)
 		{
 			mMaxPassengersCount = other.mMaxPassengersCount;
@@ -42,6 +45,9 @@ namespace assignment2
 			{
 				mPassenger[i] = new Person(*other.mPassenger[i]);
 			}
+			mCanMoveCount = other.mCanMoveCount;
+			mRestCount = other.mRestCount;
+			mHowMoveCount = other.mHowMoveCount;
 		}
 		else
 		{
@@ -52,6 +58,7 @@ namespace assignment2
 				mPassenger[i] = nullptr;
 			}
 		}
+		
 	}
 
 	Vehicle& Vehicle::operator=(const Vehicle& other) {
@@ -69,6 +76,9 @@ namespace assignment2
 			{
 				mPassenger[i] = new Person(*other.mPassenger[i]);
 			}
+			mCanMoveCount = other.mCanMoveCount;
+			mRestCount = other.mRestCount;
+			mHowMoveCount = other.mHowMoveCount;
 		}
 		return *this;
 	}
@@ -131,6 +141,46 @@ namespace assignment2
 	unsigned int Vehicle::GetMaxPassengersCount() const
 	{
 		return mMaxPassengersCount;
+	}
+
+	unsigned int Vehicle::GetRestCount() const
+	{
+		return mRestCount;
+	}
+
+	unsigned int Vehicle::GetCanMoveCount() const
+	{
+		return mCanMoveCount;
+	}
+
+	unsigned int Vehicle::GetHowMoveCount() const
+	{
+		return mHowMoveCount;
+	}
+
+	void Vehicle::SetRestCount(unsigned int restCount)
+	{
+		mRestCount = restCount;
+	}
+
+	void Vehicle::SetCanMoveCount(unsigned int canMoveCount)
+	{
+		mCanMoveCount = canMoveCount;
+	}
+
+	const Person* Vehicle::MovePassenger(unsigned int idx)
+	{
+		if(idx >= 0 && idx < mSize)
+		{
+			mSize--;
+			const Person* temp = mPassenger[idx];
+			mPassenger[idx] = nullptr;
+			return temp;
+		}
+		else
+		{
+			return nullptr;
+		}
 	}
 
 	const Person* Vehicle::GetPassenger(unsigned int i) const

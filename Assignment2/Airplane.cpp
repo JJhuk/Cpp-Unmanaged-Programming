@@ -2,6 +2,7 @@
 #include "Boat.h"
 #include "Boatplane.h"
 #include <cmath>
+#include <string>
 
 namespace assignment2
 {
@@ -9,6 +10,8 @@ namespace assignment2
 	
 	Airplane::Airplane(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
+		SetCanMoveCount(1);
+		SetRestCount(3);
 	}
 
 	Airplane::~Airplane()

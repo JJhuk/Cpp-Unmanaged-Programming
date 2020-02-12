@@ -1,5 +1,7 @@
 #include "Boat.h"
+#include "Airplane.h"
 #include <cmath>
+#include <string>
 
 namespace assignment2
 {
@@ -7,7 +9,8 @@ namespace assignment2
 	
 	Boat::Boat(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
-		
+		SetCanMoveCount(2);
+		SetRestCount(3);
 	}
 
 	Boat::Boat() : Vehicle(100)
@@ -33,7 +36,24 @@ namespace assignment2
 
 	Boatplane Boat::operator+(Airplane& plane)
 	{
-		Boatplane bp(5);
+		Boatplane bp(GetMaxPassengersCount() + plane.GetMaxPassengersCount());
+
+		unsigned int prevPassengersCount = GetPassengersCount();
+
+		//Boat 사람 이동
+		for(unsigned int i=0;i< prevPassengersCount;i++)
+		{
+			bp.AddPassenger(MovePassenger(i));
+		}
+
+		//Plane 사람 이동
+		prevPassengersCount = plane.GetPassengersCount();
+
+		for(unsigned int i = 0; i< prevPassengersCount; i++)
+		{
+			bp.AddPassenger(plane.MovePassenger(i));
+		}
+		
 		return bp;
 	}
 

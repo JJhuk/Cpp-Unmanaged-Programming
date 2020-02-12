@@ -1,4 +1,5 @@
 #include "DeusExMachina.h"
+#include <string>
 
 namespace assignment2
 {

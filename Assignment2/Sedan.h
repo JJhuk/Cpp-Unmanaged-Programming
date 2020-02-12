@@ -2,6 +2,7 @@
 #include "Vehicle.h"
 #include "IDrivable.h"
 #include "Trailer.h"
+#include <string>
 
 namespace assignment2
 {
@@ -17,12 +18,17 @@ namespace assignment2
 
 		unsigned int GetDriveSpeed() const;
 
+		std::string GetKind() const;
+
 		
 		bool AddTrailer(const Trailer* trailer);
 		bool RemoveTrailer();
 
+		inline bool GetIsConnectedTrailer() const;
+
 	private:
 		bool mbIsConnectedTrailer;
 		const Trailer* mTrailer;
+		static std::string mKind;
 	};
 }
