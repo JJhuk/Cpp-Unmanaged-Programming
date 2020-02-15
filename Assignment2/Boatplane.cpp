@@ -8,19 +8,14 @@ namespace assignment2
 		InitTravel(1, 3);
 	}
 
-	Boatplane::Boatplane(Boatplane& other) : Vehicle(other.GetMaxPassengersCount())
+	Boatplane::Boatplane(Boatplane& other) : Vehicle(other)
 	{
 		InitTravel(1, 3);
-		unsigned int passengersCount = other.GetPassengersCount();
-		for (unsigned int i = 0; i < passengersCount; i++)
-		{
-			AddPassenger(other.GetPassenger(i));
-		}
-		other.Deinitializer();
 	}
 
 	Boatplane::~Boatplane()
 	{
+
 	}
 
 	unsigned int Boatplane::GetMaxSpeed() const
