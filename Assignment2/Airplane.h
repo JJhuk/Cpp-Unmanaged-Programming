@@ -1,10 +1,9 @@
 #pragma once
-
-#include "Boatplane.h"
 #include "Vehicle.h"
+#include "Boat.h"
+#include "Boatplane.h"
 #include "IFlyable.h"
 #include "IDrivable.h"
-#include <string>
 
 namespace assignment2
 {
@@ -28,10 +27,7 @@ namespace assignment2
 
 		Boatplane operator+(Boat& boat);
 
-		std::string GetKind() const;
-
 	private:
-		static std::string mKind;
 	};
 }
 

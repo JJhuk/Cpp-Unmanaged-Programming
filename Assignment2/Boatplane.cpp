@@ -1,23 +1,25 @@
 #include "Boatplane.h"
 #include <cmath>
-#include <string>
 
 namespace assignment2
 {
-	std::string Boatplane::mKind = "Boatplane";
-
 	Boatplane::Boatplane(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
 		InitTravel(1, 3);
 	}
 
-	Boatplane::~Boatplane()
+	Boatplane::Boatplane(Boatplane& boat_plane) : Vehicle(boat_plane.GetMaxPassengersCount())
 	{
+		InitTravel(1, 3);
+		unsigned int passengersCount = boat_plane.GetPassengersCount();
+		for (unsigned int i = 0; i < passengersCount; i++)
+		{
+			AddPassenger(boat_plane.MovePassenger(i));
+		}
 	}
 
-	std::string Boatplane::GetKind() const
+	Boatplane::~Boatplane()
 	{
-		return mKind;
 	}
 
 	unsigned int Boatplane::GetMaxSpeed() const
@@ -27,19 +29,19 @@ namespace assignment2
 
 	unsigned int Boatplane::GetSailSpeed() const
 	{
-		double passengerCount = static_cast<double>(GetPassengersCount());
-		double sailSpeed = 150 * exp((-passengerCount + 500.0) / 300.0);
+		double passengerTotalWeight = static_cast<double>(GetTotalPassengerWeight());
+		double sailSpeed = 150 * exp((-passengerTotalWeight + 500.0) / 300.0);
 
-		return static_cast<unsigned int>(sailSpeed);
+		return static_cast<unsigned int>(round(sailSpeed));
 	}
 
 	unsigned int Boatplane::GetFlySpeed() const
 	{
-		double passengerCount = static_cast<double>(GetPassengersCount());
-		double flySpeed = (800.0 - (1.7 * passengerCount));
+		double passengerTotalWeight = static_cast<double>(GetTotalPassengerWeight());
+		double flySpeed = (800.0 - (1.7 * passengerTotalWeight));
 
 		flySpeed = flySpeed > 20.0 ? flySpeed : 20.0;
 
-		return static_cast<unsigned int>(flySpeed);
+		return static_cast<unsigned int>(round(flySpeed));
 	}
 }

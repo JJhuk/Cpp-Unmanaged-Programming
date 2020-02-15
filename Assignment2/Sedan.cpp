@@ -1,9 +1,7 @@
 #include "Sedan.h"
-#include <string>
 
 namespace assignment2
 {
-	std::string Sedan::mKind = "Sedan";
 
 	Sedan::Sedan() : Vehicle(4)
 	{
@@ -27,38 +25,33 @@ namespace assignment2
 
 	unsigned int Sedan::GetDriveSpeed() const
 	{
-		unsigned int passengersCount = GetPassengersCount();
+		unsigned int passengerTotalWeight = GetTotalPassengerWeight();
 
 		if (mbIsConnectedTrailer)
 		{
-			passengersCount += mTrailer->GetWeight();
+			passengerTotalWeight += mTrailer->GetWeight();
 		}
 
-		if (passengersCount <= 80)
+		if (passengerTotalWeight <= 80)
 		{
 			return 480;
 		}
-		else if (passengersCount > 80)
+		else if (passengerTotalWeight > 80)
 		{
 			return 458;
 		}
-		else if (passengersCount > 160)
+		else if (passengerTotalWeight > 160)
 		{
 			return 400;
 		}
-		else if (passengersCount > 260)
+		else if (passengerTotalWeight > 260)
 		{
 			return 380;
 		}
-		else if (passengersCount > 350)
+		else if (passengerTotalWeight > 350)
 		{
 			return 300;
 		}
-	}
-
-	std::string Sedan::GetKind() const
-	{
-		return mKind;
 	}
 
 

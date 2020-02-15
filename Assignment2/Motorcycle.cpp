@@ -4,8 +4,6 @@
 
 namespace assignment2
 {
-	std::string Motorcycle::mKind = "Motorcycle";
-
 	Motorcycle::Motorcycle() : Vehicle(2)
 	{
 		InitTravel(5, 1);
@@ -17,11 +15,11 @@ namespace assignment2
 
 	unsigned int Motorcycle::GetDriveSpeed() const
 	{
-		double passengersCount = static_cast<double>(GetPassengersCount());
-		double driveSpeed = (-(pow(passengersCount, 3) + (2 * passengersCount) + 400));
+		double passengerTotalWeight = static_cast<double>(GetTotalPassengerWeight());
+		double driveSpeed = (-(pow(passengerTotalWeight, 3) + (2 * passengerTotalWeight) + 400));
 		driveSpeed = driveSpeed > 0.0 ? driveSpeed : 0.0;
 
-		return static_cast<unsigned int>(driveSpeed);
+		return static_cast<unsigned int>(round(driveSpeed));
 	}
 
 	unsigned int Motorcycle::GetMaxSpeed() const
@@ -29,8 +27,4 @@ namespace assignment2
 		return GetDriveSpeed();
 	}
 
-	std::string Motorcycle::GetKind() const
-	{
-		return mKind;
-	}
 }

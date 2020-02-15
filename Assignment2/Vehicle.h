@@ -18,8 +18,6 @@ namespace assignment2
 
 		virtual unsigned int GetMaxSpeed() const = 0;
 
-		virtual std::string GetKind() const = 0;
-
 		bool AddPassenger(const Person* person);
 		bool RemovePassenger(unsigned int i);
 		const Person* GetPassenger(unsigned int i) const;
@@ -27,15 +25,18 @@ namespace assignment2
 		unsigned int GetMaxPassengersCount() const;
 		unsigned int GetTotalMoveCount() const;
 
+		void Deinitializer();
+
 		void InitTravel(unsigned int maxMoveCount, unsigned int mustRestCount);
 
 		void TravelVehicle();
-
+		unsigned int GetTotalPassengerWeight() const;
 
 		const Person* MovePassenger(unsigned int idx);
 
 	private:
 		const Person* mPassenger[100];
+		unsigned int mTotalPassengerWeight;
 		unsigned int mSize;
 		unsigned int mMaxPassengersCount;
 

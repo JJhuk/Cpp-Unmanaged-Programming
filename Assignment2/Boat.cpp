@@ -1,11 +1,9 @@
 #include "Boat.h"
 #include "Airplane.h"
 #include <cmath>
-#include <string>
 
 namespace assignment2
 {
-	std::string Boat::mKind = "Boat";
 
 	Boat::Boat(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
@@ -22,10 +20,10 @@ namespace assignment2
 
 	unsigned int Boat::GetSailSpeed() const
 	{
-		double sailSpeed = 800.0 - (1.7 * static_cast<double>(GetPassengersCount()));
+		double sailSpeed = 800.0 - (1.7 * static_cast<double>(GetTotalPassengerWeight()));
 		sailSpeed = sailSpeed > 20.0 ? sailSpeed : 20.0;
 
-		return static_cast<unsigned int>(sailSpeed);
+		return static_cast<unsigned int>(round(sailSpeed));
 	}
 
 	unsigned int Boat::GetMaxSpeed() const
@@ -36,28 +34,7 @@ namespace assignment2
 	Boatplane Boat::operator+(Airplane& plane)
 	{
 		Boatplane bp(GetMaxPassengersCount() + plane.GetMaxPassengersCount());
-
-		unsigned int prevPassengersCount = GetPassengersCount();
-
-		//Boat 사람 이동
-		for (unsigned int i = 0; i < prevPassengersCount; i++)
-		{
-			bp.AddPassenger(MovePassenger(i));
-		}
-
-		//Plane 사람 이동
-		prevPassengersCount = plane.GetPassengersCount();
-
-		for (unsigned int i = 0; i < prevPassengersCount; i++)
-		{
-			bp.AddPassenger(plane.MovePassenger(i));
-		}
-
 		return bp;
 	}
 
-	std::string Boat::GetKind() const
-	{
-		return mKind;
-	}
 }

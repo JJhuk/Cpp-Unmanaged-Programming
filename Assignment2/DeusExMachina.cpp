@@ -52,7 +52,7 @@ namespace assignment2
 			{
 				tempVehicle[afterRemove - 1] = mVehicles[afterRemove];
 			}
-
+			mSize--;
 			memcpy(mVehicles, tempVehicle, sizeof(mVehicles));
 
 			for (unsigned int i = 0; i < mMaxIdx; i++)
@@ -71,7 +71,7 @@ namespace assignment2
 	{
 		const Vehicle* tempVehicle = nullptr;
 		unsigned int furthest = 0;
-		for (unsigned int i = 0; i < mMaxIdx; i++)
+		for (unsigned int i = 0; i < mSize; i++)
 		{
 			unsigned int checkFurthest = mVehicles[i]->GetMaxSpeed() * mVehicles[i]->GetTotalMoveCount();
 			if (furthest < checkFurthest)
@@ -81,6 +81,15 @@ namespace assignment2
 			}
 		}
 		return tempVehicle;
+	}
+
+	Vehicle* DeusExMachina::GetVehicle(unsigned int i) const
+	{
+		if(i>=0 && i<mSize)
+		{
+			return mVehicles[i];
+		}
+		return nullptr;
 	}
 
 	DeusExMachina::DeusExMachina() :mMaxIdx(10), mSize(0)

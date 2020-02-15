@@ -1,12 +1,12 @@
 #include "Airplane.h"
 #include "Boat.h"
 #include "Boatplane.h"
+#include "Vehicle.h"
 #include <cmath>
-#include <string>
+#include <iostream>
 
 namespace assignment2
 {
-	std::string Airplane::mKind = "Airplane";
 
 	Airplane::Airplane(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
@@ -24,25 +24,31 @@ namespace assignment2
 
 	unsigned int Airplane::GetFlySpeed() const
 	{
-		double flySpeed = 200.0 * exp((-static_cast<double>(GetPassengersCount()) + 800.0) / 500.0);
-		return static_cast<unsigned int>(flySpeed);
+		double flySpeed = 200.0 * exp((-static_cast<double>(GetTotalPassengerWeight()) + 800.0) / 500.0);
+		return static_cast<unsigned int>(round(flySpeed));
 	}
 
 	unsigned int Airplane::GetDriveSpeed() const
 	{
-		double driveSpeed = 4.0 * exp((-static_cast<double>(GetPassengersCount()) + 400.0) / 70.0);
-		return static_cast<unsigned int>(driveSpeed);
+		double driveSpeed = 4.0 * exp((-static_cast<double>(GetTotalPassengerWeight()) + 400.0) / 70.0);
+		return static_cast<unsigned int>(round(driveSpeed));
 	}
 
 	//to do define
 	Boatplane Airplane::operator+(Boat& boat)
 	{
 		Boatplane bp(GetMaxPassengersCount() + boat.GetMaxPassengersCount());
-		return bp;
+		for (unsigned int i = 0; i < GetPassengersCount(); i++)
+		{
+			bp.AddPassenger(GetPassenger(i));
+		}
+		Deinitializer();
+		for (unsigned int i = 0; i < boat.GetPassengersCount(); i++)
+		{
+			bp.AddPassenger(boat.GetPassenger(i));
+		}
+		boat.Deinitializer();
+		return(bp);
 	}
 
-	std::string Airplane::GetKind() const
-	{
-		return mKind;
-	}
 }
