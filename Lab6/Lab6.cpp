@@ -30,8 +30,8 @@ namespace lab6
 	int Max(const std::vector<int>& v)
 	{
 		int vMax = INT_MIN;
-		unsigned int vSize = v.size();
-		for (unsigned int i = 0; i < vSize; i++)
+		int vSize = v.size();
+		for (int i = 0; i < vSize; i++)
 		{
 			vMax = vMax > v[i] ? vMax : v[i];
 		}
@@ -40,11 +40,11 @@ namespace lab6
 
 	float Average(const std::vector<int>& v)
 	{
-		if (v.size() != 0)
+		if (!v.empty())
 		{
 			float vSum = 0;
-			unsigned int vSize = v.size();
-			for (unsigned int i = 0; i < vSize; i++)
+			int vSize = v.size();
+			for (int i = 0; i < vSize; i++)
 			{
 				vSum += static_cast<float>(v[i]);
 			}
@@ -59,16 +59,15 @@ namespace lab6
 	int NumberWithMaxOccurrence(const std::vector<int>& v)
 	{
 		int checkOccurrence = 0;
-		int valueNumber;
-
 		int maxOccurence = 0;
 		int maxValueNumber = 0;
 		if (!v.empty())
 		{
-			for (unsigned int i = 0; i < v.size() - 1; i++)
+			int vSize = v.size();
+			for (int i = 0; i < vSize - 1; i++)
 			{
-				valueNumber = v[i];
-				for (unsigned int j = i + 1; j < v.size(); j++)
+				int valueNumber = v[i];
+				for (int j = i + 1; j < vSize; j++)
 				{
 					if (valueNumber == v[j])
 					{
@@ -91,9 +90,10 @@ namespace lab6
 	{
 		if (v.size() >= 2)
 		{
-			for (unsigned int i = v.size() - 1; i >= 0; i--)
+			int vSize = v.size();
+			for (int i = vSize - 1; i >= 0; i--)
 			{
-				for (unsigned int j = 0; j < i; j++)
+				for (int j = 0; j < i; j++)
 				{
 					if (v[j] < v[j + 1])
 					{
