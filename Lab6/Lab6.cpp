@@ -30,8 +30,8 @@ namespace lab6
 	int Max(const std::vector<int>& v)
 	{
 		int vMax = INT_MIN;
-		int vSize = v.size();
-		for (int i = 0; i < vSize; i++)
+		unsigned int vSize = v.size();
+		for (unsigned int i = 0; i < vSize; i++)
 		{
 			vMax = vMax > v[i] ? vMax : v[i];
 		}
@@ -43,8 +43,8 @@ namespace lab6
 		if (v.size() != 0)
 		{
 			float vSum = 0;
-			int vSize = v.size();
-			for (int i = 0; i < vSize; i++)
+			unsigned int vSize = v.size();
+			for (unsigned int i = 0; i < vSize; i++)
 			{
 				vSum += static_cast<float>(v[i]);
 			}
@@ -65,10 +65,10 @@ namespace lab6
 		int maxValueNumber = 0;
 		if (!v.empty())
 		{
-			for (int i = 0; i < v.size() - 1; i++)
+			for (unsigned int i = 0; i < v.size() - 1; i++)
 			{
 				valueNumber = v[i];
-				for (int j = i + 1; j < v.size(); j++)
+				for (unsigned int j = i + 1; j < v.size(); j++)
 				{
 					if (valueNumber == v[j])
 					{
@@ -91,9 +91,9 @@ namespace lab6
 	{
 		if (v.size() >= 2)
 		{
-			for (int i = v.size() - 1; i >= 0; i--)
+			for (unsigned int i = v.size() - 1; i >= 0; i--)
 			{
-				for (int j = 0; j < i; j++)
+				for (unsigned int j = 0; j < i; j++)
 				{
 					if (v[j] < v[j + 1])
 					{
