@@ -239,15 +239,11 @@ namespace assignment2
 		if (idx >= 0 && idx < mSize)
 		{
 			//mSize--;
-
 			const Person* temp = mPassenger[idx];
 			mPassenger[idx] = nullptr;
 			return temp;
 		}
-		else
-		{
-			return nullptr;
-		}
+		return nullptr;
 	}
 
 	const Person* Vehicle::GetPassenger(unsigned int i) const

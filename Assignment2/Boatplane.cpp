@@ -14,8 +14,9 @@ namespace assignment2
 		unsigned int passengersCount = other.GetPassengersCount();
 		for (unsigned int i = 0; i < passengersCount; i++)
 		{
-			AddPassenger(other.MovePassenger(i));
+			AddPassenger(other.GetPassenger(i));
 		}
+		other.Deinitializer();
 	}
 
 	Boatplane::~Boatplane()
