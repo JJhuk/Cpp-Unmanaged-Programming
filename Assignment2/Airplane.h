@@ -19,7 +19,7 @@ namespace assignment2
 
 		//Vehicle
 		unsigned int GetMaxSpeed() const;
-		
+
 		//IFlyable
 		unsigned int GetFlySpeed() const;
 

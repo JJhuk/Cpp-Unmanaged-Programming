@@ -4,7 +4,9 @@ namespace assignment2
 {
 	Vehicle::Vehicle(unsigned int maxPassengersCount) : mSize(0)
 	{
-		mHowMoveCount = 0;
+		mNowMoveCount = 0;
+		mNowRestCount = 0;
+		mTotalMoveCount = 0;
 		if (maxPassengersCount >= 0 && maxPassengersCount <= 100)
 		{
 			mMaxPassengersCount = maxPassengersCount;
@@ -21,7 +23,9 @@ namespace assignment2
 
 	Vehicle::Vehicle() : mSize(0), mMaxPassengersCount(100)
 	{
-		mHowMoveCount = 0;
+		mNowMoveCount = 0;
+		mNowRestCount = 0;
+		mTotalMoveCount = 0;
 		for (unsigned int i = 0; i < mMaxPassengersCount; i++)
 		{
 			mPassenger[i] = nullptr;
@@ -30,9 +34,11 @@ namespace assignment2
 
 	Vehicle::Vehicle(const Vehicle& other)
 	{
-		mHowMoveCount = 0;
 		if (&other != nullptr)
 		{
+			mNowMoveCount = 0;
+			mNowRestCount = 0;
+			mTotalMoveCount = 0;
 			mMaxPassengersCount = other.mMaxPassengersCount;
 
 			for (unsigned int i = 0; i < mMaxPassengersCount; i++)
@@ -45,9 +51,6 @@ namespace assignment2
 			{
 				mPassenger[i] = new Person(*other.mPassenger[i]);
 			}
-			mCanMoveCount = other.mCanMoveCount;
-			mRestCount = other.mRestCount;
-			mHowMoveCount = other.mHowMoveCount;
 		}
 		else
 		{
@@ -57,8 +60,14 @@ namespace assignment2
 			{
 				mPassenger[i] = nullptr;
 			}
+
+			mNowMoveCount = other.mNowMoveCount;
+			mNowRestCount = other.mNowRestCount;
+			mMaxMoveCount = other.mMaxMoveCount;
+			mTotalMoveCount = other.mTotalMoveCount;
+			mMustRestCount = other.mMustRestCount;
 		}
-		
+
 	}
 
 	Vehicle& Vehicle::operator=(const Vehicle& other) {
@@ -76,9 +85,12 @@ namespace assignment2
 			{
 				mPassenger[i] = new Person(*other.mPassenger[i]);
 			}
-			mCanMoveCount = other.mCanMoveCount;
-			mRestCount = other.mRestCount;
-			mHowMoveCount = other.mHowMoveCount;
+
+			mNowMoveCount = other.mNowMoveCount;
+			mNowRestCount = other.mNowRestCount;
+			mMaxMoveCount = other.mMaxMoveCount;
+			mTotalMoveCount = other.mTotalMoveCount;
+			mMustRestCount = other.mMustRestCount;
 		}
 		return *this;
 	}
@@ -143,36 +155,56 @@ namespace assignment2
 		return mMaxPassengersCount;
 	}
 
-	unsigned int Vehicle::GetRestCount() const
+	unsigned Vehicle::GetTotalMoveCount() const
 	{
-		return mRestCount;
+		return mTotalMoveCount;
 	}
 
-	unsigned int Vehicle::GetCanMoveCount() const
+	void Vehicle::InitTravel(unsigned maxMoveCount, unsigned mustRestCount)
 	{
-		return mCanMoveCount;
+		setMaxMoveCount(maxMoveCount);
+		setMustRestCount(mustRestCount);
 	}
 
-	unsigned int Vehicle::GetHowMoveCount() const
+	void Vehicle::setMustRestCount(unsigned int mustRestCount)
 	{
-		return mHowMoveCount;
+		mMustRestCount = mustRestCount;
 	}
 
-	void Vehicle::SetRestCount(unsigned int restCount)
+	void Vehicle::setMaxMoveCount(unsigned int maxMoveCount)
 	{
-		mRestCount = restCount;
+		mMaxMoveCount = maxMoveCount;
 	}
 
-	void Vehicle::SetCanMoveCount(unsigned int canMoveCount)
+	void Vehicle::TravelVehicle()
 	{
-		mCanMoveCount = canMoveCount;
+		if (mNowMoveCount < mMaxMoveCount)	//그냥 이동할 수 있을때
+		{
+			mTotalMoveCount++;	//얼마나 이동 한지 올리고
+			mNowMoveCount++;	//현재 몇번 이동한지 체크
+		}
+		else if (mNowMoveCount == mMustRestCount)	//최대 이동했을 때 (쉬어야 함)
+		{
+			if (mNowRestCount < mMustRestCount) //아직 덜 쉬었을 때
+			{
+				mNowRestCount++;	//카운트 올림
+			}
+			else if (mNowRestCount == mMustRestCount) //다 쉬었을때
+			{
+				mNowRestCount = 0;
+				mNowMoveCount = 0;
+			}
+		}
+
 	}
+
 
 	const Person* Vehicle::MovePassenger(unsigned int idx)
 	{
-		if(idx >= 0 && idx < mSize)
+		if (idx >= 0 && idx < mSize)
 		{
 			mSize--;
+
 			const Person* temp = mPassenger[idx];
 			mPassenger[idx] = nullptr;
 			return temp;
@@ -185,7 +217,7 @@ namespace assignment2
 
 	const Person* Vehicle::GetPassenger(unsigned int i) const
 	{
-		if(i>=0 && i<mSize)
+		if (i >= 0 && i < mSize)
 		{
 			return mPassenger[i];
 		}

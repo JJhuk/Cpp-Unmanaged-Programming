@@ -17,10 +17,9 @@ namespace assignment2
 	private:
 		DeusExMachina();
 		static DeusExMachina* mInstance;
-		const Vehicle* mVehicles[10];
-		int* `
+		Vehicle* mVehicles[10];
 		const unsigned int mMaxIdx = 10;
 		unsigned int mSize;
 	};
-	
+
 }

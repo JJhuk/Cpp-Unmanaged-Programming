@@ -5,11 +5,10 @@
 namespace assignment2
 {
 	std::string Motorcycle::mKind = "Motorcycle";
-	
+
 	Motorcycle::Motorcycle() : Vehicle(2)
 	{
-		SetCanMoveCount(5);
-		SetRestCount(1);
+		InitTravel(5, 1);
 	}
 
 	Motorcycle::~Motorcycle()

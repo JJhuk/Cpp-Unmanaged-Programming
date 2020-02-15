@@ -5,11 +5,10 @@
 namespace assignment2
 {
 	std::string Boatplane::mKind = "Boatplane";
-	
+
 	Boatplane::Boatplane(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
-		SetCanMoveCount(1);
-		SetRestCount(3);
+		InitTravel(1, 3);
 	}
 
 	Boatplane::~Boatplane()

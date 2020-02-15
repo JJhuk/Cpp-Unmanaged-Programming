@@ -25,14 +25,13 @@ namespace assignment2
 		const Person* GetPassenger(unsigned int i) const;
 		unsigned int GetPassengersCount() const;
 		unsigned int GetMaxPassengersCount() const;
+		unsigned int GetTotalMoveCount() const;
 
-		inline unsigned int GetRestCount() const;
-		inline unsigned int GetCanMoveCount() const;
-		inline unsigned int GetHowMoveCount() const;
+		void InitTravel(unsigned int maxMoveCount, unsigned int mustRestCount);
 
-		inline void SetRestCount(unsigned int restCount);
-		inline void SetCanMoveCount(unsigned int canMoveCount);
-		
+		void TravelVehicle();
+
+
 		const Person* MovePassenger(unsigned int idx);
 
 	private:
@@ -40,9 +39,16 @@ namespace assignment2
 		unsigned int mSize;
 		unsigned int mMaxPassengersCount;
 
+		void setMustRestCount(unsigned int mustRestCount);
+		void setMaxMoveCount(unsigned int maxMoveCount);
+
 		//수정
-		unsigned int mRestCount;
-		unsigned int mCanMoveCount;
-		unsigned int mHowMoveCount;
+		unsigned int mNowRestCount;	//지금 얼마나 쉬었는지
+		unsigned int mMustRestCount; //최대 쉬어야 하는지
+
+		unsigned int mMaxMoveCount;	//최대 얼마나 갈 수 있는지
+		unsigned int mNowMoveCount;	//지금 얼마나 갔는지.
+
+		unsigned int mTotalMoveCount;	//총 얼마나 간지.
 	};
 }

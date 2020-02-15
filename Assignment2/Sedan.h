@@ -20,7 +20,7 @@ namespace assignment2
 
 		std::string GetKind() const;
 
-		
+
 		bool AddTrailer(const Trailer* trailer);
 		bool RemoveTrailer();
 

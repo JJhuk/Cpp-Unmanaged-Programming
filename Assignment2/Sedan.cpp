@@ -4,18 +4,17 @@
 namespace assignment2
 {
 	std::string Sedan::mKind = "Sedan";
-	
+
 	Sedan::Sedan() : Vehicle(4)
 	{
 		mbIsConnectedTrailer = false;
 		mTrailer = nullptr;
-		SetCanMoveCount(5);
-		SetRestCount(3);
+		InitTravel(5, 1);
 	}
 
 	Sedan::~Sedan()
 	{
-		if(mbIsConnectedTrailer)
+		if (mbIsConnectedTrailer)
 		{
 			delete mTrailer;
 		}
@@ -30,28 +29,28 @@ namespace assignment2
 	{
 		unsigned int passengersCount = GetPassengersCount();
 
-		if(mbIsConnectedTrailer)
+		if (mbIsConnectedTrailer)
 		{
 			passengersCount += mTrailer->GetWeight();
 		}
 
-		if(passengersCount <= 80)
+		if (passengersCount <= 80)
 		{
 			return 480;
 		}
-		else if(passengersCount > 80)
+		else if (passengersCount > 80)
 		{
 			return 458;
 		}
-		else if(passengersCount > 160)
+		else if (passengersCount > 160)
 		{
 			return 400;
 		}
-		else if(passengersCount > 260)
+		else if (passengersCount > 260)
 		{
 			return 380;
 		}
-		else if(passengersCount > 350)
+		else if (passengersCount > 350)
 		{
 			return 300;
 		}
@@ -73,13 +72,14 @@ namespace assignment2
 		{
 			mbIsConnectedTrailer = true;
 			mTrailer = trailer;
-			
+
 		}
+		InitTravel(5, 2);
 	}
 
 	bool Sedan::RemoveTrailer()
 	{
-		if(mbIsConnectedTrailer)
+		if (mbIsConnectedTrailer)
 		{
 			mbIsConnectedTrailer = false;
 			delete mTrailer;

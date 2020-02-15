@@ -1,4 +1,5 @@
 #include "DeusExMachina.h"
+#include "Vehicle.h"
 #include <string>
 
 namespace assignment2
@@ -7,21 +8,25 @@ namespace assignment2
 
 	DeusExMachina* DeusExMachina::GetInstance()
 	{
-		if(mInstance == nullptr)
+		if (mInstance == nullptr)
 		{
 			mInstance = new DeusExMachina();
 		}
 		return mInstance;
 	}
 
-	
+
 	void DeusExMachina::Travel() const
 	{
+		for (unsigned int i = 0; i < mSize; i++)
+		{
+			mVehicles[i]->TravelVehicle();
+		}
 	}
 
 	bool DeusExMachina::AddVehicle(Vehicle* vehicle)
 	{
-		if(mSize < mMaxIdx)
+		if (mSize < mMaxIdx)
 		{
 			mVehicles[mSize] = vehicle;
 			mSize++;
@@ -35,17 +40,52 @@ namespace assignment2
 
 	bool DeusExMachina::RemoveVehicle(unsigned int i)
 	{
-		return false;
+		if (i >= 0 && i < mSize)
+		{
+			Vehicle* tempVehicle[10];
+			for (unsigned int beforeRemove = 0; beforeRemove < i; beforeRemove++)
+			{
+				tempVehicle[beforeRemove] = mVehicles[beforeRemove];
+			}
+			delete mVehicles[i];
+			for (unsigned int afterRemove = i + 1; afterRemove < mSize; afterRemove++)
+			{
+				tempVehicle[afterRemove - 1] = mVehicles[afterRemove];
+			}
+
+			memcpy(mVehicles, tempVehicle, sizeof(mVehicles));
+
+			for (unsigned int i = 0; i < mMaxIdx; i++)
+			{
+				tempVehicle[i] = nullptr;
+			}
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	const Vehicle* DeusExMachina::GetFurthestTravelled() const
 	{
-		return NULL;
+		const Vehicle* tempVehicle = nullptr;
+		unsigned int furthest = 0;
+		for (unsigned int i = 0; i < mMaxIdx; i++)
+		{
+			unsigned int checkFurthest = mVehicles[i]->GetMaxSpeed() * mVehicles[i]->GetTotalMoveCount();
+			if (furthest < checkFurthest)
+			{
+				furthest = checkFurthest;
+				tempVehicle = mVehicles[i];
+			}
+		}
+		return tempVehicle;
 	}
 
-	DeusExMachina::DeusExMachina():mMaxIdx(10), mSize(0)
+	DeusExMachina::DeusExMachina() :mMaxIdx(10), mSize(0)
 	{
-		for(int i=0;i<mMaxIdx;i++)
+		for (unsigned int i = 0; i < mMaxIdx; i++)
 		{
 			mVehicles[i] = nullptr;
 		}

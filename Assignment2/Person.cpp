@@ -9,7 +9,7 @@ namespace assignment2
 
 	Person::Person() : mString(""), mWeight(0)
 	{
-		
+
 	}
 
 	Person::Person(const Person& other) : mString(other.mString), mWeight(other.mWeight)
@@ -18,18 +18,18 @@ namespace assignment2
 
 	Person& Person::operator=(const Person& other)
 	{
-		if(&other != &(*this))
+		if (&other != &(*this))
 		{
 			mString = other.mString;
 			mWeight = other.mWeight;
 		}
-		
+
 		return *this;
 	}
 
 	Person::~Person()
 	{
-		
+
 	}
 
 	const std::string& Person::GetName() const

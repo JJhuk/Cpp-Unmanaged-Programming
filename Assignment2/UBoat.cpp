@@ -4,9 +4,10 @@
 namespace assignment2
 {
 	std::string UBoat::mKind = "UBoat";
-	
+
 	UBoat::UBoat() : Vehicle(50)
 	{
+		InitTravel(2, 4);
 	}
 
 	UBoat::~UBoat()

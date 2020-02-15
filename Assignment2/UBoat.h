@@ -17,7 +17,7 @@ namespace assignment2
 		unsigned int GetDiveSpeed() const;
 
 		std::string GetKind() const;
-		
+
 	private:
 		static std::string mKind;
 	};

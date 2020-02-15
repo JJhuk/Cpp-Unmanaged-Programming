@@ -7,11 +7,10 @@
 namespace assignment2
 {
 	std::string Airplane::mKind = "Airplane";
-	
+
 	Airplane::Airplane(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
-		SetCanMoveCount(1);
-		SetRestCount(3);
+		InitTravel(1, 3);
 	}
 
 	Airplane::~Airplane()

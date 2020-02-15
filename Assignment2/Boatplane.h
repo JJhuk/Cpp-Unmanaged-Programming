@@ -16,7 +16,7 @@ namespace assignment2
 		unsigned int GetMaxSpeed() const;
 		unsigned int GetSailSpeed() const;
 		unsigned int GetFlySpeed() const;
-		
+
 	private:
 		static std::string mKind;
 	};
