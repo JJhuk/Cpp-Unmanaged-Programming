@@ -47,7 +47,7 @@ namespace assignment2
 			bp.AddPassenger(boat.GetPassenger(i));
 		}
 		boat.Deinitializer();
-		return(bp);
+		return bp;
 	}
 
 }

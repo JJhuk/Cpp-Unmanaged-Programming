@@ -20,7 +20,7 @@ namespace assignment2
 
 	unsigned int Boat::GetSailSpeed() const
 	{
-		double sailSpeed = 800.0 - (1.7 * static_cast<double>(GetTotalPassengerWeight()));
+		double sailSpeed = (800 - (10.0 * static_cast<double>(GetTotalPassengerWeight())));
 		sailSpeed = sailSpeed > 20.0 ? sailSpeed : 20.0;
 
 		return static_cast<unsigned int>(round(sailSpeed));
@@ -44,7 +44,7 @@ namespace assignment2
 			bp.AddPassenger(GetPassenger(i));
 		}
 		Deinitializer();
-		return(bp);
+		return bp;
 	}
 
 }

@@ -43,11 +43,14 @@ namespace assignment2
 			mTotalMoveCount = other.mTotalMoveCount;
 			mMaxPassengersCount = other.mMaxPassengersCount;
 			mTotalPassengerWeight = other.mTotalPassengerWeight;
+		
 			for (unsigned int i = 0; i < mMaxPassengersCount; i++)
 			{
 				mPassenger[i] = nullptr;
 			}
+			
 			mSize = other.mSize;
+			
 			for (unsigned int i = 0; i < mSize; i++)
 			{
 				mPassenger[i] = new Person(*other.mPassenger[i]);
@@ -71,8 +74,9 @@ namespace assignment2
 
 	}
 
-	Vehicle& Vehicle::operator=(const Vehicle& other) {
-		if (&other != &(*this))
+	Vehicle& Vehicle::operator=(const Vehicle& other)
+	{
+		if (&other != this)
 		{
 			mMaxPassengersCount = other.mMaxPassengersCount;
 
