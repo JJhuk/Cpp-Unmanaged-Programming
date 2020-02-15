@@ -60,18 +60,18 @@ namespace assignment2
 		}
 		else
 		{
-			mMaxPassengersCount = 100;
+			mTotalPassengerWeight = 0;
 			mSize = 0;
+			mMaxPassengersCount = 100;
+			mNowRestCount = 0;
+			mMustRestCount = 0;
+			mMaxMoveCount = 0;
+			mNowMoveCount = 0;
+			mTotalMoveCount = 0;
 			for (unsigned int i = 0; i < mMaxPassengersCount; i++)
 			{
 				mPassenger[i] = nullptr;
 			}
-			mTotalPassengerWeight = 0;
-			mNowMoveCount = 0;
-			mNowRestCount = 0;
-			mMaxMoveCount = 0;
-			mTotalMoveCount = 0;
-			mMustRestCount = 0;
 		}
 
 	}
@@ -90,7 +90,7 @@ namespace assignment2
 
 			for (unsigned int i = 0; i < mSize; i++)
 			{
-				mPassenger[i] = other.mPassenger[i];
+				mPassenger[i] = new Person(*other.mPassenger[i]);
 			}
 
 			mNowMoveCount = other.mNowMoveCount;
@@ -219,7 +219,7 @@ namespace assignment2
 			{
 				mNowRestCount++;	//카운트 올림
 			}
-			else if (mNowRestCount == mMustRestCount) //다 쉬었을때
+			else //다 쉬었을때
 			{
 				mNowRestCount = 0;
 				mNowMoveCount = 0;

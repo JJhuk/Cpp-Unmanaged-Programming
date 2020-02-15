@@ -63,18 +63,22 @@ namespace assignment2
 
 	const Vehicle* DeusExMachina::GetFurthestTravelled() const
 	{
-		const Vehicle* tempVehicle = nullptr;
-		unsigned int furthest = 0;
-		for (unsigned int i = 0; i < mSize; i++)
+		if(mSize > 0)
 		{
-			unsigned int checkFurthest = mVehicles[i]->GetMaxSpeed() * mVehicles[i]->GetTotalMoveCount();
-			if (furthest < checkFurthest)
+			const Vehicle* tempVehicle = nullptr;
+			unsigned int furthest = 0;
+			for (unsigned int i = 0; i < mSize; i++)
 			{
-				furthest = checkFurthest;
-				tempVehicle = mVehicles[i];
+				unsigned int checkFurthest = mVehicles[i]->GetMaxSpeed() * mVehicles[i]->GetTotalMoveCount();
+				if (furthest < checkFurthest)
+				{
+					furthest = checkFurthest;
+					tempVehicle = mVehicles[i];
+				}
 			}
+			return tempVehicle;
 		}
-		return tempVehicle;
+		return nullptr;
 	}
 
 	Vehicle* DeusExMachina::GetVehicle(unsigned int i) const
