@@ -1,5 +1,4 @@
 #include "Vehicle.h"
-
 namespace assignment2
 {
 	Vehicle::Vehicle(unsigned int maxPassengersCount) : mSize(0)
@@ -212,6 +211,7 @@ namespace assignment2
 		{
 			mTotalMoveCount++;	//얼마나 이동 한지 올리고
 			mNowMoveCount++;	//현재 몇번 이동한지 체크
+
 		}
 		else	//최대 이동했을 때 (쉬어야 함)
 		{
@@ -222,7 +222,8 @@ namespace assignment2
 			else //다 쉬었을때
 			{
 				mNowRestCount = 0;
-				mNowMoveCount = 0;
+				mNowMoveCount = 1;
+				mTotalMoveCount++;
 			}
 		}
 

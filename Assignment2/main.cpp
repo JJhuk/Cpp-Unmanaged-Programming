@@ -39,6 +39,7 @@ int main()
         assert(bp1.GetPassenger(i)->GetName() == bp2.GetPassenger(i)->GetName());
         assert(bp1.GetPassenger(i)->GetWeight() == bp2.GetPassenger(i)->GetWeight());
     }
+	
     Sedan s1;
     Sedan s2;
     s2.AddTrailer(new Trailer(100));
