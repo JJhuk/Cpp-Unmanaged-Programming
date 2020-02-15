@@ -38,19 +38,21 @@ namespace assignment2
 	{
 		if (&other != this)
 		{
-			mNowMoveCount = other.mNowMoveCount;
-			mNowRestCount = other.mNowRestCount;
-			mTotalMoveCount = other.mTotalMoveCount;
-			mMaxPassengersCount = other.mMaxPassengersCount;
 			mTotalPassengerWeight = other.mTotalPassengerWeight;
-		
+			mSize = other.mSize;
+			mMaxPassengersCount = other.mMaxPassengersCount;
+			mNowRestCount = other.mNowRestCount;
+			mMustRestCount = other.mMustRestCount;
+			mMaxMoveCount = other.mMaxMoveCount;
+			mNowMoveCount = other.mNowMoveCount;
+			mTotalMoveCount = other.mTotalMoveCount;
+
 			for (unsigned int i = 0; i < mMaxPassengersCount; i++)
 			{
 				mPassenger[i] = nullptr;
 			}
-			
-			mSize = other.mSize;
-			
+
+
 			for (unsigned int i = 0; i < mSize; i++)
 			{
 				mPassenger[i] = new Person(*other.mPassenger[i]);
