@@ -234,19 +234,6 @@ namespace assignment2
 		return mTotalPassengerWeight;
 	}
 
-
-	const Person* Vehicle::MovePassenger(unsigned int idx)
-	{
-		if (idx >= 0 && idx < mSize)
-		{
-			//mSize--;
-			const Person* temp = mPassenger[idx];
-			mPassenger[idx] = nullptr;
-			return temp;
-		}
-		return nullptr;
-	}
-
 	const Person* Vehicle::GetPassenger(unsigned int i) const
 	{
 		if (i >= 0 && i < mSize)

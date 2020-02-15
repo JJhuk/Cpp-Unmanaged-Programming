@@ -20,6 +20,7 @@ namespace assignment2
 		Vehicle* mVehicles[10];
 		const unsigned int MAX_IDX = 10;
 		unsigned int mSize;
+		bool mbIsTravelled;
 	};
 
 }

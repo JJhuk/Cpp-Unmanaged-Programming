@@ -65,7 +65,7 @@ namespace assignment2
 	{
 		if (mSize > 0)
 		{
-			const Vehicle* tempVehicle = nullptr;
+			const Vehicle* tempVehicle = mVehicles[0];
 			unsigned int furthest = 0;
 			for (unsigned int i = 0; i < mSize; i++)
 			{
@@ -90,7 +90,7 @@ namespace assignment2
 		return nullptr;
 	}
 
-	DeusExMachina::DeusExMachina() : mSize(0)
+	DeusExMachina::DeusExMachina() : mSize(0), mbIsTravelled(false)
 	{
 		for (unsigned int i = 0; i < MAX_IDX; i++)
 		{
