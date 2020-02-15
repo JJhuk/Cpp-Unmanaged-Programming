@@ -8,13 +8,13 @@ namespace assignment2
 		InitTravel(1, 3);
 	}
 
-	Boatplane::Boatplane(Boatplane& boat_plane) : Vehicle(boat_plane.GetMaxPassengersCount())
+	Boatplane::Boatplane(Boatplane& other) : Vehicle(other.GetMaxPassengersCount())
 	{
 		InitTravel(1, 3);
-		unsigned int passengersCount = boat_plane.GetPassengersCount();
+		unsigned int passengersCount = other.GetPassengersCount();
 		for (unsigned int i = 0; i < passengersCount; i++)
 		{
-			AddPassenger(boat_plane.MovePassenger(i));
+			AddPassenger(other.MovePassenger(i));
 		}
 	}
 

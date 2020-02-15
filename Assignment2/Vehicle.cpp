@@ -50,14 +50,14 @@ namespace assignment2
 			mSize = other.mSize;
 			for (unsigned int i = 0; i < mSize; i++)
 			{
-				mPassenger[i] = other.mPassenger[i];
+				mPassenger[i] = new Person(*other.mPassenger[i]);
 			}
 		}
 		else
 		{
 			mMaxPassengersCount = 100;
 			mSize = 0;
-			for (int i = 0; i < mMaxPassengersCount; i++)
+			for (unsigned int i = 0; i < mMaxPassengersCount; i++)
 			{
 				mPassenger[i] = nullptr;
 			}
@@ -107,9 +107,9 @@ namespace assignment2
 
 	bool Vehicle::AddPassenger(const Person* person)
 	{
-		if (mSize < mMaxPassengersCount && person!= nullptr)
+		if (mSize < mMaxPassengersCount && person != nullptr)
 		{
-			if(mPassenger[mSize - 1] != person)
+			if (mPassenger[mSize - 1] != person)
 			{
 				mPassenger[mSize] = person;
 				mSize++;
@@ -173,7 +173,7 @@ namespace assignment2
 
 	void Vehicle::Deinitializer()
 	{
-		for(unsigned int i = 0 ; i<mMaxPassengersCount;i++)
+		for (unsigned int i = 0; i < mMaxPassengersCount; i++)
 		{
 			mPassenger[i] = nullptr;
 		}

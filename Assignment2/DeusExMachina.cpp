@@ -26,16 +26,13 @@ namespace assignment2
 
 	bool DeusExMachina::AddVehicle(Vehicle* vehicle)
 	{
-		if (mSize < mMaxIdx)
+		if (mSize < MAX_IDX)
 		{
 			mVehicles[mSize] = vehicle;
 			mSize++;
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 
 	bool DeusExMachina::RemoveVehicle(unsigned int i)
@@ -55,16 +52,13 @@ namespace assignment2
 			mSize--;
 			memcpy(mVehicles, tempVehicle, sizeof(mVehicles));
 
-			for (unsigned int i = 0; i < mMaxIdx; i++)
+			for (unsigned int i = 0; i < MAX_IDX; i++)
 			{
 				tempVehicle[i] = nullptr;
 			}
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 
 	const Vehicle* DeusExMachina::GetFurthestTravelled() const
@@ -85,16 +79,16 @@ namespace assignment2
 
 	Vehicle* DeusExMachina::GetVehicle(unsigned int i) const
 	{
-		if(i>=0 && i<mSize)
+		if (i >= 0 && i < mSize)
 		{
 			return mVehicles[i];
 		}
 		return nullptr;
 	}
 
-	DeusExMachina::DeusExMachina() :mMaxIdx(10), mSize(0)
+	DeusExMachina::DeusExMachina() : mSize(0)
 	{
-		for (unsigned int i = 0; i < mMaxIdx; i++)
+		for (unsigned int i = 0; i < MAX_IDX; i++)
 		{
 			mVehicles[i] = nullptr;
 		}

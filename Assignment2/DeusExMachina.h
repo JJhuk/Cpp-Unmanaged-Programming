@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Vehicle.h"
-#include <string>
 
 namespace assignment2
 {
@@ -19,7 +18,7 @@ namespace assignment2
 		DeusExMachina();
 		static DeusExMachina* mInstance;
 		Vehicle* mVehicles[10];
-		const unsigned int mMaxIdx = 10;
+		const unsigned int MAX_IDX = 10;
 		unsigned int mSize;
 	};
 

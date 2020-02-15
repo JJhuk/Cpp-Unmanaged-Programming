@@ -3,7 +3,6 @@
 #include "Boatplane.h"
 #include "Vehicle.h"
 #include <cmath>
-#include <iostream>
 
 namespace assignment2
 {

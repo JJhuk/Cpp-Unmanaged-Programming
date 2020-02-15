@@ -31,27 +31,27 @@ namespace assignment2
 		{
 			passengerTotalWeight += mTrailer->GetWeight();
 		}
-
 		if (passengerTotalWeight <= 80)
 		{
 			return 480;
 		}
-		else if (passengerTotalWeight > 80)
+		if (80 < passengerTotalWeight && passengerTotalWeight <= 160)
 		{
 			return 458;
 		}
-		else if (passengerTotalWeight > 160)
+		if (160 < passengerTotalWeight && passengerTotalWeight <= 260)
 		{
 			return 400;
 		}
-		else if (passengerTotalWeight > 260)
+		if (260 < passengerTotalWeight && passengerTotalWeight <= 350)
 		{
 			return 380;
 		}
-		else if (passengerTotalWeight > 350)
+		if (passengerTotalWeight > 350)
 		{
 			return 300;
 		}
+		return 0;
 	}
 
 
@@ -61,13 +61,10 @@ namespace assignment2
 		{
 			return false;
 		}
-		else
-		{
-			mbIsConnectedTrailer = true;
-			mTrailer = trailer;
-
-		}
 		InitTravel(5, 2);
+		mbIsConnectedTrailer = true;
+		mTrailer = trailer;
+		return true;
 	}
 
 	bool Sedan::RemoveTrailer()
@@ -76,12 +73,10 @@ namespace assignment2
 		{
 			mbIsConnectedTrailer = false;
 			delete mTrailer;
+			mTrailer = nullptr;
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 
 	bool Sedan::GetIsConnectedTrailer() const
