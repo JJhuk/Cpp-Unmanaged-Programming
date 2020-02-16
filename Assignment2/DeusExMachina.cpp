@@ -105,5 +105,6 @@ namespace assignment2
 			delete mVehicles[i];
 			mVehicles[i] = nullptr;
 		}
+		mInstance = nullptr;
 	}
 }

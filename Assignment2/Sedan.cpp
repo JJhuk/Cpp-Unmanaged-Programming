@@ -7,23 +7,26 @@ namespace assignment2
 	Sedan::Sedan() : Vehicle(4)
 	{
 		//std::cout << "Sedan 생성자 호출" << std::endl;
-		mbIsConnectedTrailer = false;
 		mTrailer = nullptr;
+		mbIsConnected = false;
 		InitTravel(5, 1);
 	}
 
 	Sedan::Sedan(const Sedan& other) : Vehicle(other)
 	{
-		mbIsConnectedTrailer = other.mbIsConnectedTrailer;
-		if (mbIsConnectedTrailer)
+		//std::cout << "Sedan 생성자 호출" << std::endl;
+		if (other.mbIsConnected)
 		{
 			mTrailer = new Trailer(other.mTrailer->GetWeight());
+			mbIsConnected = true;
+			InitTravel(5, 2);
 		}
 		else
 		{
+			mbIsConnected = false;
 			mTrailer = nullptr;
+			InitTravel(5, 1);
 		}
-		InitTravel(5, 1);
 	}
 
 
@@ -32,10 +35,11 @@ namespace assignment2
 	Sedan::~Sedan()
 	{
 		//std::cout << "Sedan 소멸자 호출" << std::endl;
-		if (mbIsConnectedTrailer)
+		if (mbIsConnected)
 		{
 			delete mTrailer;
 			mTrailer = nullptr;
+			mbIsConnected = false;
 		}
 	}
 
@@ -48,7 +52,7 @@ namespace assignment2
 	{
 		unsigned int passengerTotalWeight = GetTotalPassengerWeight();
 
-		if (mbIsConnectedTrailer)
+		if (mbIsConnected)
 		{
 			passengerTotalWeight += mTrailer->GetWeight();
 		}
@@ -75,33 +79,81 @@ namespace assignment2
 		return 0;
 	}
 
+	Sedan& Sedan::operator=(const Sedan& rhs)
+	{
+		if (this != &rhs)
+		{
+			for (unsigned int i = 0; i < mSize; i++)
+			{
+				delete mPassenger[i];
+			}
+			mTotalPassengerWeight = rhs.mTotalPassengerWeight;
+			mSize = rhs.mSize;
+			mMaxPassengersCount = rhs.mMaxPassengersCount;
+			mNowRestCount = rhs.mNowRestCount;
+			mMustRestCount = rhs.mMustRestCount;
+			mMaxMoveCount = rhs.mMaxMoveCount;
+			mNowMoveCount = rhs.mNowMoveCount;
+			mTotalMoveCount = rhs.mTotalMoveCount;
+
+			for (unsigned int i = 0; i < mMaxPassengersCount; i++)
+			{
+				mPassenger[i] = nullptr;
+			}
+
+
+			for (unsigned int i = 0; i < mSize; i++)
+			{
+				mPassenger[i] = new Person(*rhs.mPassenger[i]);
+			}
+			if (rhs.mbIsConnected)
+			{
+				if (mbIsConnected)
+				{
+					delete mTrailer;
+					mTrailer = nullptr;
+					mbIsConnected = false;
+				}
+				mTrailer = new Trailer(rhs.mTrailer->GetWeight());
+				mbIsConnected = true;
+
+				InitTravel(5, 2);
+			}
+			else
+			{
+				delete mTrailer;
+				mTrailer = nullptr;
+				mbIsConnected = false;
+
+				InitTravel(5, 1);
+			}
+
+		}
+		return *this;
+	}
+
 
 	bool Sedan::AddTrailer(const Trailer* trailer)
 	{
-		if (mbIsConnectedTrailer)
+		if (mbIsConnected || trailer == nullptr)
 		{
 			return false;
 		}
 		InitTravel(5, 2);
-		mbIsConnectedTrailer = true;
 		mTrailer = trailer;
+		mbIsConnected = true;
 		return true;
 	}
 
 	bool Sedan::RemoveTrailer()
 	{
-		if (mbIsConnectedTrailer)
+		if (mbIsConnected)
 		{
-			mbIsConnectedTrailer = false;
 			delete mTrailer;
 			mTrailer = nullptr;
+			mbIsConnected = false;
 			return true;
 		}
 		return false;
-	}
-
-	bool Sedan::GetIsConnectedTrailer() const
-	{
-		return mbIsConnectedTrailer;
 	}
 }

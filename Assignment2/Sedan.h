@@ -18,14 +18,13 @@ namespace assignment2
 
 		unsigned int GetDriveSpeed() const;
 
+		Sedan& operator=(const Sedan& rhs);
 
 		bool AddTrailer(const Trailer* trailer);
 		bool RemoveTrailer();
 
-		inline bool GetIsConnectedTrailer() const;
-
 	private:
-		bool mbIsConnectedTrailer;
 		const Trailer* mTrailer;
+		bool mbIsConnected;
 	};
 }

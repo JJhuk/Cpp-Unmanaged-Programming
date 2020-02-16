@@ -3,6 +3,8 @@
 #include "Person.h"
 namespace assignment2
 {
+	class Sedan;
+
 	class Vehicle
 	{
 	public:
@@ -10,8 +12,7 @@ namespace assignment2
 		Vehicle();
 		Vehicle(const Vehicle& other);
 
-		virtual Vehicle& operator=(const Vehicle& other);
-		Vehicle& SedanCopy(const Vehicle& other);
+		Vehicle& operator=(const Vehicle& other);
 
 		virtual  ~Vehicle();
 
@@ -33,7 +34,7 @@ namespace assignment2
 
 		const Person* MovePassenger(unsigned int idx);
 
-	private:
+	protected:
 		const Person* mPassenger[100];
 		unsigned int mTotalPassengerWeight;
 		unsigned int mSize;
