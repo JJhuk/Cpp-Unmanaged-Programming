@@ -97,4 +97,13 @@ namespace assignment2
 			mVehicles[i] = nullptr;
 		}
 	}
+
+	DeusExMachina::~DeusExMachina()
+	{
+		for(unsigned int i = 0 ; i< mSize;i++)
+		{
+			delete mVehicles[i];
+			mVehicles[i] = nullptr;
+		}
+	}
 }
