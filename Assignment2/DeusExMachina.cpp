@@ -100,7 +100,7 @@ namespace assignment2
 
 	DeusExMachina::~DeusExMachina()
 	{
-		for(unsigned int i = 0 ; i< mSize;i++)
+		for (unsigned int i = 0; i < mSize; i++)
 		{
 			delete mVehicles[i];
 			mVehicles[i] = nullptr;

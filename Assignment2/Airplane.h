@@ -13,7 +13,7 @@ namespace assignment2
 	public:
 		//static const std::string mKind;
 		Airplane(unsigned int maxPassengersCount);
-		~Airplane();
+		virtual ~Airplane();
 
 		//Vehicle
 		unsigned int GetMaxSpeed() const;

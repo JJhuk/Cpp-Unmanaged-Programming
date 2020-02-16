@@ -15,7 +15,7 @@ namespace assignment2
 		Boatplane(Boat& lhs, Airplane& rhs);
 		Boatplane(Airplane& rhs, Boat& lhs);
 
-		~Boatplane();
+		virtual  ~Boatplane();
 		unsigned int GetMaxSpeed() const;
 		unsigned int GetSailSpeed() const;
 		unsigned int GetFlySpeed() const;
