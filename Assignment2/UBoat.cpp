@@ -6,11 +6,14 @@ namespace assignment2
 
 	UBoat::UBoat() : Vehicle(50)
 	{
+
+		//std::cout << "UBoat 생성자 호출" << std::endl;
 		InitTravel(2, 4);
 	}
 
 	UBoat::~UBoat()
 	{
+		///std::cout << "UBoat 소멸자 호출" << std::endl;
 	}
 
 	unsigned int UBoat::GetMaxSpeed() const

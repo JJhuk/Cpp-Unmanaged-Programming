@@ -1,5 +1,6 @@
 #include "Boatplane.h"
 #include <cmath>
+
 #include "Boat.h"
 #include "Airplane.h"
 
@@ -8,11 +9,14 @@ namespace assignment2
 	Boatplane::Boatplane(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
 		InitTravel(1, 3);
+
+		//std::cout << "Boatplane 생성자 호출" << std::endl;
 	}
 
 	Boatplane::Boatplane(Boatplane& other) : Vehicle(other)
 	{
 		InitTravel(1, 3);
+		//std::cout << "Boatplane 생성자 호출" << std::endl;
 	}
 
 	Boatplane::Boatplane(Boat& lhs, Airplane& rhs) : Vehicle(lhs.GetMaxPassengersCount() + rhs.GetMaxPassengersCount())
@@ -27,6 +31,7 @@ namespace assignment2
 			this->AddPassenger(lhs.MovePassenger(i));
 		}
 		lhs.Deinitializer();
+		//std::cout << "Boatplane 생성자 호출" << std::endl;
 	}
 
 	Boatplane::Boatplane(Airplane& rhs, Boat& lhs) : Vehicle(lhs.GetMaxPassengersCount() + rhs.GetMaxPassengersCount())
@@ -41,11 +46,13 @@ namespace assignment2
 			this->AddPassenger(lhs.MovePassenger(i));
 		}
 		lhs.Deinitializer();
+		//std::cout << "Boatplane 생성자 호출" << std::endl;
 	}
 
 	Boatplane::~Boatplane()
 	{
 
+		//std::cout << "Boatplane 소멸자 호출" << std::endl;
 	}
 
 	unsigned int Boatplane::GetMaxSpeed() const

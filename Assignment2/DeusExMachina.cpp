@@ -1,6 +1,5 @@
 #include "DeusExMachina.h"
 #include "Vehicle.h"
-#include <string>
 
 namespace assignment2
 {
@@ -90,6 +89,8 @@ namespace assignment2
 
 	DeusExMachina::DeusExMachina() : mSize(0), mbIsTravelled(false)
 	{
+		//std::cout << "捞模备 积己磊" << std::endl;
+
 		for (unsigned int i = 0; i < MAX_IDX; i++)
 		{
 			mVehicles[i] = nullptr;

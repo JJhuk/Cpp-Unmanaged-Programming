@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Person.h"
-#include <string>
-
 namespace assignment2
 {
 	class Vehicle
@@ -12,7 +10,8 @@ namespace assignment2
 		Vehicle();
 		Vehicle(const Vehicle& other);
 
-		Vehicle& operator=(const Vehicle& other);
+		virtual Vehicle& operator=(const Vehicle& other);
+		Vehicle& SedanCopy(const Vehicle& other);
 
 		virtual  ~Vehicle();
 

@@ -1,10 +1,9 @@
 #include "Vehicle.h"
-
 namespace assignment2
 {
 	Vehicle::Vehicle(unsigned int maxPassengersCount) : mSize(0)
 	{
-		//std::cout << "생성자 호출" << std::endl;
+		//std::cout << "Vehicle 생성자 호출" << std::endl;
 		mNowMoveCount = 0;
 		mNowRestCount = 0;
 		mTotalMoveCount = 0;
@@ -26,7 +25,7 @@ namespace assignment2
 	Vehicle::Vehicle() : mSize(0), mMaxPassengersCount(100)
 	{
 
-		//std::cout << "생성자 호출" << std::endl;
+		//std::cout << "Vehicle 생성자 호출" << std::endl;
 		mNowMoveCount = 0;
 		mNowRestCount = 0;
 		mTotalMoveCount = 0;
@@ -40,7 +39,7 @@ namespace assignment2
 	Vehicle::Vehicle(const Vehicle& other)
 	{
 
-		//std::cout << "생성자 호출" << std::endl;
+		//std::cout << "Vehicle 생성자 호출" << std::endl;
 		if (&other != this)
 		{
 			mTotalPassengerWeight = other.mTotalPassengerWeight;
@@ -108,10 +107,36 @@ namespace assignment2
 		return *this;
 	}
 
+	Vehicle& Vehicle::SedanCopy(const Vehicle& other)
+	{
+		if (&other != this)
+		{
+			mMaxPassengersCount = other.mMaxPassengersCount;
+
+			for (unsigned int i = 0; i < mSize; i++)
+			{
+				mPassenger[i] = nullptr;
+			}
+			mSize = other.mSize;
+
+			for (unsigned int i = 0; i < mSize; i++)
+			{
+				mPassenger[i] = new Person(*other.mPassenger[i]);
+			}
+
+			mNowMoveCount = other.mNowMoveCount;
+			mNowRestCount = other.mNowRestCount;
+			mMaxMoveCount = other.mMaxMoveCount;
+			mTotalMoveCount = other.mTotalMoveCount;
+			mMustRestCount = other.mMustRestCount;
+			mTotalPassengerWeight = other.mTotalPassengerWeight;
+		}
+		return *this;
+	}
 	Vehicle::~Vehicle()
 	{
 
-		//std::cout << "소멸자 호출" << std::endl;
+		//std::cout << "Vehicle 소멸자 호출" << std::endl;
 		for (unsigned int i = 0; i < mSize; i++)
 		{
 			delete mPassenger[i];

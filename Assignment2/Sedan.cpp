@@ -1,20 +1,41 @@
 #include "Sedan.h"
 
+
 namespace assignment2
 {
 
 	Sedan::Sedan() : Vehicle(4)
 	{
+		//std::cout << "Sedan 생성자 호출" << std::endl;
 		mbIsConnectedTrailer = false;
 		mTrailer = nullptr;
 		InitTravel(5, 1);
 	}
 
+	Sedan::Sedan(const Sedan& other) : Vehicle(other)
+	{
+		mbIsConnectedTrailer = other.mbIsConnectedTrailer;
+		if (mbIsConnectedTrailer)
+		{
+			mTrailer = new Trailer(other.mTrailer->GetWeight());
+		}
+		else
+		{
+			mTrailer = nullptr;
+		}
+		InitTravel(5, 1);
+	}
+
+
+
+
 	Sedan::~Sedan()
 	{
+		//std::cout << "Sedan 소멸자 호출" << std::endl;
 		if (mbIsConnectedTrailer)
 		{
 			delete mTrailer;
+			mTrailer = nullptr;
 		}
 	}
 

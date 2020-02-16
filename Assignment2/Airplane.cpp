@@ -9,11 +9,14 @@ namespace assignment2
 
 	Airplane::Airplane(unsigned int maxPassengersCount) : Vehicle(maxPassengersCount)
 	{
+		//std::cout << "Airplane 생성자 호출" << std::endl;
 		InitTravel(1, 3);
 	}
 
 	Airplane::~Airplane()
 	{
+
+		//std::cout << "Airplane 소멸자 호출" << std::endl;
 	}
 
 	unsigned int Airplane::GetMaxSpeed() const
