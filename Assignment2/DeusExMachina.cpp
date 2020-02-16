@@ -8,11 +8,9 @@ namespace assignment2
 
 	DeusExMachina* DeusExMachina::GetInstance()
 	{
-		if (mInstance == nullptr)
-		{
-			mInstance = new DeusExMachina();
-		}
-		return mInstance;
+		static DeusExMachina mInstance;
+
+		return &mInstance;
 	}
 
 
@@ -100,6 +98,7 @@ namespace assignment2
 
 	DeusExMachina::~DeusExMachina()
 	{
+		//std::cout << "이친구 소멸자" << std::endl;
 		for (unsigned int i = 0; i < mSize; i++)
 		{
 			delete mVehicles[i];

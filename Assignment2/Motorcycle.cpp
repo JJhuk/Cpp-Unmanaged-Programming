@@ -1,16 +1,17 @@
 #include "Motorcycle.h"
 #include <cmath>
-#include <string>
 
 namespace assignment2
 {
 	Motorcycle::Motorcycle() : Vehicle(2)
 	{
+		//std::cout << "오토바이 생성자" << std::endl;
 		InitTravel(5, 1);
 	}
 
 	Motorcycle::~Motorcycle()
 	{
+		//std::cout << "오토바이 소멸자" << std::endl;
 	}
 
 	unsigned int Motorcycle::GetDriveSpeed() const
