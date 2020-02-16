@@ -1,5 +1,7 @@
 #include "Boatplane.h"
 #include <cmath>
+#include "Boat.h"
+#include "Airplane.h"
 
 namespace assignment2
 {
@@ -13,9 +15,37 @@ namespace assignment2
 		InitTravel(1, 3);
 	}
 
+	Boatplane::Boatplane(Boat& lhs, Airplane& rhs) : Vehicle(lhs.GetMaxPassengersCount() + rhs.GetMaxPassengersCount())
+	{
+		for(unsigned int i = 0; i<lhs.GetPassengersCount();i++)
+		{
+			this->AddPassenger(lhs.GetPassenger(i));
+		}
+		lhs.Deinitializer();
+		for(unsigned int i = 0; i< rhs.GetPassengersCount();i++)
+		{
+			this->AddPassenger(rhs.GetPassenger(i));
+		}
+		rhs.Deinitializer();
+	}
+
+	Boatplane::Boatplane(Airplane& rhs, Boat& lhs) : Vehicle(lhs.GetMaxPassengersCount() + rhs.GetMaxPassengersCount())
+	{
+		for (unsigned int i = 0; i < rhs.GetPassengersCount(); i++)
+		{
+			this->AddPassenger(rhs.GetPassenger(i));
+		}
+		rhs.Deinitializer();
+		for (unsigned int i = 0; i < lhs.GetPassengersCount(); i++)
+		{
+			this->AddPassenger(lhs.GetPassenger(i));
+		}
+		lhs.Deinitializer();
+	}
+
 	Boatplane::~Boatplane()
 	{
-
+		Deinitializer();
 	}
 
 	unsigned int Boatplane::GetMaxSpeed() const

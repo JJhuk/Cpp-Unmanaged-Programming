@@ -61,9 +61,9 @@ namespace lab6
 		int checkOccurrence = 0;
 		int maxOccurence = 0;
 		int maxValueNumber = 0;
-		if (!v.empty())
+		int vSize = v.size();
+		if (vSize >= 2)
 		{
-			int vSize = v.size();
 			for (int i = 0; i < vSize - 1; i++)
 			{
 				int valueNumber = v[i];

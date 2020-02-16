@@ -36,18 +36,7 @@ namespace assignment2
 	//to do define
 	Boatplane Airplane::operator+(Boat& boat)
 	{
-		Boatplane bp(GetMaxPassengersCount() + boat.GetMaxPassengersCount());
-		for (unsigned int i = 0; i < GetPassengersCount(); i++)
-		{
-			bp.AddPassenger(GetPassenger(i));
-		}
-		Deinitializer();
-		for (unsigned int i = 0; i < boat.GetPassengersCount(); i++)
-		{
-			bp.AddPassenger(boat.GetPassenger(i));
-		}
-		boat.Deinitializer();
-		return bp;
+		return Boatplane(*this, boat);
 	}
 
 }
