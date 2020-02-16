@@ -121,15 +121,9 @@ namespace assignment2
 				mTotalPassengerWeight += person->GetWeight();
 				return true;
 			}
-			else
-			{
-				return false;
-			}
-		}
-		else
-		{
 			return false;
 		}
+		return false;
 	}
 
 	bool Vehicle::RemovePassenger(unsigned int i)
@@ -155,10 +149,7 @@ namespace assignment2
 			memcpy(mPassenger, temp, sizeof(mPassenger));
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 
 	unsigned int Vehicle::GetPassengersCount() const
@@ -178,10 +169,6 @@ namespace assignment2
 
 	void Vehicle::Deinitializer()
 	{
-		for (unsigned int i = 0; i < mMaxPassengersCount; i++)
-		{
-			mPassenger[i] = nullptr;
-		}
 		mSize = 0;
 		mTotalPassengerWeight = 0;
 		mNowRestCount = 0;
@@ -234,15 +221,28 @@ namespace assignment2
 		return mTotalPassengerWeight;
 	}
 
+	//이거 옮길때만 사용.
+	const Person* Vehicle::MovePassenger(unsigned idx)
+	{
+		if (idx >= 0 && idx < mSize)
+		{
+			if (mPassenger[idx] != nullptr)
+			{
+				const Person* temp = mPassenger[idx];
+				mPassenger[idx] = nullptr;
+				return temp;
+			}
+			return nullptr;
+		}
+		return nullptr;
+	}
+
 	const Person* Vehicle::GetPassenger(unsigned int i) const
 	{
 		if (i >= 0 && i < mSize)
 		{
 			return mPassenger[i];
 		}
-		else
-		{
-			return nullptr;
-		}
+		return nullptr;
 	}
 }

@@ -17,35 +17,35 @@ namespace assignment2
 
 	Boatplane::Boatplane(Boat& lhs, Airplane& rhs) : Vehicle(lhs.GetMaxPassengersCount() + rhs.GetMaxPassengersCount())
 	{
-		for(unsigned int i = 0; i<lhs.GetPassengersCount();i++)
+		for (unsigned int i = 0; i < rhs.GetPassengersCount(); i++)
 		{
-			this->AddPassenger(lhs.GetPassenger(i));
-		}
-		lhs.Deinitializer();
-		for(unsigned int i = 0; i< rhs.GetPassengersCount();i++)
-		{
-			this->AddPassenger(rhs.GetPassenger(i));
+			this->AddPassenger(rhs.MovePassenger(i));
 		}
 		rhs.Deinitializer();
+		for (unsigned int i = 0; i < lhs.GetPassengersCount(); i++)
+		{
+			this->AddPassenger(lhs.MovePassenger(i));
+		}
+		lhs.Deinitializer();
 	}
 
 	Boatplane::Boatplane(Airplane& rhs, Boat& lhs) : Vehicle(lhs.GetMaxPassengersCount() + rhs.GetMaxPassengersCount())
 	{
 		for (unsigned int i = 0; i < rhs.GetPassengersCount(); i++)
 		{
-			this->AddPassenger(rhs.GetPassenger(i));
+			this->AddPassenger(rhs.MovePassenger(i));
 		}
 		rhs.Deinitializer();
 		for (unsigned int i = 0; i < lhs.GetPassengersCount(); i++)
 		{
-			this->AddPassenger(lhs.GetPassenger(i));
+			this->AddPassenger(lhs.MovePassenger(i));
 		}
 		lhs.Deinitializer();
 	}
 
 	Boatplane::~Boatplane()
 	{
-		Deinitializer();
+
 	}
 
 	unsigned int Boatplane::GetMaxSpeed() const
