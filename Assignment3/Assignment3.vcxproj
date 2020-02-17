@@ -71,6 +71,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="QueueStack.cpp" />
+    <ClCompile Include="SmartQueue.cpp" />
+    <ClCompile Include="SmartStack.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="QueueStack.h" />
+    <ClInclude Include="SmartQueue.h" />
+    <ClInclude Include="SmartStack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
