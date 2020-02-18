@@ -36,12 +36,14 @@ void SmartStack<T>::Push(const T& val)
 }
 
 template <typename T>
-void SmartStack<T>::Pop()
+T SmartStack<T>::Pop()
 {
-	mSum -= mStack.top();
+	T tempVal = mStack.top();
+	mSum -= tempVal;
 	mStack.pop();
 	mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
 	RenewSmartStack();
+	return tempVal;
 }
 
 template <typename T>
@@ -65,7 +67,7 @@ T SmartStack<T>::GetMin() const
 template <typename T>
 double SmartStack<T>::GetAverage() const
 {
-	return round(static_cast<double>(mAvg) * 1000.0) * 1000.0;
+	return round(static_cast<double>(mAvg) * 1000.0) / 1000.0;
 }
 
 template <typename T>
@@ -77,13 +79,13 @@ T SmartStack<T>::GetSum() const
 template <typename T>
 double SmartStack<T>::GetVariance() const
 {
-	return round(static_cast<double>(mVariance) * 1000.0) * 1000.0;
+	return round(static_cast<double>(mVariance) * 1000.0) / 1000.0;
 }
 
 template <typename T>
 double SmartStack<T>::GetStandardDeviation() const
 {
-	return sqrt(round(static_cast<double>(mVariance) * 1000.0) * 1000.0);
+	return round(sqrt(static_cast<double>(mVariance)) * 1000.0) / 1000.0;
 }
 
 template <typename T>
@@ -95,7 +97,7 @@ unsigned SmartStack<T>::GetCount() const
 template <typename T>
 SmartStack<T>& SmartStack<T>::operator=(const SmartStack& rhs)
 {
-	if (&rhs != this)
+	if (this != &rhs)
 	{
 		mStack = rhs.mStack;
 		mMax = rhs.mMax;
