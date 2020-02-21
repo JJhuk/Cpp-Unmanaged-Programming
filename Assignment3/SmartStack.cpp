@@ -7,14 +7,34 @@ using namespace assignment3;
 template <typename T>
 SmartStack<T>::SmartStack() :
 	mMax(std::numeric_limits<T>::min()), mMin(std::numeric_limits<T>::max()),
-	mVariance(NULL), mAvg(NULL)
+	mSum(0), mAvg(0), mVariance(0.0)
 {
 
 }
 
 template <typename T>
+SmartStack<T>& SmartStack<T>::operator=(const SmartStack& rhs)
+{
+	if (this != &rhs)
+	{
+		mStack = rhs.mStack;
+		mMax = rhs.mMax;
+		mMin = rhs.mMin;
+		mSum = rhs.mSum;
+		mAvg = rhs.mAvg;
+		mVariance = rhs.mVariance;
+	}
+	return *this;
+}
+
+template <typename T>
 SmartStack<T>::~SmartStack()
 {
+	mMax = NULL;
+	mMin = NULL;
+	mSum = NULL;
+	mAvg = NULL;
+	mVariance = NULL;
 }
 
 template <typename T>
@@ -27,10 +47,10 @@ SmartStack<T>::SmartStack(const SmartStack& other)
 }
 
 template <typename T>
-void SmartStack<T>::Push(const T& val)
+void SmartStack<T>::Push(const T& number)
 {
-	mStack.push(val);
-	mSum += val;
+	mStack.push(number);
+	mSum += number;
 	mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
 	RenewSmartStack();
 }
@@ -94,25 +114,12 @@ unsigned SmartStack<T>::GetCount() const
 	return mStack.size();
 }
 
-template <typename T>
-SmartStack<T>& SmartStack<T>::operator=(const SmartStack& rhs)
-{
-	if (this != &rhs)
-	{
-		mStack = rhs.mStack;
-		mMax = rhs.mMax;
-		mMin = rhs.mMin;
-		mSum = rhs.mSum;
-		mAvg = rhs.mAvg;
-		mVariance = rhs.mVariance;
-	}
-	return *this;
-}
+
 
 
 template <typename T>
 //호출하기 전, 합 평균은 구했다고 가정
-bool SmartStack<T>::RenewSmartStack()
+void SmartStack<T>::RenewSmartStack()
 {
 	if (!mStack.empty())
 	{
@@ -132,7 +139,5 @@ bool SmartStack<T>::RenewSmartStack()
 			forVarianceSum += pow((tempVal - mAvg), 2);	//편차 제곱의 평균
 		}
 		mVariance = static_cast<double>(forVarianceSum) / static_cast<double>(mStack.size());
-		return true;
 	}
-	return false;
 }

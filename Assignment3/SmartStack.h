@@ -12,7 +12,7 @@ namespace assignment3
 		~SmartStack();
 		SmartStack(const SmartStack& other);
 
-		void Push(const T& val);	//Pop과 push에서 값을 다시 갱신해줌
+		void Push(const T& number);	//Pop과 push에서 값을 다시 갱신해줌
 		T Pop();
 		T Peek() const;
 		T GetMax() const;	//시간복잡도가 O(1)이어야 함.
@@ -27,7 +27,7 @@ namespace assignment3
 		SmartStack& operator=(const SmartStack& rhs);
 
 	private:
-		bool RenewSmartStack();
+		void RenewSmartStack();
 		stack<T> mStack;
 		T mMax;
 		T mMin;
