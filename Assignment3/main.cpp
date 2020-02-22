@@ -3,9 +3,6 @@
 #include "SmartStack.h"
 #include "SmartQueue.h"
 #include "QueueStack.h"
-#include "SmartStack.cpp"
-#include "SmartQueue.cpp"
-#include "QueueStack.cpp"
 
 using namespace assignment3;
 
