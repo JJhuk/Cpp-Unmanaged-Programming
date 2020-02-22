@@ -1,7 +1,5 @@
 #pragma once
 #include <stack>
-#include <limits>
-#include <cmath>
 using namespace  std;
 namespace assignment3
 {
@@ -10,11 +8,11 @@ namespace assignment3
 	{
 	public:
 		SmartStack();
-		SmartStack(const SmartStack& other);
-		~SmartStack();
-		SmartStack& operator=(const SmartStack& rhs);
 
-		void Push(const T& val);	//여기서 MAx,Min값을 갱신해야 함.
+		~SmartStack();
+		SmartStack(const SmartStack& other);
+
+		void Push(const T& number);	//Pop과 push에서 값을 다시 갱신해줌
 		T Pop();
 		T Peek() const;
 		T GetMax() const;	//시간복잡도가 O(1)이어야 함.
@@ -25,14 +23,18 @@ namespace assignment3
 		double GetStandardDeviation() const;	//시간복잡도가 O(1)이어야 함.
 		unsigned int GetCount() const;
 
+
+		SmartStack& operator=(const SmartStack& rhs);
+
 	private:
-		bool RenewSmartStack();
+		void RenewSmartStack();
 		stack<T> mStack;
 		T mMax;
 		T mMin;
 		T mSum;
 		T mAvg;
 		double mVariance;
+
 	};
 
 
