@@ -29,7 +29,7 @@ namespace assignment3
 		queue<stack<T>> mQueueStack;
 		unsigned int mMaxStackSize;
 		unsigned int mSize;
-		void RenewSmartQueue();
+		void renewSmartQueue();
 		T mMax;
 		T mMin;
 		T mSum;
@@ -104,7 +104,7 @@ namespace assignment3
 		mSize++;
 		mSum += number;
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
-		RenewSmartQueue();
+		renewSmartQueue();
 	}
 
 	template <typename T>
@@ -125,7 +125,7 @@ namespace assignment3
 			mQueueStack.pop();
 		}
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
-		RenewSmartQueue();
+		renewSmartQueue();
 		return tempVal;
 	}
 
@@ -166,7 +166,7 @@ namespace assignment3
 	}
 
 	template <typename T>
-	void QueueStack<T>::RenewSmartQueue()
+	void QueueStack<T>::renewSmartQueue()
 	{
 		if (!mQueueStack.empty())
 		{

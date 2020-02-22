@@ -29,7 +29,7 @@ namespace assignment3
 		SmartStack& operator=(const SmartStack& rhs);
 
 	private:
-		void RenewSmartStack();
+		void renewSmartStack();
 		stack<T> mStack;
 		T mMax;
 		T mMin;
@@ -86,7 +86,7 @@ namespace assignment3
 		mStack.push(number);
 		mSum += number;
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
-		RenewSmartStack();
+		renewSmartStack();
 	}
 
 	template <typename T>
@@ -96,7 +96,7 @@ namespace assignment3
 		mSum -= tempVal;
 		mStack.pop();
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
-		RenewSmartStack();
+		renewSmartStack();
 		return tempVal;
 	}
 
@@ -153,7 +153,7 @@ namespace assignment3
 
 	template <typename T>
 	//호출하기 전, 합 평균은 구했다고 가정
-	void SmartStack<T>::RenewSmartStack()
+	void SmartStack<T>::renewSmartStack()
 	{
 		if (!mStack.empty())
 		{

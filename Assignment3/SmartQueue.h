@@ -14,7 +14,7 @@ namespace assignment3
 		SmartQueue(const SmartQueue& other);
 		SmartQueue& operator=(const SmartQueue& rhs);
 		~SmartQueue();
-		void Enqueue(const T &number);
+		void Enqueue(const T& number);
 		T Peek() const;
 		T Dequeue();
 		T GetMax() const;
@@ -24,9 +24,9 @@ namespace assignment3
 		double GetVariance() const;
 		double GetStandardDeviation() const;
 		unsigned int GetCount() const;
-		
+
 	private:
-		void RenewSmartQueue();
+		void renewSmartQueue();
 		queue<T> mQueue;
 		T mMax;
 		T mMin;
@@ -80,7 +80,7 @@ namespace assignment3
 		mQueue.push(number);
 		mSum += number;
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
-		RenewSmartQueue();
+		renewSmartQueue();
 	}
 
 	template <typename T>
@@ -96,7 +96,7 @@ namespace assignment3
 		mSum -= tempVal;
 		mQueue.pop();
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
-		RenewSmartQueue();
+		renewSmartQueue();
 		return tempVal;
 	}
 
@@ -143,7 +143,7 @@ namespace assignment3
 	}
 
 	template <typename T>
-	void SmartQueue<T>::RenewSmartQueue()
+	void SmartQueue<T>::renewSmartQueue()
 	{
 		if (!mQueue.empty())
 		{
