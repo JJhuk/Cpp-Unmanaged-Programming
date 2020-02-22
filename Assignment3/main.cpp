@@ -1,20 +1,18 @@
 #include <cassert>
 
 #include "SmartStack.h"
-#include "SmartStack.cpp"
-#include <queue>
-#include <stack>
-
 #include "SmartQueue.h"
-#include "SmartQueue.cpp"
 #include "QueueStack.h"
+#include "SmartStack.cpp"
+#include "SmartQueue.cpp"
+#include "QueueStack.cpp"
 
 using namespace assignment3;
 
 int main()
 {
 	SmartStack<float> ss;
-	
+
 	ss.Push(3.4999f);
 	ss.Push(1.2f);
 	ss.Push(4.6555f);
@@ -87,10 +85,7 @@ int main()
 	assert(sq.GetVariance() == 49.564);
 	assert(sq.GetStandardDeviation() == 7.040);
 
-	/*QueueStack<float> qs(3);
-
-	int arr[10] = { 1,2,3,4,4,5,5,5,5 };
-	
+	QueueStack<float> qs(3);
 
 	qs.Enqueue(3.4f);
 	qs.Enqueue(1.2f);
@@ -125,7 +120,7 @@ int main()
 	assert(qs.GetMax() == 10.2f);
 	assert(qs.GetMin() == -12.4f);
 	assert(qs.GetSum() == 6.62000322f);
-	assert(qs.GetAverage() == 0.946);*/
+	assert(qs.GetAverage() == 0.946);
 
 	return 0;
 }

@@ -26,12 +26,11 @@ namespace assignment3
 	private:
 		queue<stack<T>> mQueueStack;
 		const unsigned int mMaxStackSize;
-		const unsigned int mNowQueueIndex;
+		unsigned int mSize;
 		void RenewSmartQueue();
 		T mMax;
 		T mMin;
 		T mSum;
 		T mAvg;
-		double mVariance;
 	};
 }
