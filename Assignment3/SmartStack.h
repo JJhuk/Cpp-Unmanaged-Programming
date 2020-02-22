@@ -34,7 +34,7 @@ namespace assignment3
 		T mMax;
 		T mMin;
 		T mSum;
-		T mAvg;
+		double mAvg;
 		double mVariance;
 
 	};
