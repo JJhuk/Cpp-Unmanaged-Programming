@@ -27,7 +27,7 @@ namespace assignment3
 		unsigned int GetStackCount() const;
 	private:
 		queue<stack<T>> mQueueStack;
-		const unsigned int mMaxStackSize;
+		unsigned int mMaxStackSize;
 		unsigned int mSize;
 		void RenewSmartQueue();
 		T mMax;
