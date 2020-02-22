@@ -119,12 +119,12 @@ namespace assignment3
 		T tempVal = mQueueStack.front().top();
 		mSum -= tempVal;
 		mSize--;
+		mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
 		mQueueStack.front().pop();
 		if (mQueueStack.front().empty())
 		{
 			mQueueStack.pop();
 		}
-		mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
 		renewSmartQueue();
 		return tempVal;
 	}
@@ -186,6 +186,11 @@ namespace assignment3
 					mMin = mMin < tempVal ? mMin : tempVal;
 				}
 			}
+		}
+		else
+		{
+			mMax = numeric_limits<T>::min();
+			mMin = numeric_limits<T>::max();
 		}
 	}
 

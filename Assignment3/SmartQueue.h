@@ -94,8 +94,8 @@ namespace assignment3
 	{
 		T tempVal = mQueue.front();
 		mSum -= tempVal;
-		mQueue.pop();
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
+		mQueue.pop(); //div by zero
 		renewSmartQueue();
 		return tempVal;
 	}
@@ -163,6 +163,12 @@ namespace assignment3
 				forVarianceSum += pow((tempVal - mAvg), 2);	//ÆíÂ÷ Á¦°öÀÇ Æò±Õ
 			}
 			mVariance = static_cast<double>(forVarianceSum) / static_cast<double>(mQueue.size());
+		}
+		else
+		{
+			mVariance = 0;
+			mMax = numeric_limits<T>::min();
+			mMin = numeric_limits<T>::max();
 		}
 	}
 

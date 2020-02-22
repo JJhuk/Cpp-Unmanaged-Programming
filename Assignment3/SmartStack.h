@@ -174,6 +174,12 @@ namespace assignment3
 			}
 			mVariance = static_cast<double>(forVarianceSum) / static_cast<double>(mStack.size());
 		}
+		else
+		{
+			mMax = numeric_limits<T>::min();
+			mMin = numeric_limits<T>::max();
+			mVariance = 0;
+		}
 	}
 
 
