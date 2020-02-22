@@ -170,7 +170,7 @@ namespace assignment3
 
 				mMax = mMax > tempVal ? mMax : tempVal;
 				mMin = mMin < tempVal ? mMin : tempVal;
-				forVarianceSum += pow((tempVal - mAvg), 2);	//ÆíÂ÷ Á¦°öÀÇ Æò±Õ
+				forVarianceSum += powf((static_cast<double>(tempVal) - mAvg), 2);	//ÆíÂ÷ Á¦°öÀÇ Æò±Õ
 			}
 			mVariance = static_cast<double>(forVarianceSum) / static_cast<double>(mStack.size());
 		}
