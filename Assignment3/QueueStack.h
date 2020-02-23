@@ -129,7 +129,7 @@ namespace assignment3
 		return tempVal;
 	}
 
-	template <typename T>
+	template <typename T> //이거 다시 손 볼것
 	T QueueStack<T>::GetMax() const
 	{
 		return mMax;
