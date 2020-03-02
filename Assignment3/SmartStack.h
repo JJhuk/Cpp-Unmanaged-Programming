@@ -155,12 +155,12 @@ namespace assignment3
 	//호출하기 전, 합 평균은 구했다고 가정
 	void SmartStack<T>::RenewSmartStack()
 	{
+		mMax = numeric_limits<T>::min();
+		mMin = numeric_limits<T>::max();
 		if (!mStack.empty())
 		{
 			stack<T> tempStack = mStack;
 
-			mMax = numeric_limits<T>::min();
-			mMin = numeric_limits<T>::max();
 			T forVarianceSum = 0;
 
 			while (!tempStack.empty())
@@ -170,9 +170,13 @@ namespace assignment3
 
 				mMax = mMax > tempVal ? mMax : tempVal;
 				mMin = mMin < tempVal ? mMin : tempVal;
-				forVarianceSum += pow((tempVal - mAvg), 2);	//편차 제곱의 평균
+				forVarianceSum += (tempVal - mAvg) * (tempVal - mAvg);
 			}
 			mVariance = static_cast<double>(forVarianceSum) / static_cast<double>(mStack.size());
+		}
+		else
+		{
+			mVariance = 0.0;
 		}
 	}
 

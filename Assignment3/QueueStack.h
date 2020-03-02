@@ -168,10 +168,10 @@ namespace assignment3
 	template <typename T>
 	void QueueStack<T>::RenewSmartQueue()
 	{
+		mMax = numeric_limits<T>::min();
+		mMin = numeric_limits<T>::max();
 		if (!mQueueStack.empty())
 		{
-			mMax = numeric_limits<T>::min();
-			mMin = numeric_limits<T>::max();
 			queue<stack<T> > tempQueueStack = mQueueStack;
 			for (unsigned int i = 0; i < mQueueStack.size(); i++)
 			{

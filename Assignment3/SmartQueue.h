@@ -145,12 +145,13 @@ namespace assignment3
 	template <typename T>
 	void SmartQueue<T>::RenewSmartQueue()
 	{
+		mMax = numeric_limits<T>::min();
+		mMin = numeric_limits<T>::max();
 		if (!mQueue.empty())
 		{
 			queue<T> tempQueue = mQueue;
 
-			mMax = numeric_limits<T>::min();
-			mMin = numeric_limits<T>::max();
+			
 			T forVarianceSum = 0;
 
 			while (!tempQueue.empty())
@@ -160,11 +161,14 @@ namespace assignment3
 
 				mMax = mMax > tempVal ? mMax : tempVal;
 				mMin = mMin < tempVal ? mMin : tempVal;
-				forVarianceSum += pow((tempVal - mAvg), 2);	//ÆíÂ÷ Á¦°öÀÇ Æò±Õ
+				forVarianceSum += (tempVal - mAvg) * (tempVal - mAvg);
 			}
 			mVariance = static_cast<double>(forVarianceSum) / static_cast<double>(mQueue.size());
 		}
+		else
+		{
+			mVariance = 0.0;
+		}
 	}
-
 }
 
