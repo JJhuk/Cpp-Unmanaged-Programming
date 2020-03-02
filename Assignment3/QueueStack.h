@@ -29,11 +29,11 @@ namespace assignment3
 		queue<stack<T>> mQueueStack;
 		unsigned int mMaxStackSize;
 		unsigned int mSize;
-		void RenewSmartQueue();
+		void renewSmartQueue();
 		T mMax;
 		T mMin;
 		T mSum;
-		T mAvg;
+		double mAvg;
 	};
 
 	template <typename T>
@@ -104,7 +104,7 @@ namespace assignment3
 		mSize++;
 		mSum += number;
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
-		RenewSmartQueue();
+		renewSmartQueue();
 	}
 
 	template <typename T>
@@ -119,17 +119,17 @@ namespace assignment3
 		T tempVal = mQueueStack.front().top();
 		mSum -= tempVal;
 		mSize--;
+		mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
 		mQueueStack.front().pop();
 		if (mQueueStack.front().empty())
 		{
 			mQueueStack.pop();
 		}
-		mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
-		RenewSmartQueue();
+		renewSmartQueue();
 		return tempVal;
 	}
 
-	template <typename T>
+	template <typename T> //이거 다시 손 볼것
 	T QueueStack<T>::GetMax() const
 	{
 		return mMax;
@@ -166,7 +166,7 @@ namespace assignment3
 	}
 
 	template <typename T>
-	void QueueStack<T>::RenewSmartQueue()
+	void QueueStack<T>::renewSmartQueue()
 	{
 		mMax = numeric_limits<T>::min();
 		mMin = numeric_limits<T>::max();
@@ -186,6 +186,11 @@ namespace assignment3
 					mMin = mMin < tempVal ? mMin : tempVal;
 				}
 			}
+		}
+		else
+		{
+			mMax = numeric_limits<T>::min();
+			mMin = numeric_limits<T>::max();
 		}
 	}
 
