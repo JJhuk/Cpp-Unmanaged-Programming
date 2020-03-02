@@ -26,15 +26,15 @@ namespace assignment3
 		unsigned int GetCount() const;
 
 
-		SmartStack& operator=(const SmartStack& rhs);
+		SmartStack& operator=(const SmartStack<T>& rhs);
 
 	private:
-		void RenewSmartStack();
+		void renewSmartStack();
 		stack<T> mStack;
 		T mMax;
 		T mMin;
 		T mSum;
-		T mAvg;
+		double mAvg;
 		double mVariance;
 
 	};
@@ -47,7 +47,7 @@ namespace assignment3
 	}
 
 	template <typename T>
-	SmartStack<T>& SmartStack<T>::operator=(const SmartStack& rhs)
+	SmartStack<T>& SmartStack<T>::operator=(const SmartStack<T>& rhs)
 	{
 		if (this != &rhs)
 		{
@@ -86,7 +86,7 @@ namespace assignment3
 		mStack.push(number);
 		mSum += number;
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
-		RenewSmartStack();
+		renewSmartStack();
 	}
 
 	template <typename T>
@@ -95,8 +95,15 @@ namespace assignment3
 		T tempVal = mStack.top();
 		mSum -= tempVal;
 		mStack.pop();
-		mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
-		RenewSmartStack();
+		if (!mStack.empty())
+		{
+			mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
+		}
+		else
+		{
+			mAvg = 0;
+		}
+		renewSmartStack();
 		return tempVal;
 	}
 
@@ -153,7 +160,7 @@ namespace assignment3
 
 	template <typename T>
 	//호출하기 전, 합 평균은 구했다고 가정
-	void SmartStack<T>::RenewSmartStack()
+	void SmartStack<T>::renewSmartStack()
 	{
 		mMax = numeric_limits<T>::min();
 		mMin = numeric_limits<T>::max();

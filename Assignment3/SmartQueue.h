@@ -12,9 +12,9 @@ namespace assignment3
 	public:
 		SmartQueue();
 		SmartQueue(const SmartQueue& other);
-		SmartQueue& operator=(const SmartQueue& rhs);
+		SmartQueue& operator=(const SmartQueue<T>& rhs);
 		~SmartQueue();
-		void Enqueue(const T &number);
+		void Enqueue(const T& number);
 		T Peek() const;
 		T Dequeue();
 		T GetMax() const;
@@ -24,14 +24,14 @@ namespace assignment3
 		double GetVariance() const;
 		double GetStandardDeviation() const;
 		unsigned int GetCount() const;
-		
+
 	private:
-		void RenewSmartQueue();
+		void renewSmartQueue();
 		queue<T> mQueue;
 		T mMax;
 		T mMin;
 		T mSum;
-		T mAvg;
+		double mAvg;
 		double mVariance;
 	};
 
@@ -50,7 +50,7 @@ namespace assignment3
 	}
 
 	template <typename T>
-	SmartQueue<T>& SmartQueue<T>::operator=(const SmartQueue& rhs)
+	SmartQueue<T>& SmartQueue<T>::operator=(const SmartQueue<T>& rhs)
 	{
 		if (this != &rhs)
 		{
@@ -80,7 +80,7 @@ namespace assignment3
 		mQueue.push(number);
 		mSum += number;
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
-		RenewSmartQueue();
+		renewSmartQueue();
 	}
 
 	template <typename T>
@@ -95,8 +95,15 @@ namespace assignment3
 		T tempVal = mQueue.front();
 		mSum -= tempVal;
 		mQueue.pop();
-		mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
-		RenewSmartQueue();
+		if (!mQueue.empty())
+		{
+			mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
+		}
+		else
+		{
+			mAvg = 0;
+		}
+		renewSmartQueue();
 		return tempVal;
 	}
 
@@ -115,7 +122,7 @@ namespace assignment3
 	template <typename T>
 	double SmartQueue<T>::GetAverage() const
 	{
-		return round(static_cast<double>(mAvg) * 1000.0) / 1000.0;
+		return round(mAvg * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
@@ -127,13 +134,13 @@ namespace assignment3
 	template <typename T>
 	double SmartQueue<T>::GetVariance() const
 	{
-		return round(static_cast<double>(mVariance) * 1000.0) / 1000.0;
+		return round(mVariance * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
 	double SmartQueue<T>::GetStandardDeviation() const
 	{
-		return round(sqrt(static_cast<double>(mVariance)) * 1000.0) / 1000.0;
+		return round(sqrt(mVariance) * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
@@ -143,7 +150,7 @@ namespace assignment3
 	}
 
 	template <typename T>
-	void SmartQueue<T>::RenewSmartQueue()
+	void SmartQueue<T>::renewSmartQueue()
 	{
 		mMax = numeric_limits<T>::min();
 		mMin = numeric_limits<T>::max();
@@ -151,7 +158,7 @@ namespace assignment3
 		{
 			queue<T> tempQueue = mQueue;
 
-			
+
 			T forVarianceSum = 0;
 
 			while (!tempQueue.empty())

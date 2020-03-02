@@ -14,7 +14,7 @@ namespace assignment3
 		QueueStack(unsigned int maxStackSize);
 		QueueStack(const QueueStack& other);
 		~QueueStack();
-		QueueStack& operator=(const QueueStack& rhs);
+		QueueStack& operator=(const QueueStack<T>& rhs);
 
 		void Enqueue(const T& number);
 		T Peek() const;
@@ -65,7 +65,7 @@ namespace assignment3
 	}
 
 	template <typename T>
-	QueueStack<T>& QueueStack<T>::operator=(const QueueStack& rhs)
+	QueueStack<T>& QueueStack<T>::operator=(const QueueStack<T>& rhs)
 	{
 		if (this != &rhs)
 		{
@@ -119,11 +119,18 @@ namespace assignment3
 		T tempVal = mQueueStack.front().top();
 		mSum -= tempVal;
 		mSize--;
-		mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
 		mQueueStack.front().pop();
 		if (mQueueStack.front().empty())
 		{
 			mQueueStack.pop();
+		}
+		if(mQueueStack.empty())
+		{
+			mAvg = 0;
+		}
+		else
+		{
+			mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
 		}
 		renewSmartQueue();
 		return tempVal;
