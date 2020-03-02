@@ -124,7 +124,7 @@ namespace assignment3
 		{
 			mQueueStack.pop();
 		}
-		if(mQueueStack.empty())
+		if (mQueueStack.empty())
 		{
 			mAvg = 0;
 		}

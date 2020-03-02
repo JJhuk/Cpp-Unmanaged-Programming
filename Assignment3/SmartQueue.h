@@ -168,7 +168,7 @@ namespace assignment3
 
 				mMax = mMax > tempVal ? mMax : tempVal;
 				mMin = mMin < tempVal ? mMin : tempVal;
-				forVarianceSum += (tempVal - mAvg) * (tempVal - mAvg);
+				forVarianceSum += (tempVal - static_cast<T>(mAvg)) * (tempVal - static_cast<T>(mAvg));
 			}
 			mVariance = static_cast<double>(forVarianceSum) / static_cast<double>(mQueue.size());
 		}
