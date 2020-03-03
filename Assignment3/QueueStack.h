@@ -136,7 +136,7 @@ namespace assignment3
 		return tempVal;
 	}
 
-	template <typename T> //이거 다시 손 볼것
+	template <typename T>
 	T QueueStack<T>::GetMax() const
 	{
 		return mMax;
@@ -151,7 +151,7 @@ namespace assignment3
 	template <typename T>
 	double QueueStack<T>::GetAverage() const
 	{
-		return round(static_cast<double>(mAvg) * 1000.0) / 1000.0;
+		return round(mAvg * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
@@ -194,13 +194,7 @@ namespace assignment3
 				}
 			}
 		}
-		else
-		{
-			mMax = numeric_limits<T>::min();
-			mMin = numeric_limits<T>::max();
-		}
 	}
-
 }
 
 

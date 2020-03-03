@@ -41,7 +41,7 @@ namespace assignment3
 	template <typename T>
 	SmartStack<T>::SmartStack() :
 		mMax(std::numeric_limits<T>::min()), mMin(std::numeric_limits<T>::max()),
-		mSum(0), mAvg(0), mVariance(0.0)
+		mSum(0), mAvg(0.0), mVariance(0.0)
 	{
 
 	}
@@ -146,7 +146,11 @@ namespace assignment3
 	template <typename T>
 	double SmartStack<T>::GetStandardDeviation() const
 	{
-		return round(sqrt(static_cast<double>(mVariance)) * 1000.0) / 1000.0;
+		if (mVariance != 0)
+		{
+			return round(sqrt(static_cast<double>(mVariance)) * 1000.0) / 1000.0;
+		}
+		return 0;
 	}
 
 	template <typename T>
@@ -154,9 +158,6 @@ namespace assignment3
 	{
 		return mStack.size();
 	}
-
-
-
 
 	template <typename T>
 	//호출하기 전, 합 평균은 구했다고 가정

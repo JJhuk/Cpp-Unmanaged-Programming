@@ -38,7 +38,7 @@ namespace assignment3
 	template <typename T>
 	SmartQueue<T>::SmartQueue() :
 		mMax(numeric_limits<T>::min()), mMin(numeric_limits<T>::max()),
-		mSum(0), mAvg(0), mVariance(0.0)
+		mSum(0), mAvg(0.0), mVariance(0.0)
 	{
 
 	}
@@ -95,7 +95,7 @@ namespace assignment3
 		T tempVal = mQueue.front();
 		mSum -= tempVal;
 		mQueue.pop();
-		if (!mQueue.empty())
+		if (!mQueue.empty()) //큐가 비어있는지 체크
 		{
 			mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
 		}
@@ -140,7 +140,11 @@ namespace assignment3
 	template <typename T>
 	double SmartQueue<T>::GetStandardDeviation() const
 	{
-		return round(sqrt(mVariance) * 1000.0) / 1000.0;
+		if (mVariance != 0)
+		{
+			return round(sqrt(mVariance) * 1000.0) / 1000.0;
+		}
+		return 0;
 	}
 
 	template <typename T>
