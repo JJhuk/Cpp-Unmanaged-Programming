@@ -157,7 +157,7 @@ namespace assignment3
 			{
 				T tempVal = tempQueue.front();
 				tempQueue.pop();
-
+				//,,,,,,,
 				mMax = mMax > tempVal ? mMax : tempVal;
 				mMin = mMin < tempVal ? mMin : tempVal;
 				forVarianceSum += powf((static_cast<double>(tempVal) - mAvg), 2);	//편차 제곱의 평균
