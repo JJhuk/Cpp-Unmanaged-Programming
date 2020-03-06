@@ -14,7 +14,7 @@ namespace assignment3
 		QueueStack(unsigned int maxStackSize);
 		QueueStack(const QueueStack& other);
 		~QueueStack();
-		QueueStack& operator=(const QueueStack& rhs);
+		QueueStack& operator=(const QueueStack<T>& rhs);
 
 		void Enqueue(const T& number);
 		T Peek() const;
@@ -65,7 +65,7 @@ namespace assignment3
 	}
 
 	template <typename T>
-	QueueStack<T>& QueueStack<T>::operator=(const QueueStack& rhs)
+	QueueStack<T>& QueueStack<T>::operator=(const QueueStack<T>& rhs)
 	{
 		if (this != &rhs)
 		{
@@ -119,17 +119,24 @@ namespace assignment3
 		T tempVal = mQueueStack.front().top();
 		mSum -= tempVal;
 		mSize--;
-		mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
 		mQueueStack.front().pop();
 		if (mQueueStack.front().empty())
 		{
 			mQueueStack.pop();
 		}
+		if (mQueueStack.empty())
+		{
+			mAvg = 0;
+		}
+		else
+		{
+			mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
+		}
 		renewSmartQueue();
 		return tempVal;
 	}
 
-	template <typename T> //이거 다시 손 볼것
+	template <typename T>
 	T QueueStack<T>::GetMax() const
 	{
 		return mMax;
@@ -144,7 +151,7 @@ namespace assignment3
 	template <typename T>
 	double QueueStack<T>::GetAverage() const
 	{
-		return round(static_cast<double>(mAvg) * 1000.0) / 1000.0;
+		return round(mAvg * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
@@ -168,10 +175,10 @@ namespace assignment3
 	template <typename T>
 	void QueueStack<T>::renewSmartQueue()
 	{
+		mMax = numeric_limits<T>::min();
+		mMin = numeric_limits<T>::max();
 		if (!mQueueStack.empty())
 		{
-			mMax = numeric_limits<T>::min();
-			mMin = numeric_limits<T>::max();
 			queue<stack<T> > tempQueueStack = mQueueStack;
 			for (unsigned int i = 0; i < mQueueStack.size(); i++)
 			{
@@ -187,13 +194,7 @@ namespace assignment3
 				}
 			}
 		}
-		else
-		{
-			mMax = numeric_limits<T>::min();
-			mMin = numeric_limits<T>::max();
-		}
 	}
-
 }
 
 

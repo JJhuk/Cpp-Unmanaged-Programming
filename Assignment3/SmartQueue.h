@@ -12,7 +12,7 @@ namespace assignment3
 	public:
 		SmartQueue();
 		SmartQueue(const SmartQueue& other);
-		SmartQueue& operator=(const SmartQueue& rhs);
+		SmartQueue& operator=(const SmartQueue<T>& rhs);
 		~SmartQueue();
 		void Enqueue(const T& number);
 		T Peek() const;
@@ -38,7 +38,7 @@ namespace assignment3
 	template <typename T>
 	SmartQueue<T>::SmartQueue() :
 		mMax(numeric_limits<T>::min()), mMin(numeric_limits<T>::max()),
-		mSum(0), mAvg(0), mVariance(0.0)
+		mSum(0), mAvg(0.0), mVariance(0.0)
 	{
 
 	}
@@ -50,7 +50,7 @@ namespace assignment3
 	}
 
 	template <typename T>
-	SmartQueue<T>& SmartQueue<T>::operator=(const SmartQueue& rhs)
+	SmartQueue<T>& SmartQueue<T>::operator=(const SmartQueue<T>& rhs)
 	{
 		if (this != &rhs)
 		{
@@ -94,8 +94,15 @@ namespace assignment3
 	{
 		T tempVal = mQueue.front();
 		mSum -= tempVal;
-		mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
-		mQueue.pop(); //div by zero
+		mQueue.pop();
+		if (!mQueue.empty()) //큐가 비어있는지 체크
+		{
+			mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
+		}
+		else
+		{
+			mAvg = 0;
+		}
 		renewSmartQueue();
 		return tempVal;
 	}
@@ -115,7 +122,7 @@ namespace assignment3
 	template <typename T>
 	double SmartQueue<T>::GetAverage() const
 	{
-		return round(static_cast<double>(mAvg) * 1000.0) / 1000.0;
+		return round(mAvg * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
@@ -127,13 +134,17 @@ namespace assignment3
 	template <typename T>
 	double SmartQueue<T>::GetVariance() const
 	{
-		return round(static_cast<double>(mVariance) * 1000.0) / 1000.0;
+		return round(mVariance * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
 	double SmartQueue<T>::GetStandardDeviation() const
 	{
-		return round(sqrt(static_cast<double>(mVariance)) * 1000.0) / 1000.0;
+		if (mVariance != 0)
+		{
+			return round(sqrt(mVariance) * 1000.0) / 1000.0;
+		}
+		return 0;
 	}
 
 	template <typename T>
@@ -145,12 +156,13 @@ namespace assignment3
 	template <typename T>
 	void SmartQueue<T>::renewSmartQueue()
 	{
+		mMax = numeric_limits<T>::min();
+		mMin = numeric_limits<T>::max();
 		if (!mQueue.empty())
 		{
 			queue<T> tempQueue = mQueue;
 
-			mMax = numeric_limits<T>::min();
-			mMin = numeric_limits<T>::max();
+
 			T forVarianceSum = 0;
 
 			while (!tempQueue.empty())
@@ -160,17 +172,14 @@ namespace assignment3
 				//,,,,,,,
 				mMax = mMax > tempVal ? mMax : tempVal;
 				mMin = mMin < tempVal ? mMin : tempVal;
-				forVarianceSum += powf((static_cast<double>(tempVal) - mAvg), 2);	//편차 제곱의 평균
+				forVarianceSum += (tempVal - static_cast<T>(mAvg)) * (tempVal - static_cast<T>(mAvg));
 			}
 			mVariance = static_cast<double>(forVarianceSum) / static_cast<double>(mQueue.size());
 		}
 		else
 		{
-			mVariance = 0;
-			mMax = numeric_limits<T>::min();
-			mMin = numeric_limits<T>::max();
+			mVariance = 0.0;
 		}
 	}
-
 }
 

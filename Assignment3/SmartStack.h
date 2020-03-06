@@ -26,7 +26,7 @@ namespace assignment3
 		unsigned int GetCount() const;
 
 
-		SmartStack& operator=(const SmartStack& rhs);
+		SmartStack& operator=(const SmartStack<T>& rhs);
 
 	private:
 		void renewSmartStack();
@@ -41,13 +41,13 @@ namespace assignment3
 	template <typename T>
 	SmartStack<T>::SmartStack() :
 		mMax(std::numeric_limits<T>::min()), mMin(std::numeric_limits<T>::max()),
-		mSum(0), mAvg(0), mVariance(0.0)
+		mSum(0), mAvg(0.0), mVariance(0.0)
 	{
 
 	}
 
 	template <typename T>
-	SmartStack<T>& SmartStack<T>::operator=(const SmartStack& rhs)
+	SmartStack<T>& SmartStack<T>::operator=(const SmartStack<T>& rhs)
 	{
 		if (this != &rhs)
 		{
@@ -95,7 +95,14 @@ namespace assignment3
 		T tempVal = mStack.top();
 		mSum -= tempVal;
 		mStack.pop();
-		mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
+		if (!mStack.empty())
+		{
+			mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
+		}
+		else
+		{
+			mAvg = 0;
+		}
 		renewSmartStack();
 		return tempVal;
 	}
@@ -139,7 +146,11 @@ namespace assignment3
 	template <typename T>
 	double SmartStack<T>::GetStandardDeviation() const
 	{
-		return round(sqrt(static_cast<double>(mVariance)) * 1000.0) / 1000.0;
+		if (mVariance != 0)
+		{
+			return round(sqrt(static_cast<double>(mVariance)) * 1000.0) / 1000.0;
+		}
+		return 0;
 	}
 
 	template <typename T>
@@ -148,19 +159,16 @@ namespace assignment3
 		return mStack.size();
 	}
 
-
-
-
 	template <typename T>
 	//호출하기 전, 합 평균은 구했다고 가정
 	void SmartStack<T>::renewSmartStack()
 	{
+		mMax = numeric_limits<T>::min();
+		mMin = numeric_limits<T>::max();
 		if (!mStack.empty())
 		{
 			stack<T> tempStack = mStack;
 
-			mMax = numeric_limits<T>::min();
-			mMin = numeric_limits<T>::max();
 			T forVarianceSum = 0;
 
 			while (!tempStack.empty())
@@ -170,15 +178,13 @@ namespace assignment3
 
 				mMax = mMax > tempVal ? mMax : tempVal;
 				mMin = mMin < tempVal ? mMin : tempVal;
-				forVarianceSum += powf((static_cast<double>(tempVal) - mAvg), 2);	//편차 제곱의 평균
+				forVarianceSum += (tempVal - static_cast<T>(mAvg)) * (tempVal - static_cast<T>(mAvg));
 			}
 			mVariance = static_cast<double>(forVarianceSum) / static_cast<double>(mStack.size());
 		}
 		else
 		{
-			mMax = numeric_limits<T>::min();
-			mMin = numeric_limits<T>::max();
-			mVariance = 0;
+			mVariance = 0.0;
 		}
 	}
 
