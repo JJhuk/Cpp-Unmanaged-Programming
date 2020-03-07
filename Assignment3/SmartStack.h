@@ -29,21 +29,22 @@ namespace assignment3
 		SmartStack& operator=(const SmartStack<T>& rhs);
 
 	private:
-		void renewSmartStack();
 		stack<T> mStack;
-		T mMax;
-		T mMin;
+		stack<T> mMax;
+		stack<T> mMin;
 		T mSum;
+		T mMulNumSum;
 		double mAvg;
+		double mMulNumAvg;	//E(X^2) - E(X)^2 = V(X)
 		double mVariance;
 
 	};
 	template <typename T>
 	SmartStack<T>::SmartStack() :
-		mMax(std::numeric_limits<T>::min()), mMin(std::numeric_limits<T>::max()),
-		mSum(0), mAvg(0.0), mVariance(0.0)
+		mSum(0), mMulNumSum(0), mAvg(0.0), mMulNumAvg(0.0), mVariance(0.0)
 	{
-
+		mMax.push(std::numeric_limits<T>::min());
+		mMin.push(std::numeric_limits<T>::max());
 	}
 
 	template <typename T>
@@ -55,7 +56,9 @@ namespace assignment3
 			mMax = rhs.mMax;
 			mMin = rhs.mMin;
 			mSum = rhs.mSum;
+			mMulNumSum = rhs.mMulNumSum;
 			mAvg = rhs.mAvg;
+			mMulNumAvg = rhs.mMulNumAvg;
 			mVariance = rhs.mVariance;
 		}
 		return *this;
@@ -64,20 +67,18 @@ namespace assignment3
 	template <typename T>
 	SmartStack<T>::~SmartStack()
 	{
-		mMax = NULL;
-		mMin = NULL;
 		mSum = NULL;
+		mMulNumSum = NULL;
 		mAvg = NULL;
+		mMulNumAvg = NULL;
 		mVariance = NULL;
 	}
 
 	template <typename T>
-	SmartStack<T>::SmartStack(const SmartStack& other)
+	SmartStack<T>::SmartStack(const SmartStack& other) : mStack(other.mStack),
+		mMax(other.mMax), mMin(other.mMin), mSum(other.mSum), mMulNumSum(other.mMulNumSum),
+		mAvg(other.mAvg), mMulNumAvg(other.mMulNumAvg), mVariance(other.mVariance)
 	{
-		mStack = other.mStack;
-		mMax = other.mMax;
-		mMin = other.mMin;
-		mVariance = other.mVariance;
 	}
 
 	template <typename T>
@@ -85,8 +86,19 @@ namespace assignment3
 	{
 		mStack.push(number);
 		mSum += number;
+		mMulNumSum += number * number;
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
-		renewSmartStack();
+		mMulNumAvg = static_cast<double>(mMulNumSum) / static_cast<double>(mStack.size());
+
+		if (mMin.top() >= number)	//중복 값이 있을 수 있기 때문
+		{
+			mMin.push(number);
+		}
+		if (mMax.top() <= number)
+		{
+			mMax.push(number);
+		}
+		mVariance = mMulNumAvg - (mAvg * mAvg);
 	}
 
 	template <typename T>
@@ -94,16 +106,29 @@ namespace assignment3
 	{
 		T tempVal = mStack.top();
 		mSum -= tempVal;
+		mMulNumSum -= tempVal * tempVal;
 		mStack.pop();
+
+		if (mMin.top() == tempVal)
+		{
+			mMin.pop();
+		}
+		if (mMax.top() == tempVal)
+		{
+			mMax.pop();
+		}
+
 		if (!mStack.empty())
 		{
 			mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
+			mMulNumAvg = static_cast<double>(mMulNumSum) / static_cast<double>(mStack.size());
 		}
 		else
 		{
 			mAvg = 0;
+			mMulNumAvg = 0;
 		}
-		renewSmartStack();
+		mVariance = mMulNumAvg - (mAvg * mAvg);
 		return tempVal;
 	}
 
@@ -116,13 +141,13 @@ namespace assignment3
 	template <typename T>
 	T SmartStack<T>::GetMax() const
 	{
-		return mMax;
+		return mMax.top();
 	}
 
 	template <typename T>
 	T SmartStack<T>::GetMin() const
 	{
-		return mMin;
+		return mMin.top();
 	}
 
 	template <typename T>
@@ -158,35 +183,4 @@ namespace assignment3
 	{
 		return mStack.size();
 	}
-
-	template <typename T>
-	//호출하기 전, 합 평균은 구했다고 가정
-	void SmartStack<T>::renewSmartStack()
-	{
-		mMax = numeric_limits<T>::min();
-		mMin = numeric_limits<T>::max();
-		if (!mStack.empty())
-		{
-			stack<T> tempStack = mStack;
-
-			T forVarianceSum = 0;
-
-			while (!tempStack.empty())
-			{
-				T tempVal = tempStack.top();
-				tempStack.pop();
-
-				mMax = mMax > tempVal ? mMax : tempVal;
-				mMin = mMin < tempVal ? mMin : tempVal;
-				forVarianceSum += (tempVal - static_cast<T>(mAvg)) * (tempVal - static_cast<T>(mAvg));
-			}
-			mVariance = static_cast<double>(forVarianceSum) / static_cast<double>(mStack.size());
-		}
-		else
-		{
-			mVariance = 0.0;
-		}
-	}
-
-
 }

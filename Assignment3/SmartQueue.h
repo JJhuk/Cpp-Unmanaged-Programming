@@ -1,5 +1,6 @@
 #pragma once
 #include <queue>
+#include <stack>
 #include <limits>
 
 using namespace std;
@@ -26,26 +27,28 @@ namespace assignment3
 		unsigned int GetCount() const;
 
 	private:
-		void renewSmartQueue();
 		queue<T> mQueue;
-		T mMax;
-		T mMin;
+		stack<T> mMax;
+		stack<T> mMin;
 		T mSum;
+		T mMulNumSum;
 		double mAvg;
+		double mMulNumAvg;
 		double mVariance;
 	};
 
 	template <typename T>
 	SmartQueue<T>::SmartQueue() :
-		mMax(numeric_limits<T>::min()), mMin(numeric_limits<T>::max()),
-		mSum(0), mAvg(0.0), mVariance(0.0)
+		mSum(0), mMulNumSum(0), mAvg(0.0), mMulNumAvg(0.0), mVariance(0.0)
 	{
-
+		mMax.push(numeric_limits<T>::min());
+		mMin.push(numeric_limits<T>::max());
 	}
 
 	template <typename T>
-	SmartQueue<T>::SmartQueue(const SmartQueue& other) :
-		mMax(other.mMax), mMin(other.mMin), mSum(other.mSum), mAvg(other.mAvg), mVariance(other.mVariance)
+	SmartQueue<T>::SmartQueue(const SmartQueue& other) : mQueue(other.mQueue),
+		mMax(other.mMax), mMin(other.mMin), mSum(other.mSum), mMulNumSum(other.mMulNumSum),
+		mAvg(other.mAvg), mMulNumAvg(other.mMulNumAvg), mVariance(other.mVariance)
 	{
 	}
 
@@ -58,7 +61,9 @@ namespace assignment3
 			mMax = rhs.mMax;
 			mMin = rhs.mMin;
 			mSum = rhs.mSum;
+			mMulNumSum = rhs.mMulNumSum;
 			mAvg = rhs.mAvg;
+			mMulNumAvg = rhs.mMulNumAvg;
 			mVariance = rhs.mVariance;
 		}
 		return *this;
@@ -67,10 +72,10 @@ namespace assignment3
 	template <typename T>
 	SmartQueue<T>::~SmartQueue()
 	{
-		mMax = NULL;
-		mMin = NULL;
 		mSum = NULL;
+		mMulNumSum = NULL;
 		mAvg = NULL;
+		mMulNumAvg = NULL;
 		mVariance = NULL;
 	}
 
@@ -79,8 +84,19 @@ namespace assignment3
 	{
 		mQueue.push(number);
 		mSum += number;
-		mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
-		renewSmartQueue();
+		mMulNumSum += number * number;
+		mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
+		mMulNumAvg = static_cast<double>(mMulNumSum) / static_cast<double>(mStack.size());
+
+		if (mMin.top() >= number)	//중복 값이 있을 수 있기 때문
+		{
+			mMin.push(number);
+		}
+		if (mMax.top() <= number)
+		{
+			mMax.push(number);
+		}
+		mVariance = mMulNumAvg - (mAvg * mAvg);
 	}
 
 	template <typename T>
@@ -94,16 +110,29 @@ namespace assignment3
 	{
 		T tempVal = mQueue.front();
 		mSum -= tempVal;
+		mMulNumSum -= tempVal * tempVal;
 		mQueue.pop();
-		if (!mQueue.empty()) //큐가 비어있는지 체크
+
+		if (mMin.top() == tempVal)
+		{
+			mMin.pop();
+		}
+		if (mMax.top() == tempVal)
+		{
+			mMax.pop();
+		}
+
+		if (!mQueue.empty())
 		{
 			mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
+			mMulNumAvg = static_cast<double>(mMulNumSum) / static_cast<double>(mQueue.size());
 		}
 		else
 		{
 			mAvg = 0;
+			mMulNumAvg = 0;
 		}
-		renewSmartQueue();
+		mVariance = mMulNumAvg - (mAvg * mAvg);
 		return tempVal;
 	}
 
@@ -151,35 +180,6 @@ namespace assignment3
 	unsigned int SmartQueue<T>::GetCount() const
 	{
 		return mQueue.size();
-	}
-
-	template <typename T>
-	void SmartQueue<T>::renewSmartQueue()
-	{
-		mMax = numeric_limits<T>::min();
-		mMin = numeric_limits<T>::max();
-		if (!mQueue.empty())
-		{
-			queue<T> tempQueue = mQueue;
-
-
-			T forVarianceSum = 0;
-
-			while (!tempQueue.empty())
-			{
-				T tempVal = tempQueue.front();
-				tempQueue.pop();
-				//,,,,,,,
-				mMax = mMax > tempVal ? mMax : tempVal;
-				mMin = mMin < tempVal ? mMin : tempVal;
-				forVarianceSum += (tempVal - static_cast<T>(mAvg)) * (tempVal - static_cast<T>(mAvg));
-			}
-			mVariance = static_cast<double>(forVarianceSum) / static_cast<double>(mQueue.size());
-		}
-		else
-		{
-			mVariance = 0.0;
-		}
 	}
 }
 

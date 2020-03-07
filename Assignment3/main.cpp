@@ -6,31 +6,32 @@ int main()
 {
     SmartStack<double> ss;
 
-    assert(ss.GetCount() == 0U);
-    assert(ss.GetMax() == numeric_limits<double>::min());
-    assert(ss.GetMin() == numeric_limits<double>::max());
-    assert(ss.GetSum() == 0);
-    assert(ss.GetAverage() == 0);
-    assert(ss.GetVariance() == 0);
-    assert(ss.GetStandardDeviation() == 0);
+    ss.Push(3.4);
+    ss.Push(1.2);
+    ss.Push(4.6);
+    ss.Push(3.32);
+    ss.Push(10.2);
+    ss.Push(1.1);
+    ss.Push(-5.9);
+    ss.Push(1.1);
+    ss.Push(-12.4);
+    ss.Push(9.2);
 
-    ss.Push(1.24);
+    assert(ss.GetCount() == 10U);
+    assert(ss.Peek() == 9.2);
+    assert(ss.GetMax() == 10.2);
+    assert(ss.GetMin() == -12.4);
+    //assert(ss.GetSum() == 15.82);
+    assert(ss.GetAverage() == 1.582);
+    assert(ss.GetVariance() == 39.983);
+    assert(ss.GetStandardDeviation() == 6.323);
+    assert(ss.Peek() == 9.2);
 
-    assert(ss.GetCount() == 1U);
-    assert(ss.GetMax() == 1.24);
-    assert(ss.GetMin() == 1.24);
-    assert(ss.GetSum() == 1.24);
-    assert(ss.GetAverage() == 1.24);
+    double popped1 = ss.Pop();
+    double popped2 = ss.Pop();
 
-    ss.Pop();
-
-    assert(ss.GetCount() == 0U);
-    assert(ss.GetMax() == numeric_limits<double>::min());
-    assert(ss.GetMin() == numeric_limits<double>::max());
-    assert(ss.GetSum() == 0);
-    assert(ss.GetAverage() == 0);
-    assert(ss.GetVariance() == 0);
-    assert(ss.GetStandardDeviation() == 0);
+    assert(popped1 == 9.2);
+    assert(popped2 == -12.4);
 
     return 0;
 }
