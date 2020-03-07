@@ -139,13 +139,13 @@ namespace assignment3
 	template <typename T>
 	T SmartQueue<T>::GetMax() const
 	{
-		return mMax;
+		return mMax.top();
 	}
 
 	template <typename T>
 	T SmartQueue<T>::GetMin() const
 	{
-		return mMin;
+		return mMin.top();
 	}
 
 	template <typename T>
