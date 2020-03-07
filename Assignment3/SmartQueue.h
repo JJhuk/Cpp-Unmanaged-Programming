@@ -41,7 +41,7 @@ namespace assignment3
 	SmartQueue<T>::SmartQueue() :
 		mSum(0), mMulNumSum(0), mAvg(0.0), mMulNumAvg(0.0), mVariance(0.0)
 	{
-		mMax.push(numeric_limits<T>::min());
+		mMax.push(numeric_limits<T>::lowest());
 		mMin.push(numeric_limits<T>::max());
 	}
 

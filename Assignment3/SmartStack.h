@@ -43,7 +43,7 @@ namespace assignment3
 	SmartStack<T>::SmartStack() :
 		mSum(0), mMulNumSum(0), mAvg(0.0), mMulNumAvg(0.0), mVariance(0.0)
 	{
-		mMax.push(std::numeric_limits<T>::min());
+		mMax.push(std::numeric_limits<T>::lowest());
 		mMin.push(std::numeric_limits<T>::max());
 	}
 

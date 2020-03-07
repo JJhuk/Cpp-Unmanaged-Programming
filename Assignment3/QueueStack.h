@@ -39,7 +39,7 @@ namespace assignment3
 	QueueStack<T>::QueueStack() : mMaxStackSize(NULL), mSize(0),
 		mSum(0), mAvg(0)
 	{
-		mMax.push(std::numeric_limits<T>::min());
+		mMax.push(std::numeric_limits<T>::lowest());
 		mMin.push(std::numeric_limits<T>::max());
 	}
 
@@ -48,7 +48,7 @@ namespace assignment3
 		mMaxStackSize(maxStackSize), mSize(0),
 		mSum(0), mAvg(0)
 	{
-		mMax.push(std::numeric_limits<T>::min());
+		mMax.push(std::numeric_limits<T>::lowest());
 		mMin.push(std::numeric_limits<T>::max());
 	}
 
