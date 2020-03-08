@@ -32,19 +32,18 @@ namespace assignment3
 		double mMulNumSum;
 		double mAvg;
 		double mMulNumAvg;
-		double mVariance;
 	};
 
 	template <typename T>
 	SmartQueue<T>::SmartQueue() :
-		mSum(0), mMulNumSum(0), mAvg(0.0), mMulNumAvg(0.0), mVariance(0.0)
+		mSum(0), mMulNumSum(0), mAvg(0.0), mMulNumAvg(0.0)
 	{
 	}
 
 	template <typename T>
 	SmartQueue<T>::SmartQueue(const SmartQueue& other) : mQueue(other.mQueue),
 		mSum(other.mSum), mMulNumSum(other.mMulNumSum),
-		mAvg(other.mAvg), mMulNumAvg(other.mMulNumAvg), mVariance(other.mVariance)
+		mAvg(other.mAvg), mMulNumAvg(other.mMulNumAvg)
 	{
 	}
 
@@ -58,7 +57,6 @@ namespace assignment3
 			mMulNumSum = rhs.mMulNumSum;
 			mAvg = rhs.mAvg;
 			mMulNumAvg = rhs.mMulNumAvg;
-			mVariance = rhs.mVariance;
 		}
 		return *this;
 	}
@@ -70,7 +68,6 @@ namespace assignment3
 		mMulNumSum = NULL;
 		mAvg = NULL;
 		mMulNumAvg = NULL;
-		mVariance = NULL;
 	}
 
 	template <typename T>
@@ -81,7 +78,6 @@ namespace assignment3
 		mMulNumSum += static_cast<double>(number) * static_cast<double>(number);
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
 		mMulNumAvg = mMulNumSum / static_cast<double>(mQueue.size());
-		mVariance = mMulNumAvg - (mAvg * mAvg);
 	}
 
 	template <typename T>
@@ -108,14 +104,13 @@ namespace assignment3
 			mAvg = 0;
 			mMulNumAvg = 0;
 		}
-		mVariance = mMulNumAvg - (mAvg * mAvg);
 		return tempVal;
 	}
 
 	template <typename T>
 	T SmartQueue<T>::GetMax()
 	{
-		T mMax = numeric_limits<T>::max();
+		T mMax = numeric_limits<T>::lowest();
 		for (size_t i = 0; i < mQueue.size(); i++)
 		{
 			mMax = mMax < mQueue.front() ? mQueue.front() : mMax;
@@ -153,15 +148,15 @@ namespace assignment3
 	template <typename T>
 	double SmartQueue<T>::GetVariance() const
 	{
-		return round(mVariance * 1000.0) / 1000.0;
+		return round((mMulNumAvg - (mAvg * mAvg)) * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
 	double SmartQueue<T>::GetStandardDeviation() const
 	{
-		if (mVariance != 0)
+		if (mMulNumAvg - (mAvg * mAvg) != 0)
 		{
-			return round(sqrt(mVariance) * 1000.0) / 1000.0;
+			return round(sqrt(mMulNumAvg - (mAvg * mAvg)) * 1000.0) / 1000.0;
 		}
 		return 0;
 	}
