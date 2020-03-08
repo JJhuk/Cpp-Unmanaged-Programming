@@ -121,7 +121,7 @@ namespace assignment3
 		{
 			T tempNum = tempQ.front();
 			tempQ.pop();
-			mMax = mMax < tempQ ? tempQ : mMax;
+			mMax = mMax < tempNum ? tempNum : mMax;
 		}
 		return mMax;
 	}
@@ -135,7 +135,7 @@ namespace assignment3
 		{
 			T tempNum = tempQ.front();
 			tempQ.pop();
-			mMin = mMin > tempQ ? tempQ : mMin;
+			mMin = mMin > tempNum ? tempNum : mMin;
 		}
 		return mMin;
 	}

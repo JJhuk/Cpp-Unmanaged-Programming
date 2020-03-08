@@ -90,7 +90,7 @@ namespace assignment3
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
 		mMulNumAvg = mMulNumSum / static_cast<double>(mStack.size());
 
-		if (mMin.top() >= number)	//중복 값이 있을 수 있기 때문
+		2 >= number)	//중복 값이 있을 수 있기 때문
 		{
 			mMin.push(number);
 		}
