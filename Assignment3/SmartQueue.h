@@ -31,7 +31,7 @@ namespace assignment3
 		stack<T> mMax;
 		stack<T> mMin;
 		T mSum;
-		T mMulNumSum;
+		double mMulNumSum;
 		double mAvg;
 		double mMulNumAvg;
 		double mVariance;
@@ -84,9 +84,9 @@ namespace assignment3
 	{
 		mQueue.push(number);
 		mSum += number;
-		mMulNumSum += number * number;
+		mMulNumSum += static_cast<double>(number) * static_cast<double>(number);
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
-		mMulNumAvg = static_cast<double>(mMulNumSum) / static_cast<double>(mQueue.size());
+		mMulNumAvg = mMulNumSum / static_cast<double>(mQueue.size());
 
 		if (mMin.top() >= number)	//중복 값이 있을 수 있기 때문
 		{
@@ -110,7 +110,7 @@ namespace assignment3
 	{
 		T tempVal = mQueue.front();
 		mSum -= tempVal;
-		mMulNumSum -= tempVal * tempVal;
+		mMulNumSum -= static_cast<double>(tempVal) * static_cast<double>(tempVal);
 		mQueue.pop();
 
 		if (mMin.top() == tempVal)
@@ -125,7 +125,7 @@ namespace assignment3
 		if (!mQueue.empty())
 		{
 			mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
-			mMulNumAvg = static_cast<double>(mMulNumSum) / static_cast<double>(mQueue.size());
+			mMulNumAvg = mMulNumSum / static_cast<double>(mQueue.size());
 		}
 		else
 		{

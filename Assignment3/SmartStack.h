@@ -33,7 +33,7 @@ namespace assignment3
 		stack<T> mMax;
 		stack<T> mMin;
 		T mSum;
-		T mMulNumSum;
+		double mMulNumSum;
 		double mAvg;
 		double mMulNumAvg;	//E(X^2) - E(X)^2 = V(X)
 		double mVariance;
@@ -86,9 +86,9 @@ namespace assignment3
 	{
 		mStack.push(number);
 		mSum += number;
-		mMulNumSum += number * number;
+		mMulNumSum += static_cast<double>(number)* static_cast<double>(number);
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
-		mMulNumAvg = static_cast<double>(mMulNumSum) / static_cast<double>(mStack.size());
+		mMulNumAvg = mMulNumSum / static_cast<double>(mStack.size());
 
 		if (mMin.top() >= number)	//중복 값이 있을 수 있기 때문
 		{
@@ -106,7 +106,7 @@ namespace assignment3
 	{
 		T tempVal = mStack.top();
 		mSum -= tempVal;
-		mMulNumSum -= tempVal * tempVal;
+		mMulNumSum -= static_cast<double>(tempVal)* static_cast<double>(tempVal);
 		mStack.pop();
 
 		if (mMin.top() == tempVal)
@@ -121,7 +121,7 @@ namespace assignment3
 		if (!mStack.empty())
 		{
 			mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
-			mMulNumAvg = static_cast<double>(mMulNumSum) / static_cast<double>(mStack.size());
+			mMulNumAvg = mMulNumSum / static_cast<double>(mStack.size());
 		}
 		else
 		{
