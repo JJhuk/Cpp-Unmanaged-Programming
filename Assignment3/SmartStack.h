@@ -153,7 +153,7 @@ namespace assignment3
 	template <typename T>
 	double SmartStack<T>::GetAverage() const
 	{
-		return round(static_cast<double>(mAvg) * 1000.0) / 1000.0;
+		return round(mAvg * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
@@ -165,17 +165,13 @@ namespace assignment3
 	template <typename T>
 	double SmartStack<T>::GetVariance() const
 	{
-		return round(static_cast<double>(mVariance) * 1000.0) / 1000.0;
+		return round(mVariance * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
 	double SmartStack<T>::GetStandardDeviation() const
 	{
-		if (mVariance != 0)
-		{
-			return round(sqrt(static_cast<double>(mVariance)) * 1000.0) / 1000.0;
-		}
-		return 0;
+		return round(sqrt(mVariance) * 1000.0) / 1000.0;
 	}
 
 	template <typename T>

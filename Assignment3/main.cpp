@@ -1,5 +1,6 @@
 #include <cassert>
-
+#include <iostream>
+#include <cmath>
 #include "SmartStack.h"
 #include "SmartQueue.h"
 #include "QueueStack.h"
@@ -9,7 +10,7 @@ using namespace assignment3;
 int main()
 {
 	SmartStack<float> ss;
-
+	std::cout << sqrt(0.0);
 	ss.Push(3.4999f);
 	ss.Push(1.2f);
 	ss.Push(4.6555f);
@@ -119,5 +120,33 @@ int main()
 	assert(qs.GetSum() == 6.62000322f);
 	assert(qs.GetAverage() == 0.946);
 
+	SmartStack<double> ssd;
+
+	ssd.Push(3.4);
+	ssd.Push(1.2);
+	ssd.Push(4.6);
+	ssd.Push(3.32);
+	ssd.Push(10.2);
+	ssd.Push(1.1);
+	ssd.Push(-5.9);
+	ssd.Push(1.1);
+	ssd.Push(-12.4);
+	ssd.Push(9.2);
+
+	assert(ssd.GetCount() == 10U);
+	assert(ssd.Peek() == 9.2);
+	assert(ssd.GetMax() == 10.2);
+	assert(ssd.GetMin() == -12.4);
+	//assert(ssd.GetSum() == 15.82);
+	assert(ssd.GetAverage() == 1.582);
+	assert(ssd.GetVariance() == 39.983);
+	assert(ssd.GetStandardDeviation() == 6.323);
+	assert(ssd.Peek() == 9.2);
+
+	double popped11 = ssd.Pop();
+	double popped21 = ssd.Pop();
+
+	assert(popped11 == 9.2);
+	assert(popped21 == -12.4);
 	return 0;
 }
