@@ -1,6 +1,5 @@
 #pragma once
 #include <queue>
-#include <stack>
 #include <limits>
 
 using namespace std;
@@ -20,7 +19,7 @@ namespace assignment3
 		T Dequeue();
 		T GetMax();
 		T GetMin();
-		double GetAverage() const; //¼Ò¼ö ³×¹øÂ° ÀÚ¸® ¹İÈ¯ÇØ¾ß ÇÔ
+		double GetAverage() const; //ì†Œìˆ˜ ë„¤ë²ˆì§¸ ìë¦¬ ë°˜í™˜í•´ì•¼ í•¨
 		T GetSum() const;
 		double GetVariance() const;
 		double GetStandardDeviation() const;
