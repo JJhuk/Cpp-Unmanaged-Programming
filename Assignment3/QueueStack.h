@@ -29,8 +29,6 @@ namespace assignment3
 		queue<stack<T>> mQueueStack;
 		unsigned int mMaxStackSize;
 		unsigned int mSize;
-		stack<T> mMax;
-		stack<T> mMin;
 		T mSum;
 		double mAvg;
 	};
@@ -39,23 +37,17 @@ namespace assignment3
 	QueueStack<T>::QueueStack() : mMaxStackSize(NULL), mSize(0),
 		mSum(0), mAvg(0)
 	{
-		mMax.push(std::numeric_limits<T>::lowest());
-		mMin.push(std::numeric_limits<T>::max());
 	}
 
 	template <typename T>
 	QueueStack<T>::QueueStack(unsigned maxStackSize) :
-		mMaxStackSize(maxStackSize), mSize(0),
-		mSum(0), mAvg(0)
+		mMaxStackSize(maxStackSize), mSize(0), mSum(0), mAvg(0)
 	{
-		mMax.push(std::numeric_limits<T>::lowest());
-		mMin.push(std::numeric_limits<T>::max());
 	}
 
 	template <typename T>
 	QueueStack<T>::QueueStack(const QueueStack& other) : mQueueStack(other.mQueueStack), mMaxStackSize(other.mMaxStackSize),
-		mMax(other.mMax), mMin(other.mMin), mSize(other.mSize),
-		mSum(other.mSum), mAvg(other.mAvg)
+		mSize(other.mSize), mSum(other.mSum), mAvg(other.mAvg)
 	{
 	}
 
@@ -73,8 +65,6 @@ namespace assignment3
 			mQueueStack = rhs.mQueueStack;
 			mMaxStackSize = rhs.mMaxStackSize;
 			mSize = rhs.mSize;
-			mMax = rhs.mMax;
-			mMin = rhs.mMin;
 			mSum = rhs.mSum;
 			mAvg = rhs.mAvg;
 		}
@@ -106,14 +96,6 @@ namespace assignment3
 		mSize++;
 		mSum += number;
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
-		if (mMin.top() >= number)	//중복 값이 있을 수 있기 때문
-		{
-			mMin.push(number);
-		}
-		if (mMax.top() <= number)
-		{
-			mMax.push(number);
-		}
 	}
 
 	template <typename T>
@@ -141,27 +123,43 @@ namespace assignment3
 		{
 			mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
 		}
-		if (mMin.top() == tempVal)
-		{
-			mMin.pop();
-		}
-		if (mMax.top() == tempVal)
-		{
-			mMax.pop();
-		}
 		return tempVal;
 	}
 
 	template <typename T>
 	T QueueStack<T>::GetMax() const
 	{
-		return mMax.top();
+		T mMax = numeric_limits<T>::lowest();
+		queue<stack<T>> tempQS = mQueueStack;
+		while (!tempQS.empty())
+		{
+			while(!tempQS.front().empty())
+			{
+				T tempNum = tempQS.front().top();
+				tempQS.front().pop();
+				mMax = mMax < tempNum ? tempNum : mMax;
+			}
+			tempQS.pop();
+		}
+		return mMax;
 	}
 
 	template <typename T>
 	T QueueStack<T>::GetMin() const
 	{
-		return mMin.top();
+		T mMin = numeric_limits<T>::max();
+		queue<stack<T>> tempQS = mQueueStack;
+		while (!tempQS.empty())
+		{
+			while (!tempQS.front().empty())
+			{
+				T tempNum = tempQS.front().top();
+				tempQS.front().pop();
+				mMin = mMin > tempNum ? tempNum : mMin;
+			}
+			tempQS.pop();
+		}
+		return mMin;
 	}
 
 	template <typename T>
