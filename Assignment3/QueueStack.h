@@ -19,8 +19,8 @@ namespace assignment3
 		void Enqueue(const T& number);
 		T Peek() const;
 		T Dequeue();
-		T GetMax() const;
-		T GetMin() const;
+		T GetMax();
+		T GetMin();
 		double GetAverage() const;
 		T GetSum() const;
 		unsigned int GetCount() const;
@@ -127,37 +127,41 @@ namespace assignment3
 	}
 
 	template <typename T>
-	T QueueStack<T>::GetMax() const
+	T QueueStack<T>::GetMax()
 	{
 		T mMax = numeric_limits<T>::lowest();
-		queue<stack<T>> tempQS = mQueueStack;
-		while (!tempQS.empty())
+		size_t qSize = mQueueStack.size();
+		while (qSize-- > 0)
 		{
-			while(!tempQS.front().empty())
+			stack<T> tempStack = mQueueStack.front();
+			mQueueStack.pop();
+			mQueueStack.push(tempStack);
+			while (!tempStack.empty())
 			{
-				T tempNum = tempQS.front().top();
-				tempQS.front().pop();
-				mMax = mMax < tempNum ? tempNum : mMax;
+				T temp = tempStack.top();
+				tempStack.pop();
+				mMax = mMax > temp ? mMax : temp;
 			}
-			tempQS.pop();
 		}
 		return mMax;
 	}
 
 	template <typename T>
-	T QueueStack<T>::GetMin() const
+	T QueueStack<T>::GetMin()
 	{
 		T mMin = numeric_limits<T>::max();
-		queue<stack<T>> tempQS = mQueueStack;
-		while (!tempQS.empty())
+		size_t qSize = mQueueStack.size();
+		while (qSize-- > 0)
 		{
-			while (!tempQS.front().empty())
+			stack<T> tempStack = mQueueStack.front();
+			mQueueStack.pop();
+			mQueueStack.push(tempStack);
+			while (!tempStack.empty())
 			{
-				T tempNum = tempQS.front().top();
-				tempQS.front().pop();
-				mMin = mMin > tempNum ? tempNum : mMin;
+				T temp = tempStack.top();
+				tempStack.pop();
+				mMin = mMin < temp ? mMin : temp;
 			}
-			tempQS.pop();
 		}
 		return mMin;
 	}

@@ -18,8 +18,8 @@ namespace assignment3
 		void Enqueue(const T& number);
 		T Peek() const;
 		T Dequeue();
-		T GetMax() const;
-		T GetMin() const;
+		T GetMax();
+		T GetMin();
 		double GetAverage() const; //소수 네번째 자리 반환해야 함
 		T GetSum() const;
 		double GetVariance() const;
@@ -113,29 +113,31 @@ namespace assignment3
 	}
 
 	template <typename T>
-	T SmartQueue<T>::GetMax() const
+	T SmartQueue<T>::GetMax()
 	{
 		T mMax = numeric_limits<T>::lowest();
-		queue<T> tempQ = mQueue;
-		while (!tempQ.empty())
+		size_t qSize = mQueue.size();
+		while (qSize-- > 0)
 		{
-			T tempNum = tempQ.front();
-			tempQ.pop();
+			T tempNum = mQueue.front();
+			mQueue.pop();
 			mMax = mMax < tempNum ? tempNum : mMax;
+			mQueue.push(tempNum);
 		}
 		return mMax;
 	}
 
 	template <typename T>
-	T SmartQueue<T>::GetMin() const
+	T SmartQueue<T>::GetMin()
 	{
 		T mMin = numeric_limits<T>::max();
-		queue<T> tempQ = mQueue;
-		while (!tempQ.empty())
+		size_t qSize = mQueue.size();
+		while (qSize-- > 0)
 		{
-			T tempNum = tempQ.front();
-			tempQ.pop();
+			T tempNum = mQueue.front();
+			mQueue.pop();
 			mMin = mMin > tempNum ? tempNum : mMin;
+			mQueue.push(tempNum);
 		}
 		return mMin;
 	}
