@@ -28,8 +28,6 @@ namespace assignment3
 
 	private:
 		queue<T> mQueue;
-		stack<T> mMax;
-		stack<T> mMin;
 		T mSum;
 		double mMulNumSum;
 		double mAvg;
@@ -41,13 +39,11 @@ namespace assignment3
 	SmartQueue<T>::SmartQueue() :
 		mSum(0), mMulNumSum(0), mAvg(0.0), mMulNumAvg(0.0), mVariance(0.0)
 	{
-		mMax.push(numeric_limits<T>::lowest());
-		mMin.push(numeric_limits<T>::max());
 	}
 
 	template <typename T>
 	SmartQueue<T>::SmartQueue(const SmartQueue& other) : mQueue(other.mQueue),
-		mMax(other.mMax), mMin(other.mMin), mSum(other.mSum), mMulNumSum(other.mMulNumSum),
+		mSum(other.mSum), mMulNumSum(other.mMulNumSum),
 		mAvg(other.mAvg), mMulNumAvg(other.mMulNumAvg), mVariance(other.mVariance)
 	{
 	}
@@ -58,8 +54,6 @@ namespace assignment3
 		if (this != &rhs)
 		{
 			mQueue = rhs.mQueue;
-			mMax = rhs.mMax;
-			mMin = rhs.mMin;
 			mSum = rhs.mSum;
 			mMulNumSum = rhs.mMulNumSum;
 			mAvg = rhs.mAvg;
@@ -87,15 +81,6 @@ namespace assignment3
 		mMulNumSum += static_cast<double>(number) * static_cast<double>(number);
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
 		mMulNumAvg = mMulNumSum / static_cast<double>(mQueue.size());
-
-		if (mMin.top() >= number)	//중복 값이 있을 수 있기 때문
-		{
-			mMin.push(number);
-		}
-		if (mMax.top() <= number)
-		{
-			mMax.push(number);
-		}
 		mVariance = mMulNumAvg - (mAvg * mAvg);
 	}
 
@@ -112,15 +97,6 @@ namespace assignment3
 		mSum -= tempVal;
 		mMulNumSum -= static_cast<double>(tempVal) * static_cast<double>(tempVal);
 		mQueue.pop();
-
-		if (mMin.top() == tempVal)
-		{
-			mMin.pop();
-		}
-		if (mMax.top() == tempVal)
-		{
-			mMax.pop();
-		}
 
 		if (!mQueue.empty())
 		{
@@ -139,13 +115,29 @@ namespace assignment3
 	template <typename T>
 	T SmartQueue<T>::GetMax() const
 	{
-		return mMax.top();
+		T mMax = numeric_limits<T>::lowest();
+		queue<T> tempQ = mQueue;
+		while (!tempQ.empty())
+		{
+			T tempNum = tempQ.front();
+			tempQ.pop();
+			mMax = mMax < tempQ ? tempQ : mMax;
+		}
+		return mMax;
 	}
 
 	template <typename T>
 	T SmartQueue<T>::GetMin() const
 	{
-		return mMin.top();
+		T mMin = numeric_limits<T>::max();
+		queue<T> tempQ = mQueue;
+		while (!tempQ.empty())
+		{
+			T tempNum = tempQ.front();
+			tempQ.pop();
+			mMin = mMin > tempQ ? tempQ : mMin;
+		}
+		return mMin;
 	}
 
 	template <typename T>

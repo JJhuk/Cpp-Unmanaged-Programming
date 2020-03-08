@@ -86,7 +86,7 @@ namespace assignment3
 	{
 		mStack.push(number);
 		mSum += number;
-		mMulNumSum += static_cast<double>(number)* static_cast<double>(number);
+		mMulNumSum += static_cast<double>(number) * static_cast<double>(number);
 		mAvg = static_cast<double>(mSum) / static_cast<double>(mStack.size());
 		mMulNumAvg = mMulNumSum / static_cast<double>(mStack.size());
 
@@ -106,7 +106,7 @@ namespace assignment3
 	{
 		T tempVal = mStack.top();
 		mSum -= tempVal;
-		mMulNumSum -= static_cast<double>(tempVal)* static_cast<double>(tempVal);
+		mMulNumSum -= static_cast<double>(tempVal) * static_cast<double>(tempVal);
 		mStack.pop();
 
 		if (mMin.top() == tempVal)
