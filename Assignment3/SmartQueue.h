@@ -115,14 +115,12 @@ namespace assignment3
 	template <typename T>
 	T SmartQueue<T>::GetMax()
 	{
-		T mMax = numeric_limits<T>::lowest();
-		size_t qSize = mQueue.size();
-		while (qSize-- > 0)
+		T mMax = numeric_limits<T>::max();
+		for (size_t i = 0; i < mQueue.size(); i++)
 		{
-			T tempNum = mQueue.front();
+			mMax = mMax < mQueue.front() ? mQueue.front() : mMax;
+			mQueue.push(mQueue.front());
 			mQueue.pop();
-			mMax = mMax < tempNum ? tempNum : mMax;
-			mQueue.push(tempNum);
 		}
 		return mMax;
 	}
@@ -131,13 +129,11 @@ namespace assignment3
 	T SmartQueue<T>::GetMin()
 	{
 		T mMin = numeric_limits<T>::max();
-		size_t qSize = mQueue.size();
-		while (qSize-- > 0)
+		for (size_t i = 0; i < mQueue.size(); i++)
 		{
-			T tempNum = mQueue.front();
+			mMin = mMin > mQueue.front() ? mQueue.front() : mMin;
+			mQueue.push(mQueue.front());
 			mQueue.pop();
-			mMin = mMin > tempNum ? tempNum : mMin;
-			mQueue.push(tempNum);
 		}
 		return mMin;
 	}
