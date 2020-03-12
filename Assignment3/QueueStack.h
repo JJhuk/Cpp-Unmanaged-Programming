@@ -21,7 +21,7 @@ namespace assignment3
 		T Dequeue();
 		T GetMax();
 		T GetMin();
-		double GetAverage() const;
+		double GetAverage();
 		T GetSum() const;
 		unsigned int GetCount();
 		unsigned int GetStackCount() const;
@@ -151,13 +151,14 @@ namespace assignment3
 	}
 
 	template <typename T>
-	double QueueStack<T>::GetAverage() const
+	double QueueStack<T>::GetAverage()
 	{
 		if (mQueueStack.empty())
 		{
 			return 0;
 		}
-		return round((static_cast<double>(mSum) / static_cast<double>(mSize)) * 1000.0) / 1000.0;
+		const unsigned int size = GetCount();
+		return round((static_cast<double>(mSum) / static_cast<double>(size)) * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
