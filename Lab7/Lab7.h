@@ -39,7 +39,7 @@ namespace lab7
 		std::vector<V> v;
 		v.reserve(m.size());
 
-		for (typename std::map<K, V>::const_iterator iterator = m.begin(); iterator != m.end(); iterator++)
+		for (std::map<K, V>::const_iterator iterator = m.begin(); iterator != m.end(); iterator++)
 		{
 			v.push_back(iterator->second);
 		}

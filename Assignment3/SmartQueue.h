@@ -29,20 +29,17 @@ namespace assignment3
 		queue<T> mQueue;
 		T mSum;
 		double mMulNumSum;
-		double mAvg;
-		double mMulNumAvg;
 	};
 
 	template <typename T>
 	SmartQueue<T>::SmartQueue() :
-		mSum(0), mMulNumSum(0), mAvg(0.0), mMulNumAvg(0.0)
+		mSum(0), mMulNumSum(0)
 	{
 	}
 
 	template <typename T>
 	SmartQueue<T>::SmartQueue(const SmartQueue& other) : mQueue(other.mQueue),
-		mSum(other.mSum), mMulNumSum(other.mMulNumSum),
-		mAvg(other.mAvg), mMulNumAvg(other.mMulNumAvg)
+		mSum(other.mSum), mMulNumSum(other.mMulNumSum)
 	{
 	}
 
@@ -54,8 +51,6 @@ namespace assignment3
 			mQueue = rhs.mQueue;
 			mSum = rhs.mSum;
 			mMulNumSum = rhs.mMulNumSum;
-			mAvg = rhs.mAvg;
-			mMulNumAvg = rhs.mMulNumAvg;
 		}
 		return *this;
 	}
@@ -65,8 +60,6 @@ namespace assignment3
 	{
 		mSum = NULL;
 		mMulNumSum = NULL;
-		mAvg = NULL;
-		mMulNumAvg = NULL;
 	}
 
 	template <typename T>
@@ -75,8 +68,6 @@ namespace assignment3
 		mQueue.push(number);
 		mSum += number;
 		mMulNumSum += static_cast<double>(number) * static_cast<double>(number);
-		mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
-		mMulNumAvg = mMulNumSum / static_cast<double>(mQueue.size());
 	}
 
 	template <typename T>
@@ -92,17 +83,6 @@ namespace assignment3
 		mSum -= tempVal;
 		mMulNumSum -= static_cast<double>(tempVal) * static_cast<double>(tempVal);
 		mQueue.pop();
-
-		if (!mQueue.empty())
-		{
-			mAvg = static_cast<double>(mSum) / static_cast<double>(mQueue.size());
-			mMulNumAvg = mMulNumSum / static_cast<double>(mQueue.size());
-		}
-		else
-		{
-			mAvg = 0;
-			mMulNumAvg = 0;
-		}
 		return tempVal;
 	}
 
@@ -135,7 +115,12 @@ namespace assignment3
 	template <typename T>
 	double SmartQueue<T>::GetAverage() const
 	{
-		return round(mAvg * 1000.0) / 1000.0;
+		if (!mQueue.empty())
+		{
+
+			return round((static_cast<double>(mSum) / static_cast<double>(mQueue.size())) * 1000.0) / 1000.0;
+		}
+		return 0.0;
 	}
 
 	template <typename T>
@@ -147,15 +132,19 @@ namespace assignment3
 	template <typename T>
 	double SmartQueue<T>::GetVariance() const
 	{
-		return round((mMulNumAvg - (mAvg * mAvg)) * 1000.0) / 1000.0;
+		if (!mQueue.empty())
+		{
+			return round(((static_cast<double>(mMulNumSum) / static_cast<double>(mQueue.size())) - ((static_cast<double>(mSum) / static_cast<double>(mQueue.size())) * (static_cast<double>(mSum) / static_cast<double>(mQueue.size())))) * 1000.0) / 1000.0;
+		}
+		return 0.0;
 	}
 
 	template <typename T>
 	double SmartQueue<T>::GetStandardDeviation() const
 	{
-		if (mMulNumAvg - (mAvg * mAvg) != 0)
+		if (!mQueue.empty())
 		{
-			return round(sqrt(mMulNumAvg - (mAvg * mAvg)) * 1000.0) / 1000.0;
+			return round(sqrt(((static_cast<double>(mMulNumSum) / static_cast<double>(mQueue.size())) - ((static_cast<double>(mSum) / static_cast<double>(mQueue.size())) * (static_cast<double>(mSum) / static_cast<double>(mQueue.size()))))) * 1000.0) / 1000.0;
 		}
 		return 0;
 	}
