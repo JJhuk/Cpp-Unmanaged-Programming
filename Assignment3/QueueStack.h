@@ -23,31 +23,28 @@ namespace assignment3
 		T GetMin();
 		double GetAverage() const;
 		T GetSum() const;
-		unsigned int GetCount() const;
+		unsigned int GetCount();
 		unsigned int GetStackCount() const;
 	private:
 		queue<stack<T>> mQueueStack;
 		unsigned int mMaxStackSize;
-		unsigned int mSize;
 		T mSum;
-		double mAvg;
 	};
 
 	template <typename T>
-	QueueStack<T>::QueueStack() : mMaxStackSize(NULL), mSize(0),
-		mSum(0), mAvg(0)
+	QueueStack<T>::QueueStack() : mMaxStackSize(NULL), mSum(0)
 	{
 	}
 
 	template <typename T>
 	QueueStack<T>::QueueStack(unsigned maxStackSize) :
-		mMaxStackSize(maxStackSize), mSize(0), mSum(0), mAvg(0)
+		mMaxStackSize(maxStackSize), mSum(0)
 	{
 	}
 
 	template <typename T>
-	QueueStack<T>::QueueStack(const QueueStack& other) : mQueueStack(other.mQueueStack), mMaxStackSize(other.mMaxStackSize),
-		mSize(other.mSize), mSum(other.mSum), mAvg(other.mAvg)
+	QueueStack<T>::QueueStack(const QueueStack& other) : mQueueStack(other.mQueueStack),
+		mMaxStackSize(other.mMaxStackSize), mSum(other.mSum)
 	{
 	}
 
@@ -64,9 +61,7 @@ namespace assignment3
 		{
 			mQueueStack = rhs.mQueueStack;
 			mMaxStackSize = rhs.mMaxStackSize;
-			mSize = rhs.mSize;
 			mSum = rhs.mSum;
-			mAvg = rhs.mAvg;
 		}
 		return *this;
 	}
@@ -93,9 +88,7 @@ namespace assignment3
 				mQueueStack.back().push(number);
 			}
 		}
-		mSize++;
 		mSum += number;
-		mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
 	}
 
 	template <typename T>
@@ -109,19 +102,10 @@ namespace assignment3
 	{
 		T tempVal = mQueueStack.front().top();
 		mSum -= tempVal;
-		mSize--;
 		mQueueStack.front().pop();
 		if (mQueueStack.front().empty())
 		{
 			mQueueStack.pop();
-		}
-		if (mQueueStack.empty())
-		{
-			mAvg = 0;
-		}
-		else
-		{
-			mAvg = static_cast<double>(mSum) / static_cast<double>(mSize);
 		}
 		return tempVal;
 	}
@@ -169,7 +153,11 @@ namespace assignment3
 	template <typename T>
 	double QueueStack<T>::GetAverage() const
 	{
-		return round(mAvg * 1000.0) / 1000.0;
+		if (mQueueStack.empty())
+		{
+			return 0;
+		}
+		return round((static_cast<double>(mSum) / static_cast<double>(mSize)) * 1000.0) / 1000.0;
 	}
 
 	template <typename T>
@@ -179,9 +167,17 @@ namespace assignment3
 	}
 
 	template <typename T>
-	unsigned int QueueStack<T>::GetCount() const
+	unsigned int QueueStack<T>::GetCount()
 	{
-		return mSize;
+		unsigned int count = 0;
+		size_t queueStackSize = mQueueStack.size();
+		while (queueStackSize--)
+		{
+			count += mQueueStack.front().size();
+			mQueueStack.push(mQueueStack.front());
+			mQueueStack.pop();
+		}
+		return count;
 	}
 
 	template <typename T>
