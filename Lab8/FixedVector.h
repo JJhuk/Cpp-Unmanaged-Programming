@@ -25,27 +25,27 @@ namespace lab8
 
 	template <typename T, size_t N>
 	FixedVector<T, N>::FixedVector() :
-	mFixedVector(new T[N]), mCapacity(N),mSize(0)
+		mFixedVector(new T[N]), mCapacity(N), mSize(0)
 	{
 	}
 
 	template <typename T, size_t N>
 	FixedVector<T, N>::~FixedVector()
-	{		
+	{
 		delete[] mFixedVector;
 	}
 
 	template <typename T, size_t N>
 	FixedVector<T, N>::FixedVector(const FixedVector& other)
 	{
-		if(mFixedVector != nullptr)
+		if (mFixedVector != nullptr)
 		{
 			delete[] mFixedVector;
 		}
 		mCapacity = other.mCapacity;
 		mSize = other.mSize;
 		mFixedVector = new T[mCapacity];
-		for(size_t i = 0; i< other.mSize;i++)
+		for (size_t i = 0; i < other.mSize; i++)
 		{
 			mFixedVector[i] = other.mFixedVector[i];
 		}
@@ -54,16 +54,16 @@ namespace lab8
 	template <typename T, size_t N>
 	FixedVector<T, N>& FixedVector<T, N>::operator=(const FixedVector& rhs)
 	{
-		if(this != &rhs)
+		if (this != &rhs)
 		{
 			if (mFixedVector != nullptr)
 			{
 				delete[] mFixedVector;
 			}
-			
+
 			mCapacity = rhs.mCapacity;
 			mSize = rhs.mSize;
-			
+
 			mFixedVector = new T[mCapacity];
 			for (size_t i = 0; i < rhs.mSize; i++)
 			{
@@ -76,7 +76,7 @@ namespace lab8
 	template <typename T, size_t N>
 	bool FixedVector<T, N>::Add(const T& t)
 	{
-		if(mSize>=0 && mSize<mCapacity)
+		if (mSize >= 0 && mSize < mCapacity)
 		{
 			mFixedVector[mSize++] = t;
 			return true;
@@ -87,11 +87,11 @@ namespace lab8
 	template <typename T, size_t N>
 	bool FixedVector<T, N>::Remove(const T& t)
 	{
-		for(size_t i =0;i<mSize;i++)
+		for (size_t i = 0; i < mSize; i++)
 		{
-			if(mFixedVector[i] == t)
+			if (mFixedVector[i] == t)
 			{
-				for(size_t j = i+1;j<mSize;j++)
+				for (size_t j = i + 1; j < mSize; j++)
 				{
 					mFixedVector[j - 1] = mFixedVector[j];
 				}
@@ -118,9 +118,9 @@ namespace lab8
 	template <typename T, size_t N>
 	int FixedVector<T, N>::GetIndex(const T& t) const
 	{
-		for(size_t i =0; i<mSize;i++)
+		for (size_t i = 0; i < mSize; i++)
 		{
-			if(mFixedVector[i] == t)
+			if (mFixedVector[i] == t)
 			{
 				return static_cast<int>(i);
 			}
