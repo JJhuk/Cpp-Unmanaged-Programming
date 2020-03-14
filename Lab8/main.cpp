@@ -33,8 +33,8 @@ int main()
 	assert(bRemoved);
 	assert(iv.GetSize() == 3);
 	assert(iv.GetIndex(i2) == -1);
-
-	/*FixedVector<bool, 10> v;
+	FixedVector<bool, 10> v;
+	/*
 
 	assert(v.GetCapacity() == 10);
 
