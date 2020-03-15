@@ -10,11 +10,11 @@ namespace lab8
 		~FixedVector();
 		FixedVector(const FixedVector& other);
 		FixedVector& operator=(const FixedVector& rhs);
-		bool Add(const bool& t);
-		bool Remove(const bool& t); //처음 발견하는 T를 제거한다.
+		bool Add(const bool& bT);
+		bool Remove(const bool& bT); //처음 발견하는 T를 제거한다.
 		const bool Get(const unsigned int& index) const;
 		const bool operator[](const unsigned int& index);
-		int GetIndex(const bool& t) const; //찾지 못했을때 -1 반환
+		int GetIndex(const bool& bT) const; //찾지 못했을때 -1 반환
 		size_t GetSize() const;
 		size_t GetCapacity() const;
 	private:
@@ -56,14 +56,14 @@ namespace lab8
 	}
 
 	template <size_t N>
-	bool FixedVector<bool, N>::Add(const bool& t)
+	bool FixedVector<bool, N>::Add(const bool& bT)
 	{
 		if (mSize >= N)
 		{
 			return false;
 		}
 
-		if (t)
+		if (bT)
 		{
 			mFixedVector[mSize / 32] |= (1 << (mSize % 32));
 		}
@@ -76,9 +76,9 @@ namespace lab8
 	}
 
 	template <size_t N>
-	bool FixedVector<bool, N>::Remove(const bool& t)
+	bool FixedVector<bool, N>::Remove(const bool& bT)
 	{
-		const size_t index = static_cast<size_t>(GetIndex(t));
+		const size_t index = static_cast<size_t>(GetIndex(bT));
 		if (index == -1) //없는 경우
 		{
 			return false;
@@ -166,7 +166,7 @@ namespace lab8
 	}
 
 	template <size_t N>
-	int FixedVector<bool, N>::GetIndex(const bool& t) const
+	int FixedVector<bool, N>::GetIndex(const bool& bT) const
 	{
 		for (size_t i = 0; i < (mSize / 32) + 1; i++)
 		{
@@ -177,7 +177,7 @@ namespace lab8
 			}
 			for (size_t j = 0; j < endIndex; j++)
 			{
-				if (static_cast<bool>(mFixedVector[i] & (1 << j)) == t)
+				if (static_cast<bool>(mFixedVector[i] & (1 << j)) == bT)
 				{
 					return static_cast<int>(j + (32 * i));
 				}
