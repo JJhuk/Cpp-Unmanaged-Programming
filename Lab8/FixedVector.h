@@ -140,4 +140,3 @@ namespace lab8
 		return mCapacity;
 	}
 }
-
