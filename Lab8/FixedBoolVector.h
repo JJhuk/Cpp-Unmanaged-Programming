@@ -149,7 +149,7 @@ namespace lab8
 	template <size_t N>
 	int FixedVector<bool, N>::GetIndex(const bool& t) const
 	{
-		for(size_t i =0 ;i<2;i++)
+		for(size_t i =0 ;i<(mSize/32)+1;i++)
 		{
 			for (size_t j = 0; j < mSize; j++)
 			{
@@ -191,8 +191,8 @@ namespace lab8
 				afterVector &= ~(1 << afterSize);
 			}
 		}
-
-		for (size_t i = index + 1; i < mSize; i++)
+		
+		for (size_t i = index + 1; i < 32; i++)
 		{
 			if (mFixedVector[arrIndex] & (1 << i))
 			{
