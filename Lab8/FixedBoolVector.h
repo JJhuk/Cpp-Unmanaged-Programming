@@ -20,7 +20,7 @@ namespace lab8
 	private:
 		size_t mCapacity;
 		size_t mSize;
-		unsigned int mFixedVector;
+		uint32_t mFixedVector;
 	};
 
 	template <size_t N>
@@ -82,7 +82,7 @@ namespace lab8
 		{
 			return false;
 		}
-		unsigned int afterVector = 0;
+		uint32_t afterVector = 0;
 		size_t afterSize = 0;
 
 		for (afterSize = 0; afterSize < index; afterSize++)
@@ -130,7 +130,7 @@ namespace lab8
 	{
 		for (size_t i = 0; i < mSize; i++)
 		{
-			if ((mFixedVector & (1 << i)) == t)
+			if ((mFixedVector & (1 << i)) == static_cast<unsigned>(t))
 			{
 				return i;
 			}
