@@ -307,26 +307,131 @@ void testFixed()
 
 void testJuhyuk()
 {
-	FixedVector<bool, 32> boolVector;
-	for(int i=0;i<31;i++)
+	FixedVector<bool, 33> boolVector;
+	for (int i = 0; i < 31; i++)
 	{
 		boolVector.Add(false);
 	}
 	boolVector.Add(true);
+	boolVector.Add(true);
 	assert(boolVector.GetIndex(true) == 31);
 	assert(boolVector.GetIndex(false) == 0);
 	assert(boolVector[31]);
-	for (int i = 0; i < 31; i++)
+	assert(boolVector[32]);
+}
+
+void bool_type_test(void)
+{
+	lab8::FixedVector<bool, 67> bool_vector;
+
+	// Capacity check
+	assert(bool_vector.GetCapacity() == 67);
+
+	// Add() check
+	for (size_t i = 0; i < 16; i++)
 	{
-		assert(!boolVector[i]);
+		assert(true == bool_vector.Add(true));
+		assert(true == bool_vector.Add(false));
+		assert(true == bool_vector.Add(false));
+		assert(true == bool_vector.Add(true));
 	}
-	
+	//32개
+	assert(true == bool_vector.Add(true));
+	assert(true == bool_vector.Add(true));
+	assert(true == bool_vector.Add(true));
+	assert(false == bool_vector.Add(false));
+	//35개
+	assert(67 == bool_vector.GetSize());
+
+	// Remove() check
+	//31개 제거
+	for (size_t i = 0; i < 31; i++)
+	{
+		assert(true == bool_vector.Remove(true));
+	}
+
+	for (size_t i = 0; i < 30; i++)
+	{
+		assert(true == bool_vector.Remove(false));
+	}
+
+	assert(false == bool_vector.Get(0));
+	assert(false == bool_vector.Get(1));
+	for (size_t i = 2; i < 6; i++)
+	{
+		assert(true == bool_vector.Get(i));
+	}
+
+	assert(6 == bool_vector.GetSize());
+
+	// Remove() check -> Add() check
+	for (size_t i = 0; i < 30; i++)
+	{
+		assert(true == bool_vector.Add(false));
+	}
+
+	for (size_t i = 0; i < 31; i++)
+	{
+		assert(true == bool_vector.Add(true));
+	}
+
+	assert(false == bool_vector.Add(false));
+
+	// Get() check
+	assert(false == bool_vector.Get(0));
+	assert(false == bool_vector.Get(1));
+
+	for (size_t i = 2; i < 6; i++)
+	{
+		assert(true == bool_vector.Get(i));
+	}
+
+	for (size_t i = 6; i < 36; i++)
+	{
+		assert(false == bool_vector.Get(i));
+	}
+
+	for (size_t i = 36; i < 67; i++)
+	{
+		assert(true == bool_vector.Get(i));
+	}
+
+	assert(67 == bool_vector.GetSize());
+
+	// Operator[] check 1
+	assert(false == bool_vector[0]);
+	assert(false == bool_vector[1]);
+
+	for (size_t i = 2; i < 6; i++)
+	{
+		assert(true == bool_vector[i]);
+	}
+
+	for (size_t i = 6; i < 36; i++)
+	{
+		assert(false == bool_vector[i]);
+	}
+
+	for (size_t i = 36; i < 67; i++)
+	{
+		assert(true == bool_vector[i]);
+	}
+
+	assert(67 == bool_vector.GetSize());
+
+	// GetIndex() check
+	assert(0 == bool_vector.GetIndex(false));
+	assert(2 == bool_vector.GetIndex(true));
+
+	assert(67 == bool_vector.GetSize());
+
+	return;
 }
 int main()
 {
-	for(int i=1;i<=96;i++)
+	for (int i = 1; i <= 96; i++)
 	{
-		std::cout << i <<" : "<< (i-1) / 32 + 1 << std::endl;
+		std::cout << i << " : " << (i % 32) << std::endl;
 	}
 	int i1 = 23;
 	int i2 = 25;
@@ -416,5 +521,6 @@ int main()
 	testFixedBoolVector();
 	testFixed();
 	testJuhyuk();
+	bool_type_test();
 	return 0;
 }
