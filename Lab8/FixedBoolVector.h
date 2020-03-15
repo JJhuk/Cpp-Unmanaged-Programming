@@ -12,8 +12,8 @@ namespace lab8
 		FixedVector& operator=(const FixedVector& rhs);
 		bool Add(const bool& t);
 		bool Remove(const bool& t); //처음 발견하는 T를 제거한다.
-		bool Get(const unsigned int& index) const;
-		bool operator[](const unsigned int& index);
+		const bool Get(const unsigned int& index) const;
+		const bool operator[](const unsigned int& index);
 		int GetIndex(const bool& t) const; //찾지 못했을때 -1 반환
 		size_t GetSize() const;
 		size_t GetCapacity() const;
@@ -21,21 +21,22 @@ namespace lab8
 		void removeNormal(const unsigned arrIndex, const unsigned index);
 		size_t mCapacity;
 		size_t mSize;
-		uint32_t mFixedVector[2];
+		uint32_t mFixedVector[N / 32 + 1];
 	};
 
 	template <size_t N>
-	FixedVector<bool, N>::FixedVector() : mCapacity(N), mSize(0), mFixedVector{0,0}
+	FixedVector<bool, N>::FixedVector() : mCapacity(N), mSize(0), mFixedVector{ 0 }
 	{
+		for (size_t i = 0; i < N / 32 + 1; i++)
+		{
+			mFixedVector[i] = 0;
+		}
 	}
 
 	template <size_t N>
 	FixedVector<bool, N>::~FixedVector()
 	{
-		mCapacity = 0;
-		mSize = 0;
-		mFixedVector[0] = 0;
-		mFixedVector[1] = 0;
+
 	}
 
 	template <size_t N>
@@ -67,29 +68,15 @@ namespace lab8
 
 		if (t)
 		{
-			if (mSize >= 32)
-			{
-				mFixedVector[1] |= (1 << (mSize-32));
-				mSize++;
-			}
-			else
-			{
-				mFixedVector[0] |= (1 << mSize++);
-			}
+			mFixedVector[mSize / 32] |= (1 << (mSize % 32));
+			mSize++;
 		}
 		else
 		{
-			if (mSize >= 32)
-			{
-				mFixedVector[1] &= ~(1 << (mSize-32));
-				mSize++;
-			}
-			else
-			{
-				mFixedVector[0] &= ~(1 << mSize++);
-			}
-
+			mFixedVector[mSize / 32] &= ~(1 << (mSize % 32));
+			mSize++;
 		}
+
 		return true;
 	}
 
@@ -101,61 +88,105 @@ namespace lab8
 		{
 			return false;
 		}
-		if(index >= 32)
+		if (index / 33 == N / 33)
 		{
-			removeNormal(1, index-32);
+			removeNormal(index / 33, index - 32 * (index / 33));
 		}
-		else if (mSize<=32 && index<32)
+		else //중간에 있는걸 땡겨와야함.
 		{
-			removeNormal(0, index);
-		}
-		else if (mSize>32 && index<32)
-		{
-			removeNormal(0, index);
-			if(mFixedVector[1] & (1 << 0))	//뒷 배열첫번째 체크
+
+			uint32_t mBeforeVector[N / 32 + 1];
+			memset(mBeforeVector, 0, sizeof(mBeforeVector));
+			size_t arrayIndex = 0;
+			for (size_t nowIndex = 0; nowIndex < mSize; nowIndex++)
 			{
-				mFixedVector[0] |= (1 << 31);
+				if (nowIndex < index)
+				{
+					if ((nowIndex % 33 + 1) != 32) //그냥
+					{
+						if ((arrayIndex + 1) != N / 32)
+						{
+							if (mFixedVector[arrayIndex] & (1 << nowIndex % 33))
+							{
+								mBeforeVector[arrayIndex] |= (1 << (nowIndex % 33));
+							}
+							else
+							{
+								mBeforeVector[arrayIndex] &= ~(1 << (nowIndex % 33));
+							}
+						}
+					}
+					else //땡겨와야함
+					{
+						if (mFixedVector[arrayIndex + 1] & (1 << 0))
+						{
+							mBeforeVector[arrayIndex] |= (1 << (nowIndex % 33));
+						}
+						else
+						{
+							mBeforeVector[arrayIndex] &= ~(1 << (nowIndex % 33));
+						}
+						arrayIndex++;
+					}
+				}
+				else if (nowIndex >= index)
+				{
+					if ((nowIndex % 33) + 1 == 32) //그 앞에 수가 다음 배열에 있다면
+					{
+						if ((arrayIndex + 1) != (N / 32) + 1) //맨 뒤 배열이 없을때가 아니라면
+						{
+							if (mFixedVector[arrayIndex + 1] & (1 << 0))
+							{
+								mBeforeVector[arrayIndex] |= (1 << (nowIndex % 33));
+							}
+							else
+							{
+								mBeforeVector[arrayIndex] &= ~(1 << (nowIndex % 33));
+							}
+							arrayIndex++;
+						}
+					}
+					else //그냥 바로 뒤에꺼 땡겨옴
+					{
+						if (mFixedVector[arrayIndex] & (1 << ((nowIndex % 33) + 1)))
+						{
+							mBeforeVector[arrayIndex] |= (1 << (nowIndex % 33));
+						}
+						else
+						{
+							mBeforeVector[arrayIndex] &= ~(1 << (nowIndex % 33));
+						}
+					}
+				}
 			}
-			else
-			{
-				mFixedVector[0] &= ~(1 << 31);
-			}
-			removeNormal(1, 0);
-			mSize++; //removeNormal 2번호출되면 size가 변경되기 때문.
+			memcpy(mFixedVector, mBeforeVector, sizeof(mFixedVector));
+			mSize--;
 		}
 		return true;
 	}
 
 	template <size_t N>
-	bool FixedVector<bool, N>::Get(const unsigned& index) const
+	const bool FixedVector<bool, N>::Get(const unsigned& index) const
 	{
-		if (index >= 0 && index < 32)
-		{
-			return mFixedVector[0] & (1 << (index));
-		}
-		return mFixedVector[1] & (1 << (index-32));
+		return mFixedVector[(index / 32)] & (1 << (index));
 	}
 
 	template <size_t N>
-	bool FixedVector<bool, N>::operator[](const unsigned& index)
+	const bool FixedVector<bool, N>::operator[](const unsigned& index)
 	{
-		if(index>=0 && index < 32)
-		{
-			return mFixedVector[0] & (1 << (index));
-		}
-		return mFixedVector[1] & (1 << (index-32));
+		return mFixedVector[(index / 32)] & (1 << (index));
 	}
 
 	template <size_t N>
 	int FixedVector<bool, N>::GetIndex(const bool& t) const
 	{
-		for(size_t i =0 ;i<(mSize/32)+1;i++)
+		for (size_t i = 0; i < (mSize / 32) + 1; i++)
 		{
 			for (size_t j = 0; j < mSize; j++)
 			{
 				if ((mFixedVector[i] & (1 << j)) == static_cast<uint32_t>(t))
 				{
-					return static_cast<int>(j+(64*i));
+					return static_cast<int>(j + (64 * i));
 				}
 			}
 		}
@@ -175,7 +206,7 @@ namespace lab8
 	}
 
 	template <size_t N>
-	void FixedVector<bool, N>::removeNormal(const unsigned arrIndex , const unsigned index)
+	void FixedVector<bool, N>::removeNormal(const unsigned arrIndex, const unsigned index)
 	{
 		uint32_t afterVector = 0;
 		size_t afterSize = 0;
@@ -191,7 +222,7 @@ namespace lab8
 				afterVector &= ~(1 << afterSize);
 			}
 		}
-		
+
 		for (size_t i = index + 1; i < 32; i++)
 		{
 			if (mFixedVector[arrIndex] & (1 << i))

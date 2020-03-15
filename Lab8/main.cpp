@@ -254,6 +254,6 @@ int main()
 	assert(v1.GetIndex(true) == -1);
 	testFixedVector();
 	testFixedBoolVector();
-	
+
 	return 0;
 }
