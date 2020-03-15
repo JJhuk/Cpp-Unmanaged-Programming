@@ -18,13 +18,14 @@ namespace lab8
 		size_t GetSize() const;
 		size_t GetCapacity() const;
 	private:
+		void removeNormal(const unsigned arrIndex, const unsigned index);
 		size_t mCapacity;
 		size_t mSize;
-		uint32_t mFixedVector;
+		uint32_t mFixedVector[2];
 	};
 
 	template <size_t N>
-	FixedVector<bool, N>::FixedVector() : mCapacity(N), mSize(0), mFixedVector(0)
+	FixedVector<bool, N>::FixedVector() : mCapacity(N), mSize(0), mFixedVector{0,0}
 	{
 	}
 
@@ -33,7 +34,8 @@ namespace lab8
 	{
 		mCapacity = 0;
 		mSize = 0;
-		mFixedVector = 0;
+		mFixedVector[0] = 0;
+		mFixedVector[1] = 0;
 	}
 
 	template <size_t N>
@@ -65,11 +67,28 @@ namespace lab8
 
 		if (t)
 		{
-			mFixedVector |= (1 << mSize++);
+			if (mSize >= 32)
+			{
+				mFixedVector[1] |= (1 << (mSize-32));
+				mSize++;
+			}
+			else
+			{
+				mFixedVector[0] |= (1 << mSize++);
+			}
 		}
 		else
 		{
-			mFixedVector &= ~(1 << mSize++);
+			if (mSize >= 32)
+			{
+				mFixedVector[1] &= ~(1 << (mSize-32));
+				mSize++;
+			}
+			else
+			{
+				mFixedVector[0] &= ~(1 << mSize++);
+			}
+
 		}
 		return true;
 	}
@@ -77,62 +96,67 @@ namespace lab8
 	template <size_t N>
 	bool FixedVector<bool, N>::Remove(const bool& t)
 	{
-		size_t index = static_cast<size_t>(GetIndex(t));
+		const size_t index = static_cast<size_t>(GetIndex(t));
 		if (index == -1) //없는 경우
 		{
 			return false;
 		}
-		uint32_t afterVector = 0;
-		size_t afterSize = 0;
-
-		for (afterSize = 0; afterSize < index; afterSize++)
+		if(index >= 32)
 		{
-			if (mFixedVector & (1 << afterSize))
+			removeNormal(1, index-32);
+		}
+		else if (mSize<=32 && index<32)
+		{
+			removeNormal(0, index);
+		}
+		else if (mSize>32 && index<32)
+		{
+			removeNormal(0, index);
+			if(mFixedVector[1] & (1 << 0))	//뒷 배열첫번째 체크
 			{
-				afterVector |= (1 << afterSize);
+				mFixedVector[0] |= (1 << 31);
 			}
 			else
 			{
-				afterVector &= ~(1 << afterSize);
+				mFixedVector[0] &= ~(1 << 31);
 			}
+			removeNormal(1, 0);
+			mSize++; //removeNormal 2번호출되면 size가 변경되기 때문.
 		}
-
-		for (size_t i = index + 1; i < mSize; i++)
-		{
-			if (mFixedVector & (1 << i))
-			{
-				afterVector |= (1 << afterSize++);
-			}
-			else
-			{
-				afterVector &= ~(1 << afterSize++);
-			}
-		}
-		mSize--;
-		mFixedVector = afterVector;
 		return true;
 	}
 
 	template <size_t N>
 	bool FixedVector<bool, N>::Get(const unsigned& index) const
 	{
-		return mFixedVector & (1 << index);
+		if (index >= 0 && index < 32)
+		{
+			return mFixedVector[0] & (1 << (index));
+		}
+		return mFixedVector[1] & (1 << (index-32));
 	}
 
 	template <size_t N>
 	bool FixedVector<bool, N>::operator[](const unsigned& index)
 	{
-		return mFixedVector & (1 << index);
+		if(index>=0 && index < 32)
+		{
+			return mFixedVector[0] & (1 << (index));
+		}
+		return mFixedVector[1] & (1 << (index-32));
 	}
 
 	template <size_t N>
 	int FixedVector<bool, N>::GetIndex(const bool& t) const
 	{
-		for (size_t i = 0; i < mSize; i++)
+		for(size_t i =0 ;i<2;i++)
 		{
-			if ((mFixedVector & (1 << i)) == static_cast<unsigned>(t))
+			for (size_t j = 0; j < mSize; j++)
 			{
-				return i;
+				if ((mFixedVector[i] & (1 << j)) == static_cast<uint32_t>(t))
+				{
+					return static_cast<int>(j+(64*i));
+				}
 			}
 		}
 		return -1;
@@ -148,5 +172,40 @@ namespace lab8
 	size_t FixedVector<bool, N>::GetCapacity() const
 	{
 		return mCapacity;
+	}
+
+	template <size_t N>
+	void FixedVector<bool, N>::removeNormal(const unsigned arrIndex , const unsigned index)
+	{
+		uint32_t afterVector = 0;
+		size_t afterSize = 0;
+
+		for (afterSize = 0; afterSize < index; afterSize++)
+		{
+			if (mFixedVector[arrIndex] & (1 << afterSize))
+			{
+				afterVector |= (1 << afterSize);
+			}
+			else
+			{
+				afterVector &= ~(1 << afterSize);
+			}
+		}
+
+		for (size_t i = index + 1; i < mSize; i++)
+		{
+			if (mFixedVector[arrIndex] & (1 << i))
+			{
+				afterVector |= (1 << afterSize++);
+			}
+			else
+			{
+				afterVector &= ~(1 << afterSize++);
+			}
+		}
+
+		mSize--;
+		mFixedVector[arrIndex] = afterVector;
+		return;
 	}
 }
