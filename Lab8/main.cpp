@@ -304,8 +304,30 @@ void testFixed()
 	assert(boolVector2.GetIndex(true) == -1);
 	std::cout << "Test FixedBoolVector GetIndex(): PASS" << std::endl;
 }
+
+void testJuhyuk()
+{
+	FixedVector<bool, 32> boolVector;
+	for(int i=0;i<31;i++)
+	{
+		boolVector.Add(false);
+	}
+	boolVector.Add(true);
+	assert(boolVector.GetIndex(true) == 31);
+	assert(boolVector.GetIndex(false) == 0);
+	assert(boolVector[31]);
+	for (int i = 0; i < 31; i++)
+	{
+		assert(!boolVector[i]);
+	}
+	
+}
 int main()
 {
+	for(int i=1;i<=96;i++)
+	{
+		std::cout << i <<" : "<< (i-1) / 32 + 1 << std::endl;
+	}
 	int i1 = 23;
 	int i2 = 25;
 	int i3 = 10;
@@ -393,5 +415,6 @@ int main()
 	testFixedVector();
 	testFixedBoolVector();
 	testFixed();
+	testJuhyuk();
 	return 0;
 }

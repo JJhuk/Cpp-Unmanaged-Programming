@@ -1,5 +1,6 @@
 #pragma once
 #include "FixedVector.h"
+#include <iostream>
 namespace lab8
 {
 	template <size_t N>
@@ -20,13 +21,13 @@ namespace lab8
 	private:
 		void removeNormal(const unsigned arrIndex, const unsigned index);
 		size_t mSize;
-		uint32_t mFixedVector[(N / 32) + 1];
+		uint32_t mFixedVector[(N-1) / 32 + 1];
 	};
 
 	template <size_t N>
 	FixedVector<bool, N>::FixedVector() : mSize(0), mFixedVector{ 0 }
 	{
-		for (size_t i = 0; i < N / 32 + 1; i++)
+		for (size_t i = 0; i < (N-1) / 32 + 1; i++)
 		{
 			mFixedVector[i] = 0;
 		}
@@ -93,7 +94,7 @@ namespace lab8
 		else //중간에 있는걸 땡겨와야함.
 		{
 
-			uint32_t mBeforeVector[N / 32 + 1];
+			uint32_t mBeforeVector[(N-1) / 32 + 1];
 			memset(mBeforeVector, 0, sizeof(mBeforeVector));
 			size_t arrayIndex = 0;
 			for (size_t nowIndex = 0; nowIndex < mSize; nowIndex++)
@@ -102,7 +103,7 @@ namespace lab8
 				{
 					if ((nowIndex % 32) == 0 && nowIndex != 0) //땡겨와야함
 					{
-						if (arrayIndex != N / 32)
+						if (arrayIndex != (N-1) / 32)
 						{
 							if (mFixedVector[arrayIndex + 1] & (1 << 0))
 							{
@@ -188,7 +189,7 @@ namespace lab8
 			}
 			for (size_t j = 0; j < endIndex; j++)
 			{
-				if ((mFixedVector[i] & (1 << j)) == static_cast<uint32_t>(t))
+				if (static_cast<bool>(mFixedVector[i] & (1 << j)) == t)
 				{
 					return static_cast<int>(j + (32 * i));
 				}
