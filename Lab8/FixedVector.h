@@ -12,7 +12,7 @@ namespace lab8
 		FixedVector& operator=(const FixedVector& rhs);
 		bool Add(const T& t);
 		bool Remove(const T& t); //처음 발견하는 T를 제거한다.
-		T Get(const unsigned int& index) const;
+		const T& Get(const unsigned int& index) const;
 		T& operator[](const unsigned int& index);
 		int GetIndex(const T& t) const; //찾지 못했을때 -1 반환
 		size_t GetSize() const;
@@ -104,13 +104,13 @@ namespace lab8
 	}
 
 	template <typename T, size_t N>
-	T FixedVector<T, N>::Get(const unsigned& index) const
+	const T& FixedVector<T, N>::Get(const unsigned int& index) const
 	{
 		return mFixedVector[index];
 	}
 
 	template <typename T, size_t N>
-	T& FixedVector<T, N>::operator[](const unsigned& index)
+	T& FixedVector<T, N>::operator[](const unsigned int& index)
 	{
 		return mFixedVector[index];
 	}
