@@ -19,13 +19,12 @@ namespace lab8
 		size_t GetCapacity() const;
 	private:
 		void removeNormal(const unsigned arrIndex, const unsigned index);
-		size_t mCapacity;
 		size_t mSize;
-		uint32_t mFixedVector[N / 32 + 1];
+		uint32_t mFixedVector[(N / 32) + 1];
 	};
 
 	template <size_t N>
-	FixedVector<bool, N>::FixedVector() : mCapacity(N), mSize(0), mFixedVector{ 0 }
+	FixedVector<bool, N>::FixedVector() : mSize(0), mFixedVector{ 0 }
 	{
 		for (size_t i = 0; i < N / 32 + 1; i++)
 		{
@@ -41,7 +40,7 @@ namespace lab8
 
 	template <size_t N>
 	FixedVector<bool, N>::FixedVector(const FixedVector& other)
-		: mCapacity(other.mCapacity), mSize(other.mSize), mFixedVector(other.mFixedVector)
+		: mSize(other.mSize), mFixedVector(other.mFixedVector)
 	{
 
 	}
@@ -51,7 +50,6 @@ namespace lab8
 	{
 		if (this != &rhs)
 		{
-			mCapacity = rhs.mCapacity;
 			mSize = rhs.mSize;
 			mFixedVector = rhs.mFixedVector;
 		}
@@ -61,7 +59,7 @@ namespace lab8
 	template <size_t N>
 	bool FixedVector<bool, N>::Add(const bool& t)
 	{
-		if (mSize >= mCapacity)
+		if (mSize >= N)
 		{
 			return false;
 		}
@@ -88,7 +86,7 @@ namespace lab8
 		{
 			return false;
 		}
-		if (index / 33 == N / 33)
+		if (index / 33 == mSize / 33)
 		{
 			removeNormal(index / 33, index - 32 * (index / 33));
 		}
@@ -102,23 +100,25 @@ namespace lab8
 			{
 				if (nowIndex < index)
 				{
-					if ((nowIndex % 33 + 1) != 32) //그냥
+					if ((nowIndex % 32) == 0 && nowIndex != 0) //땡겨와야함
 					{
-						if ((arrayIndex + 1) != N / 32)
+						if (arrayIndex != N / 32)
 						{
-							if (mFixedVector[arrayIndex] & (1 << nowIndex % 33))
+							if (mFixedVector[arrayIndex + 1] & (1 << 0))
 							{
-								mBeforeVector[arrayIndex] |= (1 << (nowIndex % 33));
+								mBeforeVector[arrayIndex] |= (1 << 31);
 							}
 							else
 							{
-								mBeforeVector[arrayIndex] &= ~(1 << (nowIndex % 33));
+								mBeforeVector[arrayIndex] &= ~(1 << 31);
 							}
+							arrayIndex++;
 						}
 					}
-					else //땡겨와야함
+					else //그냥
 					{
-						if (mFixedVector[arrayIndex + 1] & (1 << 0))
+
+						if (mFixedVector[arrayIndex] & (1 << nowIndex % 33))
 						{
 							mBeforeVector[arrayIndex] |= (1 << (nowIndex % 33));
 						}
@@ -126,22 +126,21 @@ namespace lab8
 						{
 							mBeforeVector[arrayIndex] &= ~(1 << (nowIndex % 33));
 						}
-						arrayIndex++;
 					}
 				}
 				else if (nowIndex >= index)
 				{
-					if ((nowIndex % 33) + 1 == 32) //그 앞에 수가 다음 배열에 있다면
+					if ((nowIndex % 32) == 0 && nowIndex != 0) //그 앞에 수가 다음 배열에 있다면
 					{
-						if ((arrayIndex + 1) != (N / 32) + 1) //맨 뒤 배열이 없을때가 아니라면
+						if (arrayIndex != N / 32) //맨 뒤 배열이 없을때가 아니라면
 						{
 							if (mFixedVector[arrayIndex + 1] & (1 << 0))
 							{
-								mBeforeVector[arrayIndex] |= (1 << (nowIndex % 33));
+								mBeforeVector[arrayIndex] |= (1 << 31);
 							}
 							else
 							{
-								mBeforeVector[arrayIndex] &= ~(1 << (nowIndex % 33));
+								mBeforeVector[arrayIndex] &= ~(1 << 31);
 							}
 							arrayIndex++;
 						}
@@ -182,11 +181,16 @@ namespace lab8
 	{
 		for (size_t i = 0; i < (mSize / 32) + 1; i++)
 		{
-			for (size_t j = 0; j < mSize; j++)
+			size_t endIndex = 32;
+			if (i == (mSize / 32))
+			{
+				endIndex = mSize % 32;
+			}
+			for (size_t j = 0; j < endIndex; j++)
 			{
 				if ((mFixedVector[i] & (1 << j)) == static_cast<uint32_t>(t))
 				{
-					return static_cast<int>(j + (64 * i));
+					return static_cast<int>(j + (32 * i));
 				}
 			}
 		}
@@ -202,7 +206,7 @@ namespace lab8
 	template <size_t N>
 	size_t FixedVector<bool, N>::GetCapacity() const
 	{
-		return mCapacity;
+		return N;
 	}
 
 	template <size_t N>
@@ -210,7 +214,6 @@ namespace lab8
 	{
 		uint32_t afterVector = 0;
 		size_t afterSize = 0;
-
 		for (afterSize = 0; afterSize < index; afterSize++)
 		{
 			if (mFixedVector[arrIndex] & (1 << afterSize))
@@ -222,7 +225,6 @@ namespace lab8
 				afterVector &= ~(1 << afterSize);
 			}
 		}
-
 		for (size_t i = index + 1; i < 32; i++)
 		{
 			if (mFixedVector[arrIndex] & (1 << i))
@@ -234,9 +236,7 @@ namespace lab8
 				afterVector &= ~(1 << afterSize++);
 			}
 		}
-
 		mSize--;
 		mFixedVector[arrIndex] = afterVector;
-		return;
 	}
 }
