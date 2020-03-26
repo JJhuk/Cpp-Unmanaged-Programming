@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-
+using namespace std;
 namespace lab10
 {
 	template<typename T>
@@ -19,10 +19,15 @@ namespace lab10
 	template<typename T>
 	Node<T>::Node(std::unique_ptr<T> data)
 	{
+		Data = move(data);
+		Next = nullptr;
+		Previous = nullptr;
 	}
 
 	template<typename T>
 	Node<T>::Node(std::unique_ptr<T> data, std::shared_ptr<Node<T>> prev)
 	{
+		Data = move(data);
+		Previous = prev;
 	}
 }
