@@ -21,7 +21,6 @@ namespace lab10
 	{
 		Data = move(data);
 		Next = nullptr;
-		Previous = nullptr;
 	}
 
 	template<typename T>
