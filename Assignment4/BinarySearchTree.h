@@ -73,8 +73,8 @@ namespace assignment4
 	template<typename T>
 	const std::weak_ptr<TreeNode<T>> BinarySearchTree<T>::GetRootNode() const
 	{
-		weak_ptr<TreeNode<T>> weak_ptr = mRootNode;
-		return weak_ptr;
+		weak_ptr<TreeNode<T>> weakPtr = mRootNode;
+		return weakPtr;
 	}
 
 	template<typename T>
