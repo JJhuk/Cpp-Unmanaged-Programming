@@ -30,9 +30,9 @@ namespace lab11
 	{
 		mArr = std::make_unique<T[]>(mLength);
 
-		for(unsigned i =0;i<mLength;i++)
+		for (unsigned i = 0; i < mLength; i++)
 		{
-			mArr[i] = 0;
+			mArr[i] = static_cast<T>(0);
 		}
 	}
 
@@ -41,7 +41,7 @@ namespace lab11
 	{
 		mArr = std::make_unique<T[]>(mLength);
 
-		for(unsigned i = 0; i< mLength;i++)
+		for (unsigned i = 0; i < mLength; i++)
 		{
 			mArr[i] = initialValue;
 		}
@@ -50,7 +50,7 @@ namespace lab11
 	template <typename T>
 	Storage<T>::Storage(Storage&& other)
 	{
-		if(this != &other)
+		if (this != &other)
 		{
 			mArr.reset();
 			mArr = std::move(other.mArr);
@@ -64,7 +64,7 @@ namespace lab11
 	{
 		mLength = other.mLength;
 		mArr = std::make_unique<T[]>(mLength);
-		for(unsigned i =0;i<mLength;i++)
+		for (unsigned i = 0; i < mLength; i++)
 		{
 			mArr[i] = other.mArr[i];
 		}
@@ -73,7 +73,7 @@ namespace lab11
 	template <typename T>
 	Storage<T>& Storage<T>::operator=(const Storage& rhs)
 	{
-		if(this != &rhs)
+		if (this != &rhs)
 		{
 			mArr.reset();
 			mLength = rhs.mLength;
@@ -102,7 +102,7 @@ namespace lab11
 	template<typename T>
 	bool Storage<T>::Update(unsigned int index, const T& data)
 	{
-		if(index >= 0 && index <mLength)
+		if (index >= 0 && index < mLength)
 		{
 			mArr[index] = data;
 			return true;
