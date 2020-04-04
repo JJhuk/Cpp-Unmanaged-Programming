@@ -29,11 +29,6 @@ namespace lab11
 	Storage<T>::Storage(unsigned int length) : mLength(length)
 	{
 		mArr = std::make_unique<T[]>(mLength);
-
-		for (unsigned i = 0; i < mLength; i++)
-		{
-			mArr[i] = static_cast<T>(0);
-		}
 	}
 
 	template<typename T>
