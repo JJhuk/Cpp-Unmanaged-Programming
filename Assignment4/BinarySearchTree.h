@@ -239,6 +239,7 @@ namespace assignment4
 		while (curNode->Left)
 		{
 			curNode = curNode->Left;
+			//Hello World
 		}
 		return curNode;
 	}
